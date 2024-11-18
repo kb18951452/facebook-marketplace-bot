@@ -1,0 +1,4002 @@
+[
+    {
+        "city": "Lorena",
+        "state": "Texas",
+        "lat": "31.38656",
+        "lng": "-97.21556",
+        "distance": "3.66019",
+        "estimated_cost": 169.82
+    },
+    {
+        "city": "Spring Valley",
+        "state": "Texas",
+        "lat": "31.39989",
+        "lng": "-97.29001",
+        "distance": "5.53907",
+        "estimated_cost": 173.58
+    },
+    {
+        "city": "Hewitt",
+        "state": "Texas",
+        "lat": "31.46239",
+        "lng": "-97.19584",
+        "distance": "6.39367",
+        "estimated_cost": 175.29
+    },
+    {
+        "city": "Ritchie",
+        "state": "Texas",
+        "lat": "31.47933",
+        "lng": "-97.22667",
+        "distance": "7.14445",
+        "estimated_cost": 176.79
+    },
+    {
+        "city": "Atco",
+        "state": "Texas",
+        "lat": "31.47989",
+        "lng": "-97.24528",
+        "distance": "7.23818",
+        "estimated_cost": 176.98
+    },
+    {
+        "city": "South Bosque",
+        "state": "Texas",
+        "lat": "31.48183",
+        "lng": "-97.28806",
+        "distance": "8.963",
+        "estimated_cost": 180.43
+    },
+    {
+        "city": "Moody-Lorena",
+        "state": "Texas",
+        "lat": "31.33862",
+        "lng": "-97.27693",
+        "distance": "9.40359",
+        "estimated_cost": 181.31
+    },
+    {
+        "city": "Jewell",
+        "state": "Texas",
+        "lat": "31.50294",
+        "lng": "-97.19612",
+        "distance": "10.38736",
+        "estimated_cost": 183.27
+    },
+    {
+        "city": "Woodway",
+        "state": "Texas",
+        "lat": "31.506",
+        "lng": "-97.20501",
+        "distance": "10.44678",
+        "estimated_cost": 183.39
+    },
+    {
+        "city": "Bruceville",
+        "state": "Texas",
+        "lat": "31.31934",
+        "lng": "-97.23667",
+        "distance": "10.63672",
+        "estimated_cost": 183.77
+    },
+    {
+        "city": "Levi",
+        "state": "Texas",
+        "lat": "31.37712",
+        "lng": "-97.12222",
+        "distance": "11.49269",
+        "estimated_cost": 185.49
+    },
+    {
+        "city": "Bruceville-Eddy",
+        "state": "Texas",
+        "lat": "31.30517",
+        "lng": "-97.25167",
+        "distance": "12.31337",
+        "estimated_cost": 187.13
+    },
+    {
+        "city": "Robinson",
+        "state": "Texas",
+        "lat": "31.46767",
+        "lng": "-97.11472",
+        "distance": "12.79056",
+        "estimated_cost": 188.08
+    },
+    {
+        "city": "Rosenthal",
+        "state": "Texas",
+        "lat": "31.41739",
+        "lng": "-97.09944",
+        "distance": "12.85222",
+        "estimated_cost": 188.2
+    },
+    {
+        "city": "Eddy",
+        "state": "Texas",
+        "lat": "31.29462",
+        "lng": "-97.25223",
+        "distance": "13.48081",
+        "estimated_cost": 189.46
+    },
+    {
+        "city": "Beverly Hills",
+        "state": "Texas",
+        "lat": "31.52156",
+        "lng": "-97.15389",
+        "distance": "14.06133",
+        "estimated_cost": 190.62
+    },
+    {
+        "city": "Golinda",
+        "state": "Texas",
+        "lat": "31.37767",
+        "lng": "-97.08278",
+        "distance": "15.02734",
+        "estimated_cost": 192.55
+    },
+    {
+        "city": "Beverly",
+        "state": "Texas",
+        "lat": "31.52517",
+        "lng": "-97.14195",
+        "distance": "15.0338",
+        "estimated_cost": 192.57
+    },
+    {
+        "city": "Mooreville",
+        "state": "Texas",
+        "lat": "31.30212",
+        "lng": "-97.14083",
+        "distance": "15.39226",
+        "estimated_cost": 193.28
+    },
+    {
+        "city": "Windsor",
+        "state": "Texas",
+        "lat": "31.52211",
+        "lng": "-97.34196",
+        "distance": "15.63613",
+        "estimated_cost": 193.77
+    },
+    {
+        "city": "Speegleville",
+        "state": "Texas",
+        "lat": "31.556",
+        "lng": "-97.25251",
+        "distance": "15.6979",
+        "estimated_cost": 193.9
+    },
+    {
+        "city": "Willow Grove",
+        "state": "Texas",
+        "lat": "31.55016",
+        "lng": "-97.29584",
+        "distance": "16.05106",
+        "estimated_cost": 194.6
+    },
+    {
+        "city": "Downs",
+        "state": "Texas",
+        "lat": "31.45406",
+        "lng": "-97.07",
+        "distance": "16.22757",
+        "estimated_cost": 194.96
+    },
+    {
+        "city": "North Prairie",
+        "state": "Texas",
+        "lat": "31.34184",
+        "lng": "-97.08361",
+        "distance": "16.50798",
+        "estimated_cost": 195.52
+    },
+    {
+        "city": "Downsville",
+        "state": "Texas",
+        "lat": "31.45573",
+        "lng": "-97.06694",
+        "distance": "16.55684",
+        "estimated_cost": 195.61
+    },
+    {
+        "city": "McGregor",
+        "state": "Texas",
+        "lat": "31.44406",
+        "lng": "-97.40918",
+        "distance": "16.90377",
+        "estimated_cost": 196.31
+    },
+    {
+        "city": "Moody",
+        "state": "Texas",
+        "lat": "31.30823",
+        "lng": "-97.3614",
+        "distance": "16.92322",
+        "estimated_cost": 196.35
+    },
+    {
+        "city": "Waco",
+        "state": "Texas",
+        "lat": "31.54933",
+        "lng": "-97.14667",
+        "distance": "17.05243",
+        "estimated_cost": 196.6
+    },
+    {
+        "city": "Asa",
+        "state": "Texas",
+        "lat": "31.41434",
+        "lng": "-97.05416",
+        "distance": "17.15615",
+        "estimated_cost": 196.81
+    },
+    {
+        "city": "Highland",
+        "state": "Texas",
+        "lat": "31.53461",
+        "lng": "-97.35168",
+        "distance": "17.28999",
+        "estimated_cost": 197.08
+    },
+    {
+        "city": "Ocee",
+        "state": "Texas",
+        "lat": "31.556",
+        "lng": "-97.35557",
+        "distance": "19.38213",
+        "estimated_cost": 201.26
+    },
+    {
+        "city": "Dott",
+        "state": "Texas",
+        "lat": "31.26156",
+        "lng": "-97.12472",
+        "distance": "19.99231",
+        "estimated_cost": 202.48
+    },
+    {
+        "city": "Cego",
+        "state": "Texas",
+        "lat": "31.24518",
+        "lng": "-97.1625",
+        "distance": "20.06685",
+        "estimated_cost": 202.63
+    },
+    {
+        "city": "Guda",
+        "state": "Texas",
+        "lat": "31.35878",
+        "lng": "-97.03277",
+        "distance": "20.19089",
+        "estimated_cost": 202.88
+    },
+    {
+        "city": "East Waco",
+        "state": "Texas",
+        "lat": "31.55711",
+        "lng": "-97.09695",
+        "distance": "20.45529",
+        "estimated_cost": 203.41
+    },
+    {
+        "city": "Vemo",
+        "state": "Texas",
+        "lat": "31.55017",
+        "lng": "-97.085",
+        "distance": "20.63445",
+        "estimated_cost": 203.77
+    },
+    {
+        "city": "Satin",
+        "state": "Texas",
+        "lat": "31.34656",
+        "lng": "-97.03166",
+        "distance": "20.75079",
+        "estimated_cost": 204.0
+    },
+    {
+        "city": "Bannas Junction",
+        "state": "Texas",
+        "lat": "31.60322",
+        "lng": "-97.19473",
+        "distance": "21.18227",
+        "estimated_cost": 204.86
+    },
+    {
+        "city": "Blevins",
+        "state": "Texas",
+        "lat": "31.22323",
+        "lng": "-97.20861",
+        "distance": "21.43375",
+        "estimated_cost": 205.37
+    },
+    {
+        "city": "Whitson",
+        "state": "Texas",
+        "lat": "31.33378",
+        "lng": "-97.44057",
+        "distance": "21.57713",
+        "estimated_cost": 205.65
+    },
+    {
+        "city": "Wardlaw",
+        "state": "Texas",
+        "lat": "31.54656",
+        "lng": "-97.06472",
+        "distance": "21.73617",
+        "estimated_cost": 205.97
+    },
+    {
+        "city": "Bosqueville",
+        "state": "Texas",
+        "lat": "31.60905",
+        "lng": "-97.19528",
+        "distance": "21.80983",
+        "estimated_cost": 206.12
+    },
+    {
+        "city": "Stampede",
+        "state": "Texas",
+        "lat": "31.28212",
+        "lng": "-97.4039",
+        "distance": "21.85142",
+        "estimated_cost": 206.2
+    },
+    {
+        "city": "Chilton",
+        "state": "Texas",
+        "lat": "31.28018",
+        "lng": "-97.06416",
+        "distance": "22.07468",
+        "estimated_cost": 206.65
+    },
+    {
+        "city": "Bellmead",
+        "state": "Texas",
+        "lat": "31.59405",
+        "lng": "-97.10889",
+        "distance": "23.14306",
+        "estimated_cost": 208.79
+    },
+    {
+        "city": "Neale",
+        "state": "Texas",
+        "lat": "31.52295",
+        "lng": "-97.02416",
+        "distance": "23.29058",
+        "estimated_cost": 209.08
+    },
+    {
+        "city": "Eichelberger Crossing",
+        "state": "Texas",
+        "lat": "31.61683",
+        "lng": "-97.30807",
+        "distance": "23.41476",
+        "estimated_cost": 209.33
+    },
+    {
+        "city": "Crawford",
+        "state": "Texas",
+        "lat": "31.53433",
+        "lng": "-97.44307",
+        "distance": "23.80816",
+        "estimated_cost": 210.12
+    },
+    {
+        "city": "Valley View",
+        "state": "Texas",
+        "lat": "31.631",
+        "lng": "-97.24445",
+        "distance": "23.93944",
+        "estimated_cost": 210.38
+    },
+    {
+        "city": "Troy",
+        "state": "Texas",
+        "lat": "31.20684",
+        "lng": "-97.30278",
+        "distance": "24.00249",
+        "estimated_cost": 210.5
+    },
+    {
+        "city": "Erath",
+        "state": "Texas",
+        "lat": "31.63322",
+        "lng": "-97.26362",
+        "distance": "24.32431",
+        "estimated_cost": 211.15
+    },
+    {
+        "city": "Caldwell Crossing",
+        "state": "Texas",
+        "lat": "31.62405",
+        "lng": "-97.33473",
+        "distance": "25.0291",
+        "estimated_cost": 212.56
+    },
+    {
+        "city": "Durango",
+        "state": "Texas",
+        "lat": "31.2049",
+        "lng": "-97.13055",
+        "distance": "25.33858",
+        "estimated_cost": 213.18
+    },
+    {
+        "city": "Harrison",
+        "state": "Texas",
+        "lat": "31.52267",
+        "lng": "-96.99888",
+        "distance": "25.36867",
+        "estimated_cost": 213.24
+    },
+    {
+        "city": "Meador Grove",
+        "state": "Texas",
+        "lat": "31.28545",
+        "lng": "-97.45696",
+        "distance": "25.59036",
+        "estimated_cost": 213.68
+    },
+    {
+        "city": "Oglesby",
+        "state": "Texas",
+        "lat": "31.4185",
+        "lng": "-97.50724",
+        "distance": "25.9282",
+        "estimated_cost": 214.36
+    },
+    {
+        "city": "Pendleton",
+        "state": "Texas",
+        "lat": "31.19518",
+        "lng": "-97.34862",
+        "distance": "26.70723",
+        "estimated_cost": 215.91
+    },
+    {
+        "city": "China Spring",
+        "state": "Texas",
+        "lat": "31.64917",
+        "lng": "-97.30472",
+        "distance": "26.77743",
+        "estimated_cost": 216.05
+    },
+    {
+        "city": "Lacy-Lakeview",
+        "state": "Texas",
+        "lat": "31.62933",
+        "lng": "-97.10278",
+        "distance": "26.83532",
+        "estimated_cost": 216.17
+    },
+    {
+        "city": "Belfalls",
+        "state": "Texas",
+        "lat": "31.17323",
+        "lng": "-97.20361",
+        "distance": "26.99572",
+        "estimated_cost": 216.49
+    },
+    {
+        "city": "China Springs",
+        "state": "Texas",
+        "lat": "31.65239",
+        "lng": "-97.30779",
+        "distance": "27.19618",
+        "estimated_cost": 216.89
+    },
+    {
+        "city": "Oaklake",
+        "state": "Texas",
+        "lat": "31.57239",
+        "lng": "-97.01333",
+        "distance": "27.30251",
+        "estimated_cost": 217.11
+    },
+    {
+        "city": "Cavitt",
+        "state": "Texas",
+        "lat": "31.37572",
+        "lng": "-97.51863",
+        "distance": "27.36801",
+        "estimated_cost": 217.24
+    },
+    {
+        "city": "Ocaw",
+        "state": "Texas",
+        "lat": "31.62322",
+        "lng": "-97.07806",
+        "distance": "27.43627",
+        "estimated_cost": 217.37
+    },
+    {
+        "city": "Triangle",
+        "state": "Texas",
+        "lat": "31.28157",
+        "lng": "-96.98999",
+        "distance": "27.59364",
+        "estimated_cost": 217.69
+    },
+    {
+        "city": "Northcrest",
+        "state": "Texas",
+        "lat": "31.63655",
+        "lng": "-97.09972",
+        "distance": "27.67903",
+        "estimated_cost": 217.86
+    },
+    {
+        "city": "Lime City",
+        "state": "Texas",
+        "lat": "31.39461",
+        "lng": "-97.52724",
+        "distance": "27.92493",
+        "estimated_cost": 218.35
+    },
+    {
+        "city": "Rock Creek",
+        "state": "Texas",
+        "lat": "31.66711",
+        "lng": "-97.24167",
+        "distance": "27.93316",
+        "estimated_cost": 218.37
+    },
+    {
+        "city": "Rocky Hill",
+        "state": "Texas",
+        "lat": "31.34767",
+        "lng": "-96.9486",
+        "distance": "28.21623",
+        "estimated_cost": 218.93
+    },
+    {
+        "city": "White Hall",
+        "state": "Texas",
+        "lat": "31.21934",
+        "lng": "-97.42973",
+        "distance": "28.58145",
+        "estimated_cost": 219.66
+    },
+    {
+        "city": "Tomlinson Hill",
+        "state": "Texas",
+        "lat": "31.26573",
+        "lng": "-96.98805",
+        "distance": "28.72755",
+        "estimated_cost": 219.96
+    },
+    {
+        "city": "Lake Creek",
+        "state": "Texas",
+        "lat": "31.50934",
+        "lng": "-96.95055",
+        "distance": "28.94005",
+        "estimated_cost": 220.38
+    },
+    {
+        "city": "Berger",
+        "state": "Texas",
+        "lat": "31.16379",
+        "lng": "-97.31973",
+        "distance": "29.03607",
+        "estimated_cost": 220.57
+    },
+    {
+        "city": "Northwest Bell",
+        "state": "Texas",
+        "lat": "31.22875",
+        "lng": "-97.4511",
+        "distance": "29.19456",
+        "estimated_cost": 220.89
+    },
+    {
+        "city": "Hallsburg",
+        "state": "Texas",
+        "lat": "31.53878",
+        "lng": "-96.95611",
+        "distance": "29.79672",
+        "estimated_cost": 222.09
+    },
+    {
+        "city": "Patrick",
+        "state": "Texas",
+        "lat": "31.68433",
+        "lng": "-97.24806",
+        "distance": "29.86208",
+        "estimated_cost": 222.22
+    },
+    {
+        "city": "Lott",
+        "state": "Texas",
+        "lat": "31.20351",
+        "lng": "-97.03666",
+        "distance": "30.1026",
+        "estimated_cost": 222.71
+    },
+    {
+        "city": "Riesel",
+        "state": "Texas",
+        "lat": "31.47489",
+        "lng": "-96.92333",
+        "distance": "30.31733",
+        "estimated_cost": 223.13
+    },
+    {
+        "city": "Perry",
+        "state": "Texas",
+        "lat": "31.41795",
+        "lng": "-96.91527",
+        "distance": "30.36397",
+        "estimated_cost": 223.23
+    },
+    {
+        "city": "Elm Mott",
+        "state": "Texas",
+        "lat": "31.67183",
+        "lng": "-97.09889",
+        "distance": "31.2307",
+        "estimated_cost": 224.96
+    },
+    {
+        "city": "Gholson",
+        "state": "Texas",
+        "lat": "31.701",
+        "lng": "-97.2164",
+        "distance": "31.72965",
+        "estimated_cost": 225.96
+    },
+    {
+        "city": "The Grove",
+        "state": "Texas",
+        "lat": "31.27323",
+        "lng": "-97.52529",
+        "distance": "31.8318",
+        "estimated_cost": 226.16
+    },
+    {
+        "city": "Oenaville",
+        "state": "Texas",
+        "lat": "31.12768",
+        "lng": "-97.22833",
+        "distance": "31.89045",
+        "estimated_cost": 226.28
+    },
+    {
+        "city": "Belco",
+        "state": "Texas",
+        "lat": "31.13601",
+        "lng": "-97.33945",
+        "distance": "32.53171",
+        "estimated_cost": 227.56
+    },
+    {
+        "city": "Moffat",
+        "state": "Texas",
+        "lat": "31.1999",
+        "lng": "-97.46834",
+        "distance": "32.63983",
+        "estimated_cost": 227.78
+    },
+    {
+        "city": "Owl Creek",
+        "state": "Texas",
+        "lat": "31.2274",
+        "lng": "-97.51168",
+        "distance": "33.60767",
+        "estimated_cost": 229.72
+    },
+    {
+        "city": "Osage",
+        "state": "Texas",
+        "lat": "31.52461",
+        "lng": "-97.56474",
+        "distance": "33.63691",
+        "estimated_cost": 229.77
+    },
+    {
+        "city": "Blackland",
+        "state": "Texas",
+        "lat": "31.47906",
+        "lng": "-96.88638",
+        "distance": "33.84627",
+        "estimated_cost": 230.19
+    },
+    {
+        "city": "Marlin",
+        "state": "Texas",
+        "lat": "31.30629",
+        "lng": "-96.89804",
+        "distance": "34.22292",
+        "estimated_cost": 230.95
+    },
+    {
+        "city": "Pecan Grove (historical)",
+        "state": "Texas",
+        "lat": "31.39517",
+        "lng": "-97.5953",
+        "distance": "34.37525",
+        "estimated_cost": 231.25
+    },
+    {
+        "city": "Rock Springs",
+        "state": "Texas",
+        "lat": "31.68599",
+        "lng": "-97.41668",
+        "distance": "34.6426",
+        "estimated_cost": 231.79
+    },
+    {
+        "city": "Westphalia",
+        "state": "Texas",
+        "lat": "31.11907",
+        "lng": "-97.11527",
+        "distance": "34.7497",
+        "estimated_cost": 232.0
+    },
+    {
+        "city": "Bland",
+        "state": "Texas",
+        "lat": "31.21295",
+        "lng": "-97.51446",
+        "distance": "34.82638",
+        "estimated_cost": 232.15
+    },
+    {
+        "city": "Leon Junction",
+        "state": "Texas",
+        "lat": "31.341",
+        "lng": "-97.59418",
+        "distance": "35.18391",
+        "estimated_cost": 232.87
+    },
+    {
+        "city": "Rogers Hill",
+        "state": "Texas",
+        "lat": "31.73127",
+        "lng": "-97.19889",
+        "distance": "35.20322",
+        "estimated_cost": 232.91
+    },
+    {
+        "city": "Valley Mills",
+        "state": "Texas",
+        "lat": "31.65933",
+        "lng": "-97.47224",
+        "distance": "35.23809",
+        "estimated_cost": 232.98
+    },
+    {
+        "city": "Ross",
+        "state": "Texas",
+        "lat": "31.7185",
+        "lng": "-97.11917",
+        "distance": "35.36326",
+        "estimated_cost": 233.23
+    },
+    {
+        "city": "Elk",
+        "state": "Texas",
+        "lat": "31.61656",
+        "lng": "-96.93583",
+        "distance": "36.10344",
+        "estimated_cost": 234.71
+    },
+    {
+        "city": "Battle",
+        "state": "Texas",
+        "lat": "31.55267",
+        "lng": "-96.88944",
+        "distance": "36.16166",
+        "estimated_cost": 234.82
+    },
+    {
+        "city": "Ratibor",
+        "state": "Texas",
+        "lat": "31.0874",
+        "lng": "-97.2125",
+        "distance": "36.41122",
+        "estimated_cost": 235.32
+    },
+    {
+        "city": "Jubilee Springs",
+        "state": "Texas",
+        "lat": "31.17684",
+        "lng": "-97.49918",
+        "distance": "36.51539",
+        "estimated_cost": 235.53
+    },
+    {
+        "city": "Temple",
+        "state": "Texas",
+        "lat": "31.09823",
+        "lng": "-97.34278",
+        "distance": "36.62904",
+        "estimated_cost": 235.76
+    },
+    {
+        "city": "Axtell",
+        "state": "Texas",
+        "lat": "31.65822",
+        "lng": "-96.97139",
+        "distance": "36.74878",
+        "estimated_cost": 236.0
+    },
+    {
+        "city": "Morgans Point Resort",
+        "state": "Texas",
+        "lat": "31.14823",
+        "lng": "-97.46334",
+        "distance": "36.75623",
+        "estimated_cost": 236.01
+    },
+    {
+        "city": "Gober",
+        "state": "Texas",
+        "lat": "31.09851",
+        "lng": "-97.36889",
+        "distance": "37.37608",
+        "estimated_cost": 237.25
+    },
+    {
+        "city": "East Bell",
+        "state": "Texas",
+        "lat": "31.07612",
+        "lng": "-97.18708",
+        "distance": "37.87256",
+        "estimated_cost": 238.25
+    },
+    {
+        "city": "Sunrise",
+        "state": "Texas",
+        "lat": "31.2724",
+        "lng": "-96.87304",
+        "distance": "37.87515",
+        "estimated_cost": 238.25
+    },
+    {
+        "city": "Travis",
+        "state": "Texas",
+        "lat": "31.13546",
+        "lng": "-97.00277",
+        "distance": "38.07502",
+        "estimated_cost": 238.65
+    },
+    {
+        "city": "Airville",
+        "state": "Texas",
+        "lat": "31.07713",
+        "lng": "-97.16361",
+        "distance": "38.09458",
+        "estimated_cost": 238.69
+    },
+    {
+        "city": "Tokio",
+        "state": "Texas",
+        "lat": "31.7585",
+        "lng": "-97.15584",
+        "distance": "38.78519",
+        "estimated_cost": 240.07
+    },
+    {
+        "city": "Mound",
+        "state": "Texas",
+        "lat": "31.35183",
+        "lng": "-97.63752",
+        "distance": "38.96685",
+        "estimated_cost": 240.43
+    },
+    {
+        "city": "Wiggins",
+        "state": "Texas",
+        "lat": "31.76127",
+        "lng": "-97.15806",
+        "distance": "39.04765",
+        "estimated_cost": 240.6
+    },
+    {
+        "city": "McClanahan",
+        "state": "Texas",
+        "lat": "31.35712",
+        "lng": "-96.8286",
+        "distance": "39.15047",
+        "estimated_cost": 240.8
+    },
+    {
+        "city": "Ocker",
+        "state": "Texas",
+        "lat": "31.07074",
+        "lng": "-97.14361",
+        "distance": "39.1689",
+        "estimated_cost": 240.84
+    },
+    {
+        "city": "Coryell",
+        "state": "Texas",
+        "lat": "31.54627",
+        "lng": "-97.61835",
+        "distance": "39.25344",
+        "estimated_cost": 241.01
+    },
+    {
+        "city": "Barclay",
+        "state": "Texas",
+        "lat": "31.07657",
+        "lng": "-97.10944",
+        "distance": "39.39814",
+        "estimated_cost": 241.3
+    },
+    {
+        "city": "Flat",
+        "state": "Texas",
+        "lat": "31.30878",
+        "lng": "-97.63002",
+        "distance": "39.43099",
+        "estimated_cost": 241.36
+    },
+    {
+        "city": "Seaton",
+        "state": "Texas",
+        "lat": "31.05768",
+        "lng": "-97.21611",
+        "distance": "39.68467",
+        "estimated_cost": 241.87
+    },
+    {
+        "city": "Woodland",
+        "state": "Texas",
+        "lat": "31.13129",
+        "lng": "-97.48946",
+        "distance": "39.75421",
+        "estimated_cost": 242.01
+    },
+    {
+        "city": "Cedar Springs",
+        "state": "Texas",
+        "lat": "31.17796",
+        "lng": "-96.91943",
+        "distance": "39.90632",
+        "estimated_cost": 242.31
+    },
+    {
+        "city": "Union Hill",
+        "state": "Texas",
+        "lat": "31.17323",
+        "lng": "-97.54612",
+        "distance": "39.99881",
+        "estimated_cost": 242.5
+    },
+    {
+        "city": "Greenock",
+        "state": "Texas",
+        "lat": "31.76627",
+        "lng": "-97.34557",
+        "distance": "40.32073",
+        "estimated_cost": 243.14
+    },
+    {
+        "city": "Oscar",
+        "state": "Texas",
+        "lat": "31.05074",
+        "lng": "-97.26222",
+        "distance": "40.50126",
+        "estimated_cost": 243.5
+    },
+    {
+        "city": "Mart",
+        "state": "Texas",
+        "lat": "31.54239",
+        "lng": "-96.8336",
+        "distance": "40.62671",
+        "estimated_cost": 243.75
+    },
+    {
+        "city": "Otto",
+        "state": "Texas",
+        "lat": "31.44906",
+        "lng": "-96.80888",
+        "distance": "40.64545",
+        "estimated_cost": 243.79
+    },
+    {
+        "city": "Leroy",
+        "state": "Texas",
+        "lat": "31.73155",
+        "lng": "-97.01778",
+        "distance": "40.66361",
+        "estimated_cost": 243.83
+    },
+    {
+        "city": "Midway",
+        "state": "Texas",
+        "lat": "31.07879",
+        "lng": "-97.41112",
+        "distance": "40.92015",
+        "estimated_cost": 244.34
+    },
+    {
+        "city": "Cold Springs",
+        "state": "Texas",
+        "lat": "31.24184",
+        "lng": "-97.61668",
+        "distance": "41.13661",
+        "estimated_cost": 244.77
+    },
+    {
+        "city": "Smith",
+        "state": "Texas",
+        "lat": "31.05546",
+        "lng": "-97.35139",
+        "distance": "41.41515",
+        "estimated_cost": 245.33
+    },
+    {
+        "city": "Zabcikville",
+        "state": "Texas",
+        "lat": "31.04518",
+        "lng": "-97.16666",
+        "distance": "41.53853",
+        "estimated_cost": 245.58
+    },
+    {
+        "city": "Mosheim",
+        "state": "Texas",
+        "lat": "31.62627",
+        "lng": "-97.60002",
+        "distance": "41.85903",
+        "estimated_cost": 246.22
+    },
+    {
+        "city": "Zipperlandville",
+        "state": "Texas",
+        "lat": "31.06879",
+        "lng": "-97.05527",
+        "distance": "42.04033",
+        "estimated_cost": 246.58
+    },
+    {
+        "city": "South Mountain",
+        "state": "Texas",
+        "lat": "31.42767",
+        "lng": "-97.67752",
+        "distance": "42.13762",
+        "estimated_cost": 246.78
+    },
+    {
+        "city": "Spivey Crossing",
+        "state": "Texas",
+        "lat": "31.78849",
+        "lng": "-97.32446",
+        "distance": "42.25424",
+        "estimated_cost": 247.01
+    },
+    {
+        "city": "Terry Chapel",
+        "state": "Texas",
+        "lat": "31.05324",
+        "lng": "-97.09333",
+        "distance": "42.33414",
+        "estimated_cost": 247.17
+    },
+    {
+        "city": "Tyson",
+        "state": "Texas",
+        "lat": "31.79877",
+        "lng": "-97.23945",
+        "distance": "42.52675",
+        "estimated_cost": 247.55
+    },
+    {
+        "city": "Tours",
+        "state": "Texas",
+        "lat": "31.75988",
+        "lng": "-97.03778",
+        "distance": "42.53352",
+        "estimated_cost": 247.57
+    },
+    {
+        "city": "Westcliff",
+        "state": "Texas",
+        "lat": "31.11518",
+        "lng": "-97.5164",
+        "distance": "42.74733",
+        "estimated_cost": 247.99
+    },
+    {
+        "city": "Stringtown",
+        "state": "Texas",
+        "lat": "31.02379",
+        "lng": "-97.24111",
+        "distance": "43.40725",
+        "estimated_cost": 249.31
+    },
+    {
+        "city": "Cyclone",
+        "state": "Texas",
+        "lat": "31.02768",
+        "lng": "-97.15083",
+        "distance": "43.70629",
+        "estimated_cost": 249.91
+    },
+    {
+        "city": "Watt",
+        "state": "Texas",
+        "lat": "31.64378",
+        "lng": "-96.85888",
+        "distance": "43.76269",
+        "estimated_cost": 250.03
+    },
+    {
+        "city": "Lebanon",
+        "state": "Texas",
+        "lat": "31.81044",
+        "lng": "-97.27057",
+        "distance": "43.95064",
+        "estimated_cost": 250.4
+    },
+    {
+        "city": "Pendell",
+        "state": "Texas",
+        "lat": "31.71377",
+        "lng": "-97.54141",
+        "distance": "44.09127",
+        "estimated_cost": 250.68
+    },
+    {
+        "city": "Heidenheimer",
+        "state": "Texas",
+        "lat": "31.01824",
+        "lng": "-97.30278",
+        "distance": "44.49579",
+        "estimated_cost": 251.49
+    },
+    {
+        "city": "Cayote",
+        "state": "Texas",
+        "lat": "31.76877",
+        "lng": "-97.45752",
+        "distance": "44.54349",
+        "estimated_cost": 251.59
+    },
+    {
+        "city": "Pleasant Grove",
+        "state": "Texas",
+        "lat": "31.13046",
+        "lng": "-96.9036",
+        "distance": "44.61614",
+        "estimated_cost": 251.73
+    },
+    {
+        "city": "Hobbs",
+        "state": "Texas",
+        "lat": "31.05212",
+        "lng": "-97.43945",
+        "distance": "44.74313",
+        "estimated_cost": 251.99
+    },
+    {
+        "city": "Curry Crossing",
+        "state": "Texas",
+        "lat": "31.20295",
+        "lng": "-97.63752",
+        "distance": "45.00405",
+        "estimated_cost": 252.51
+    },
+    {
+        "city": "West",
+        "state": "Texas",
+        "lat": "31.80238",
+        "lng": "-97.09167",
+        "distance": "45.01596",
+        "estimated_cost": 252.53
+    },
+    {
+        "city": "Fort Gates",
+        "state": "Texas",
+        "lat": "31.39961",
+        "lng": "-97.7078",
+        "distance": "45.03417",
+        "estimated_cost": 252.57
+    },
+    {
+        "city": "Rosebud",
+        "state": "Texas",
+        "lat": "31.07296",
+        "lng": "-96.9786",
+        "distance": "45.11037",
+        "estimated_cost": 252.72
+    },
+    {
+        "city": "Belton",
+        "state": "Texas",
+        "lat": "31.05601",
+        "lng": "-97.46445",
+        "distance": "45.4538",
+        "estimated_cost": 253.41
+    },
+    {
+        "city": "Brookhaven",
+        "state": "Texas",
+        "lat": "31.18045",
+        "lng": "-97.62613",
+        "distance": "45.46819",
+        "estimated_cost": 253.44
+    },
+    {
+        "city": "Coymack",
+        "state": "Texas",
+        "lat": "31.18018",
+        "lng": "-96.84248",
+        "distance": "45.5288",
+        "estimated_cost": 253.56
+    },
+    {
+        "city": "Riggs Ford",
+        "state": "Texas",
+        "lat": "31.21795",
+        "lng": "-97.65474",
+        "distance": "45.58562",
+        "estimated_cost": 253.67
+    },
+    {
+        "city": "Red Ranger",
+        "state": "Texas",
+        "lat": "31.00657",
+        "lng": "-97.18027",
+        "distance": "45.60668",
+        "estimated_cost": 253.71
+    },
+    {
+        "city": "Smiths Bend",
+        "state": "Texas",
+        "lat": "31.83016",
+        "lng": "-97.30446",
+        "distance": "46.47979",
+        "estimated_cost": 255.46
+    },
+    {
+        "city": "Highbank",
+        "state": "Texas",
+        "lat": "31.1699",
+        "lng": "-96.83359",
+        "distance": "46.87889",
+        "estimated_cost": 256.26
+    },
+    {
+        "city": "Wilson",
+        "state": "Texas",
+        "lat": "31.01824",
+        "lng": "-97.06388",
+        "distance": "46.92767",
+        "estimated_cost": 256.36
+    },
+    {
+        "city": "Hoen",
+        "state": "Texas",
+        "lat": "31.78155",
+        "lng": "-96.98555",
+        "distance": "46.99035",
+        "estimated_cost": 256.48
+    },
+    {
+        "city": "Leedale",
+        "state": "Texas",
+        "lat": "30.98657",
+        "lng": "-97.19805",
+        "distance": "47.65676",
+        "estimated_cost": 257.81
+    },
+    {
+        "city": "Dog Ridge (historical)",
+        "state": "Texas",
+        "lat": "31.05407",
+        "lng": "-97.50668",
+        "distance": "47.70375",
+        "estimated_cost": 257.91
+    },
+    {
+        "city": "Beacon",
+        "state": "Texas",
+        "lat": "31.18268",
+        "lng": "-96.81165",
+        "distance": "47.81475",
+        "estimated_cost": 258.13
+    },
+    {
+        "city": "Victoria",
+        "state": "Texas",
+        "lat": "31.59795",
+        "lng": "-96.77666",
+        "distance": "47.98601",
+        "estimated_cost": 258.47
+    },
+    {
+        "city": "Wilderville",
+        "state": "Texas",
+        "lat": "31.10463",
+        "lng": "-96.88304",
+        "distance": "48.0336",
+        "estimated_cost": 258.57
+    },
+    {
+        "city": "Meeks",
+        "state": "Texas",
+        "lat": "30.99213",
+        "lng": "-97.11722",
+        "distance": "48.22838",
+        "estimated_cost": 258.96
+    },
+    {
+        "city": "Reagan",
+        "state": "Texas",
+        "lat": "31.21824",
+        "lng": "-96.78248",
+        "distance": "48.261",
+        "estimated_cost": 259.02
+    },
+    {
+        "city": "Aquilla",
+        "state": "Texas",
+        "lat": "31.85155",
+        "lng": "-97.21806",
+        "distance": "48.40167",
+        "estimated_cost": 259.3
+    },
+    {
+        "city": "Gatesville",
+        "state": "Texas",
+        "lat": "31.43516",
+        "lng": "-97.74391",
+        "distance": "48.47603",
+        "estimated_cost": 259.45
+    },
+    {
+        "city": "Little River",
+        "state": "Texas",
+        "lat": "30.98879",
+        "lng": "-97.36611",
+        "distance": "48.9165",
+        "estimated_cost": 260.33
+    },
+    {
+        "city": "Little River-Academy",
+        "state": "Texas",
+        "lat": "30.98629",
+        "lng": "-97.35861",
+        "distance": "49.0072",
+        "estimated_cost": 260.51
+    },
+    {
+        "city": "Academy",
+        "state": "Texas",
+        "lat": "30.98102",
+        "lng": "-97.34167",
+        "distance": "49.21524",
+        "estimated_cost": 260.93
+    },
+    {
+        "city": "Cottonwood",
+        "state": "Texas",
+        "lat": "31.82738",
+        "lng": "-97.04167",
+        "distance": "49.22611",
+        "estimated_cost": 260.95
+    },
+    {
+        "city": "Ben Hur",
+        "state": "Texas",
+        "lat": "31.51045",
+        "lng": "-96.72776",
+        "distance": "49.31078",
+        "estimated_cost": 261.12
+    },
+    {
+        "city": "Odds",
+        "state": "Texas",
+        "lat": "31.40906",
+        "lng": "-96.71582",
+        "distance": "49.33473",
+        "estimated_cost": 261.17
+    },
+    {
+        "city": "Blue Ridge",
+        "state": "Texas",
+        "lat": "31.27629",
+        "lng": "-96.74137",
+        "distance": "49.39752",
+        "estimated_cost": 261.3
+    },
+    {
+        "city": "Stranger",
+        "state": "Texas",
+        "lat": "31.32684",
+        "lng": "-96.72443",
+        "distance": "49.51251",
+        "estimated_cost": 261.53
+    },
+    {
+        "city": "Burlington",
+        "state": "Texas",
+        "lat": "31.01518",
+        "lng": "-96.99666",
+        "distance": "49.8154",
+        "estimated_cost": 262.13
+    },
+    {
+        "city": "Prairie Hill",
+        "state": "Texas",
+        "lat": "31.65517",
+        "lng": "-96.78888",
+        "distance": "49.99179",
+        "estimated_cost": 262.48
+    },
+    {
+        "city": "Midway",
+        "state": "Texas",
+        "lat": "31.54267",
+        "lng": "-96.72915",
+        "distance": "50.06235",
+        "estimated_cost": 262.62
+    },
+    {
+        "city": "Little Elm",
+        "state": "Texas",
+        "lat": "31.43906",
+        "lng": "-96.70721",
+        "distance": "50.2102",
+        "estimated_cost": 262.92
+    },
+    {
+        "city": "Childers Mill (historical)",
+        "state": "Texas",
+        "lat": "30.99796",
+        "lng": "-97.44223",
+        "distance": "50.32087",
+        "estimated_cost": 263.14
+    },
+    {
+        "city": "Mount Calm",
+        "state": "Texas",
+        "lat": "31.75627",
+        "lng": "-96.87916",
+        "distance": "50.67335",
+        "estimated_cost": 263.85
+    },
+    {
+        "city": "New Colony",
+        "state": "Texas",
+        "lat": "30.96213",
+        "lng": "-97.16305",
+        "distance": "50.69997",
+        "estimated_cost": 263.9
+    },
+    {
+        "city": "Menlow",
+        "state": "Texas",
+        "lat": "31.8696",
+        "lng": "-97.16056",
+        "distance": "50.86528",
+        "estimated_cost": 264.23
+    },
+    {
+        "city": "Birome",
+        "state": "Texas",
+        "lat": "31.81322",
+        "lng": "-96.96278",
+        "distance": "51.11027",
+        "estimated_cost": 264.72
+    },
+    {
+        "city": "Laguna Park",
+        "state": "Texas",
+        "lat": "31.85932",
+        "lng": "-97.37974",
+        "distance": "51.12765",
+        "estimated_cost": 264.76
+    },
+    {
+        "city": "Buffalo Mop",
+        "state": "Texas",
+        "lat": "31.41906",
+        "lng": "-96.69471",
+        "distance": "51.33649",
+        "estimated_cost": 265.17
+    },
+    {
+        "city": "Mason Crossing",
+        "state": "Texas",
+        "lat": "31.20545",
+        "lng": "-97.71557",
+        "distance": "51.35752",
+        "estimated_cost": 265.22
+    },
+    {
+        "city": "Nolanville",
+        "state": "Texas",
+        "lat": "31.07879",
+        "lng": "-97.60557",
+        "distance": "51.38611",
+        "estimated_cost": 265.27
+    },
+    {
+        "city": "Hurst Springs",
+        "state": "Texas",
+        "lat": "31.66571",
+        "lng": "-97.69419",
+        "distance": "51.73067",
+        "estimated_cost": 265.96
+    },
+    {
+        "city": "Kirk",
+        "state": "Texas",
+        "lat": "31.58711",
+        "lng": "-96.72804",
+        "distance": "51.75719",
+        "estimated_cost": 266.01
+    },
+    {
+        "city": "Eloise",
+        "state": "Texas",
+        "lat": "31.12296",
+        "lng": "-96.80859",
+        "distance": "51.92428",
+        "estimated_cost": 266.35
+    },
+    {
+        "city": "Prairie Valley",
+        "state": "Texas",
+        "lat": "31.8771",
+        "lng": "-97.32835",
+        "distance": "51.9764",
+        "estimated_cost": 266.45
+    },
+    {
+        "city": "Clifton",
+        "state": "Texas",
+        "lat": "31.78238",
+        "lng": "-97.57669",
+        "distance": "52.06807",
+        "estimated_cost": 266.64
+    },
+    {
+        "city": "Edgeworth",
+        "state": "Texas",
+        "lat": "30.95157",
+        "lng": "-97.14055",
+        "distance": "52.18517",
+        "estimated_cost": 266.87
+    },
+    {
+        "city": "Briary",
+        "state": "Texas",
+        "lat": "31.04463",
+        "lng": "-96.89193",
+        "distance": "52.48215",
+        "estimated_cost": 267.46
+    },
+    {
+        "city": "South Elm",
+        "state": "Texas",
+        "lat": "30.94741",
+        "lng": "-97.13027",
+        "distance": "52.81597",
+        "estimated_cost": 268.13
+    },
+    {
+        "city": "Summers Mill",
+        "state": "Texas",
+        "lat": "30.96991",
+        "lng": "-97.43167",
+        "distance": "52.82975",
+        "estimated_cost": 268.16
+    },
+    {
+        "city": "Turnersville",
+        "state": "Texas",
+        "lat": "31.61738",
+        "lng": "-97.73891",
+        "distance": "52.88727",
+        "estimated_cost": 268.27
+    },
+    {
+        "city": "Womack",
+        "state": "Texas",
+        "lat": "31.8371",
+        "lng": "-97.49613",
+        "distance": "52.94874",
+        "estimated_cost": 268.4
+    },
+    {
+        "city": "Ames",
+        "state": "Texas",
+        "lat": "31.52099",
+        "lng": "-97.77947",
+        "distance": "53.09345",
+        "estimated_cost": 268.69
+    },
+    {
+        "city": "Yarrelton",
+        "state": "Texas",
+        "lat": "30.95074",
+        "lng": "-97.07999",
+        "distance": "53.56861",
+        "estimated_cost": 269.64
+    },
+    {
+        "city": "Rogers",
+        "state": "Texas",
+        "lat": "30.93157",
+        "lng": "-97.22666",
+        "distance": "53.6323",
+        "estimated_cost": 269.76
+    },
+    {
+        "city": "Big Hill",
+        "state": "Texas",
+        "lat": "31.46767",
+        "lng": "-96.67359",
+        "distance": "53.64407",
+        "estimated_cost": 269.79
+    },
+    {
+        "city": "Coit",
+        "state": "Texas",
+        "lat": "31.38323",
+        "lng": "-96.67137",
+        "distance": "53.68131",
+        "estimated_cost": 269.86
+    },
+    {
+        "city": "Crossroad Store",
+        "state": "Texas",
+        "lat": "31.73405",
+        "lng": "-97.6653",
+        "distance": "54.04746",
+        "estimated_cost": 270.59
+    },
+    {
+        "city": "Long Branch",
+        "state": "Texas",
+        "lat": "31.25879",
+        "lng": "-96.69498",
+        "distance": "54.20343",
+        "estimated_cost": 270.91
+    },
+    {
+        "city": "Abbott",
+        "state": "Texas",
+        "lat": "31.88488",
+        "lng": "-97.07334",
+        "distance": "54.27194",
+        "estimated_cost": 271.04
+    },
+    {
+        "city": "Samuel Man Barfield III",
+        "state": "Texas",
+        "lat": "31.08054",
+        "lng": "-97.65461",
+        "distance": "54.57117",
+        "estimated_cost": 271.64
+    },
+    {
+        "city": "Harker Heights",
+        "state": "Texas",
+        "lat": "31.08351",
+        "lng": "-97.65974",
+        "distance": "54.70818",
+        "estimated_cost": 271.92
+    },
+    {
+        "city": "Woodland Hills",
+        "state": "Texas",
+        "lat": "31.9021",
+        "lng": "-97.3339",
+        "distance": "54.79753",
+        "estimated_cost": 272.1
+    },
+    {
+        "city": "Delia",
+        "state": "Texas",
+        "lat": "31.70683",
+        "lng": "-96.76777",
+        "distance": "54.85825",
+        "estimated_cost": 272.22
+    },
+    {
+        "city": "Clarkson",
+        "state": "Texas",
+        "lat": "30.99519",
+        "lng": "-96.92498",
+        "distance": "55.13333",
+        "estimated_cost": 272.77
+    },
+    {
+        "city": "New Clarkson",
+        "state": "Texas",
+        "lat": "31.00602",
+        "lng": "-96.90554",
+        "distance": "55.15361",
+        "estimated_cost": 272.81
+    },
+    {
+        "city": "Sparks",
+        "state": "Texas",
+        "lat": "30.92852",
+        "lng": "-97.35972",
+        "distance": "55.2687",
+        "estimated_cost": 273.04
+    },
+    {
+        "city": "Ben Arnold",
+        "state": "Texas",
+        "lat": "30.9638",
+        "lng": "-96.98804",
+        "distance": "55.29595",
+        "estimated_cost": 273.09
+    },
+    {
+        "city": "Alto Springs",
+        "state": "Texas",
+        "lat": "31.28601",
+        "lng": "-96.67054",
+        "distance": "55.55094",
+        "estimated_cost": 273.6
+    },
+    {
+        "city": "Vaughan",
+        "state": "Texas",
+        "lat": "31.9146",
+        "lng": "-97.17362",
+        "distance": "55.66905",
+        "estimated_cost": 273.84
+    },
+    {
+        "city": "Mustang",
+        "state": "Texas",
+        "lat": "31.68294",
+        "lng": "-96.73749",
+        "distance": "55.75681",
+        "estimated_cost": 274.01
+    },
+    {
+        "city": "Hubbard-Mount Calm",
+        "state": "Texas",
+        "lat": "31.79064",
+        "lng": "-96.84332",
+        "distance": "55.77698",
+        "estimated_cost": 274.05
+    },
+    {
+        "city": "Baileyville",
+        "state": "Texas",
+        "lat": "31.05268",
+        "lng": "-96.82859",
+        "distance": "55.78572",
+        "estimated_cost": 274.07
+    },
+    {
+        "city": "Walker Village",
+        "state": "Texas",
+        "lat": "31.13601",
+        "lng": "-97.72446",
+        "distance": "55.98985",
+        "estimated_cost": 274.48
+    },
+    {
+        "city": "Bowers",
+        "state": "Texas",
+        "lat": "30.91185",
+        "lng": "-97.18611",
+        "distance": "56.00447",
+        "estimated_cost": 274.51
+    },
+    {
+        "city": "Joe Lee",
+        "state": "Texas",
+        "lat": "30.91074",
+        "lng": "-97.28083",
+        "distance": "56.11019",
+        "estimated_cost": 274.72
+    },
+    {
+        "city": "Lone Star",
+        "state": "Texas",
+        "lat": "31.10295",
+        "lng": "-97.69891",
+        "distance": "56.16725",
+        "estimated_cost": 274.83
+    },
+    {
+        "city": "Norse",
+        "state": "Texas",
+        "lat": "31.75599",
+        "lng": "-97.67252",
+        "distance": "56.17108",
+        "estimated_cost": 274.84
+    },
+    {
+        "city": "Frosa",
+        "state": "Texas",
+        "lat": "31.62739",
+        "lng": "-96.69749",
+        "distance": "56.17505",
+        "estimated_cost": 274.85
+    },
+    {
+        "city": "North Elm",
+        "state": "Texas",
+        "lat": "30.93241",
+        "lng": "-97.04832",
+        "distance": "56.40228",
+        "estimated_cost": 275.3
+    },
+    {
+        "city": "Lavender",
+        "state": "Texas",
+        "lat": "31.53461",
+        "lng": "-96.65582",
+        "distance": "56.56849",
+        "estimated_cost": 275.64
+    },
+    {
+        "city": "Saint Elijah Village",
+        "state": "Texas",
+        "lat": "31.22239",
+        "lng": "-97.7878",
+        "distance": "56.83396",
+        "estimated_cost": 276.17
+    },
+    {
+        "city": "Lakewood Harbor",
+        "state": "Texas",
+        "lat": "31.90377",
+        "lng": "-97.41974",
+        "distance": "56.94184",
+        "estimated_cost": 276.38
+    },
+    {
+        "city": "Pleasant Grove",
+        "state": "Texas",
+        "lat": "31.42851",
+        "lng": "-96.63581",
+        "distance": "56.95051",
+        "estimated_cost": 276.4
+    },
+    {
+        "city": "Penelope",
+        "state": "Texas",
+        "lat": "31.86016",
+        "lng": "-96.92666",
+        "distance": "57.33045",
+        "estimated_cost": 277.16
+    },
+    {
+        "city": "Killeen",
+        "state": "Texas",
+        "lat": "31.11712",
+        "lng": "-97.7278",
+        "distance": "57.43761",
+        "estimated_cost": 277.38
+    },
+    {
+        "city": "Middle Crossing",
+        "state": "Texas",
+        "lat": "31.21489",
+        "lng": "-97.79419",
+        "distance": "57.71475",
+        "estimated_cost": 277.93
+    },
+    {
+        "city": "Union Grove",
+        "state": "Texas",
+        "lat": "31.00046",
+        "lng": "-97.60196",
+        "distance": "57.79892",
+        "estimated_cost": 278.1
+    },
+    {
+        "city": "Pancake",
+        "state": "Texas",
+        "lat": "31.61766",
+        "lng": "-97.79975",
+        "distance": "58.18457",
+        "estimated_cost": 278.87
+    },
+    {
+        "city": "Kosse",
+        "state": "Texas",
+        "lat": "31.30768",
+        "lng": "-96.63192",
+        "distance": "58.56579",
+        "estimated_cost": 279.63
+    },
+    {
+        "city": "McNair Village",
+        "state": "Texas",
+        "lat": "31.13406",
+        "lng": "-97.75919",
+        "distance": "58.88764",
+        "estimated_cost": 280.28
+    },
+    {
+        "city": "Marak",
+        "state": "Texas",
+        "lat": "30.90185",
+        "lng": "-97.0686",
+        "distance": "59.08096",
+        "estimated_cost": 280.66
+    },
+    {
+        "city": "Malone-Penelope",
+        "state": "Texas",
+        "lat": "31.87056",
+        "lng": "-96.90907",
+        "distance": "59.17833",
+        "estimated_cost": 280.86
+    },
+    {
+        "city": "Mustang",
+        "state": "Texas",
+        "lat": "31.25129",
+        "lng": "-96.64192",
+        "distance": "59.26117",
+        "estimated_cost": 281.02
+    },
+    {
+        "city": "Chaffee Village",
+        "state": "Texas",
+        "lat": "31.12962",
+        "lng": "-97.76169",
+        "distance": "59.3522",
+        "estimated_cost": 281.2
+    },
+    {
+        "city": "Salado",
+        "state": "Texas",
+        "lat": "30.94713",
+        "lng": "-97.53862",
+        "distance": "59.44587",
+        "estimated_cost": 281.39
+    },
+    {
+        "city": "Horn Hill",
+        "state": "Texas",
+        "lat": "31.56906",
+        "lng": "-96.6336",
+        "distance": "59.59206",
+        "estimated_cost": 281.68
+    },
+    {
+        "city": "Splawn",
+        "state": "Texas",
+        "lat": "30.92019",
+        "lng": "-96.98582",
+        "distance": "59.79379",
+        "estimated_cost": 282.09
+    },
+    {
+        "city": "Bremond",
+        "state": "Texas",
+        "lat": "31.16518",
+        "lng": "-96.67692",
+        "distance": "59.90044",
+        "estimated_cost": 282.3
+    },
+    {
+        "city": "Bosque",
+        "state": "Texas",
+        "lat": "31.85488",
+        "lng": "-97.60391",
+        "distance": "60.03039",
+        "estimated_cost": 282.56
+    },
+    {
+        "city": "Whitney",
+        "state": "Texas",
+        "lat": "31.95182",
+        "lng": "-97.3214",
+        "distance": "60.06201",
+        "estimated_cost": 282.62
+    },
+    {
+        "city": "Hogg",
+        "state": "Texas",
+        "lat": "31.14379",
+        "lng": "-96.68775",
+        "distance": "60.1442",
+        "estimated_cost": 282.79
+    },
+    {
+        "city": "Fort Cavazos",
+        "state": "Texas",
+        "lat": "31.13489",
+        "lng": "-97.77561",
+        "distance": "60.17286",
+        "estimated_cost": 282.85
+    },
+    {
+        "city": "Chatt",
+        "state": "Texas",
+        "lat": "31.94377",
+        "lng": "-97.08973",
+        "distance": "60.19023",
+        "estimated_cost": 282.88
+    },
+    {
+        "city": "House Crossing",
+        "state": "Texas",
+        "lat": "31.18573",
+        "lng": "-97.80891",
+        "distance": "60.31006",
+        "estimated_cost": 283.12
+    },
+    {
+        "city": "Jackson Crossing",
+        "state": "Texas",
+        "lat": "31.2485",
+        "lng": "-97.8378",
+        "distance": "60.31296",
+        "estimated_cost": 283.13
+    },
+    {
+        "city": "Ater",
+        "state": "Texas",
+        "lat": "31.52322",
+        "lng": "-97.86114",
+        "distance": "60.73478",
+        "estimated_cost": 283.97
+    },
+    {
+        "city": "Cedar Shores",
+        "state": "Texas",
+        "lat": "31.93488",
+        "lng": "-97.44168",
+        "distance": "60.87104",
+        "estimated_cost": 284.24
+    },
+    {
+        "city": "Hammond",
+        "state": "Texas",
+        "lat": "31.09518",
+        "lng": "-96.71387",
+        "distance": "60.98601",
+        "estimated_cost": 284.47
+    },
+    {
+        "city": "Buckholts",
+        "state": "Texas",
+        "lat": "30.87297",
+        "lng": "-97.12499",
+        "distance": "61.02621",
+        "estimated_cost": 284.55
+    },
+    {
+        "city": "Purmela-Levita",
+        "state": "Texas",
+        "lat": "31.46016",
+        "lng": "-97.87502",
+        "distance": "61.08642",
+        "estimated_cost": 284.67
+    },
+    {
+        "city": "Holland",
+        "state": "Texas",
+        "lat": "30.87824",
+        "lng": "-97.40167",
+        "distance": "61.63473",
+        "estimated_cost": 285.77
+    },
+    {
+        "city": "Thelma",
+        "state": "Texas",
+        "lat": "31.58322",
+        "lng": "-96.61109",
+        "distance": "62.0921",
+        "estimated_cost": 286.68
+    },
+    {
+        "city": "Silver City",
+        "state": "Texas",
+        "lat": "30.90991",
+        "lng": "-96.95026",
+        "distance": "62.24179",
+        "estimated_cost": 286.98
+    },
+    {
+        "city": "Peoria",
+        "state": "Texas",
+        "lat": "31.97821",
+        "lng": "-97.22195",
+        "distance": "62.43291",
+        "estimated_cost": 287.37
+    },
+    {
+        "city": "Comanche Village I",
+        "state": "Texas",
+        "lat": "31.14156",
+        "lng": "-97.8078",
+        "distance": "62.45266",
+        "estimated_cost": 287.41
+    },
+    {
+        "city": "Arnett",
+        "state": "Texas",
+        "lat": "31.44516",
+        "lng": "-97.89142",
+        "distance": "62.53473",
+        "estimated_cost": 287.57
+    },
+    {
+        "city": "Salter",
+        "state": "Texas",
+        "lat": "31.03463",
+        "lng": "-96.74526",
+        "distance": "62.88575",
+        "estimated_cost": 288.27
+    },
+    {
+        "city": "Comanche Village II",
+        "state": "Texas",
+        "lat": "31.13684",
+        "lng": "-97.81002",
+        "distance": "62.89418",
+        "estimated_cost": 288.29
+    },
+    {
+        "city": "Jones Prairie",
+        "state": "Texas",
+        "lat": "30.96296",
+        "lng": "-96.83498",
+        "distance": "62.97135",
+        "estimated_cost": 288.44
+    },
+    {
+        "city": "Thornton",
+        "state": "Texas",
+        "lat": "31.41101",
+        "lng": "-96.5722",
+        "distance": "62.9876",
+        "estimated_cost": 288.48
+    },
+    {
+        "city": "South Bell",
+        "state": "Texas",
+        "lat": "30.92309",
+        "lng": "-97.56611",
+        "distance": "63.05998",
+        "estimated_cost": 288.62
+    },
+    {
+        "city": "Levita",
+        "state": "Texas",
+        "lat": "31.51488",
+        "lng": "-97.88808",
+        "distance": "63.0816",
+        "estimated_cost": 288.66
+    },
+    {
+        "city": "Calina",
+        "state": "Texas",
+        "lat": "31.75655",
+        "lng": "-96.69999",
+        "distance": "63.29873",
+        "estimated_cost": 289.1
+    },
+    {
+        "city": "Antelope Crossing",
+        "state": "Texas",
+        "lat": "31.24684",
+        "lng": "-97.87197",
+        "distance": "63.47066",
+        "estimated_cost": 289.44
+    },
+    {
+        "city": "Hubbard",
+        "state": "Texas",
+        "lat": "31.84849",
+        "lng": "-96.79721",
+        "distance": "63.47614",
+        "estimated_cost": 289.45
+    },
+    {
+        "city": "Sandy",
+        "state": "Texas",
+        "lat": "31.68461",
+        "lng": "-96.64193",
+        "distance": "63.70748",
+        "estimated_cost": 289.91
+    },
+    {
+        "city": "Comanche Village III",
+        "state": "Texas",
+        "lat": "31.14101",
+        "lng": "-97.82419",
+        "distance": "63.85068",
+        "estimated_cost": 290.2
+    },
+    {
+        "city": "Vilas",
+        "state": "Texas",
+        "lat": "30.84102",
+        "lng": "-97.30361",
+        "distance": "64.00577",
+        "estimated_cost": 290.51
+    },
+    {
+        "city": "Pidcoke",
+        "state": "Texas",
+        "lat": "31.27906",
+        "lng": "-97.88836",
+        "distance": "64.0174",
+        "estimated_cost": 290.53
+    },
+    {
+        "city": "Corinth",
+        "state": "Texas",
+        "lat": "30.84308",
+        "lng": "-97.13518",
+        "distance": "64.14297",
+        "estimated_cost": 290.79
+    },
+    {
+        "city": "Echols",
+        "state": "Texas",
+        "lat": "31.686",
+        "lng": "-96.63749",
+        "distance": "64.15211",
+        "estimated_cost": 290.8
+    },
+    {
+        "city": "Belmena",
+        "state": "Texas",
+        "lat": "30.9088",
+        "lng": "-96.90859",
+        "distance": "64.17968",
+        "estimated_cost": 290.86
+    },
+    {
+        "city": "Pettibone",
+        "state": "Texas",
+        "lat": "30.84991",
+        "lng": "-97.08082",
+        "distance": "64.37323",
+        "estimated_cost": 291.25
+    },
+    {
+        "city": "Malone",
+        "state": "Texas",
+        "lat": "31.91794",
+        "lng": "-96.89472",
+        "distance": "64.38536",
+        "estimated_cost": 291.27
+    },
+    {
+        "city": "Val Verde",
+        "state": "Texas",
+        "lat": "30.83436",
+        "lng": "-97.24777",
+        "distance": "64.41763",
+        "estimated_cost": 291.34
+    },
+    {
+        "city": "Quinif",
+        "state": "Texas",
+        "lat": "30.87713",
+        "lng": "-96.97776",
+        "distance": "64.49326",
+        "estimated_cost": 291.49
+    },
+    {
+        "city": "King",
+        "state": "Texas",
+        "lat": "31.37961",
+        "lng": "-97.91475",
+        "distance": "64.80822",
+        "estimated_cost": 292.12
+    },
+    {
+        "city": "Jonesboro",
+        "state": "Texas",
+        "lat": "31.6146",
+        "lng": "-97.87669",
+        "distance": "64.87368",
+        "estimated_cost": 292.25
+    },
+    {
+        "city": "Beulah",
+        "state": "Texas",
+        "lat": "31.45767",
+        "lng": "-96.55192",
+        "distance": "65.06811",
+        "estimated_cost": 292.64
+    },
+    {
+        "city": "Winslow",
+        "state": "Texas",
+        "lat": "31.99599",
+        "lng": "-97.12417",
+        "distance": "65.23769",
+        "estimated_cost": 292.98
+    },
+    {
+        "city": "Crossroads",
+        "state": "Texas",
+        "lat": "30.96435",
+        "lng": "-96.79137",
+        "distance": "65.45138",
+        "estimated_cost": 293.4
+    },
+    {
+        "city": "Bynum",
+        "state": "Texas",
+        "lat": "31.97182",
+        "lng": "-97.00306",
+        "distance": "65.50031",
+        "estimated_cost": 293.5
+    },
+    {
+        "city": "Munger",
+        "state": "Texas",
+        "lat": "31.796",
+        "lng": "-96.70638",
+        "distance": "65.53346",
+        "estimated_cost": 293.57
+    },
+    {
+        "city": "Elm Ridge",
+        "state": "Texas",
+        "lat": "30.84769",
+        "lng": "-97.04138",
+        "distance": "65.56942",
+        "estimated_cost": 293.64
+    },
+    {
+        "city": "Kay Bee Heights",
+        "state": "Texas",
+        "lat": "31.11851",
+        "lng": "-97.83141",
+        "distance": "65.67571",
+        "estimated_cost": 293.85
+    },
+    {
+        "city": "Tidwell Prairie",
+        "state": "Texas",
+        "lat": "31.08991",
+        "lng": "-96.65748",
+        "distance": "65.74934",
+        "estimated_cost": 294.0
+    },
+    {
+        "city": "Montague Village",
+        "state": "Texas",
+        "lat": "31.11656",
+        "lng": "-97.8328",
+        "distance": "65.8988",
+        "estimated_cost": 294.3
+    },
+    {
+        "city": "Hillsboro",
+        "state": "Texas",
+        "lat": "32.01099",
+        "lng": "-97.13001",
+        "distance": "66.7955",
+        "estimated_cost": 296.09
+    },
+    {
+        "city": "Cameron",
+        "state": "Texas",
+        "lat": "30.85325",
+        "lng": "-96.97693",
+        "distance": "66.98109",
+        "estimated_cost": 296.46
+    },
+    {
+        "city": "Coolidge",
+        "state": "Texas",
+        "lat": "31.75405",
+        "lng": "-96.64999",
+        "distance": "67.0079",
+        "estimated_cost": 296.52
+    },
+    {
+        "city": "Donahoe",
+        "state": "Texas",
+        "lat": "30.81602",
+        "lng": "-97.33306",
+        "distance": "67.09857",
+        "estimated_cost": 296.7
+    },
+    {
+        "city": "Live Oak Resorts",
+        "state": "Texas",
+        "lat": "32.01043",
+        "lng": "-97.36251",
+        "distance": "67.099",
+        "estimated_cost": 296.7
+    },
+    {
+        "city": "Fort Parker",
+        "state": "Texas",
+        "lat": "31.56378",
+        "lng": "-96.5472",
+        "distance": "67.35407",
+        "estimated_cost": 297.21
+    },
+    {
+        "city": "Davis Prairie",
+        "state": "Texas",
+        "lat": "31.42045",
+        "lng": "-96.52553",
+        "distance": "67.42257",
+        "estimated_cost": 297.35
+    },
+    {
+        "city": "Prairie Dell",
+        "state": "Texas",
+        "lat": "30.88407",
+        "lng": "-97.58029",
+        "distance": "67.49115",
+        "estimated_cost": 297.48
+    },
+    {
+        "city": "Groesbeck",
+        "state": "Texas",
+        "lat": "31.52434",
+        "lng": "-96.53387",
+        "distance": "67.68018",
+        "estimated_cost": 297.86
+    },
+    {
+        "city": "Mountain View Estates",
+        "state": "Texas",
+        "lat": "31.00518",
+        "lng": "-97.7628",
+        "distance": "67.82952",
+        "estimated_cost": 298.16
+    },
+    {
+        "city": "Maysfield",
+        "state": "Texas",
+        "lat": "30.89713",
+        "lng": "-96.85109",
+        "distance": "68.09527",
+        "estimated_cost": 298.69
+    },
+    {
+        "city": "White Rock",
+        "state": "Texas",
+        "lat": "31.2199",
+        "lng": "-96.55497",
+        "distance": "68.2192",
+        "estimated_cost": 298.94
+    },
+    {
+        "city": "Datura",
+        "state": "Texas",
+        "lat": "31.72433",
+        "lng": "-96.61304",
+        "distance": "68.23408",
+        "estimated_cost": 298.97
+    },
+    {
+        "city": "Cummins Crossing",
+        "state": "Texas",
+        "lat": "30.80241",
+        "lng": "-97.16499",
+        "distance": "68.27026",
+        "estimated_cost": 299.04
+    },
+    {
+        "city": "Youngsport",
+        "state": "Texas",
+        "lat": "30.9574",
+        "lng": "-97.71918",
+        "distance": "68.63312",
+        "estimated_cost": 299.77
+    },
+    {
+        "city": "Cranfills Gap",
+        "state": "Texas",
+        "lat": "31.77377",
+        "lng": "-97.82586",
+        "distance": "68.76895",
+        "estimated_cost": 300.04
+    },
+    {
+        "city": "Red Hill",
+        "state": "Texas",
+        "lat": "31.48739",
+        "lng": "-96.51303",
+        "distance": "69.04899",
+        "estimated_cost": 300.6
+    },
+    {
+        "city": "Meridian",
+        "state": "Texas",
+        "lat": "31.92321",
+        "lng": "-97.65669",
+        "distance": "69.09755",
+        "estimated_cost": 300.7
+    },
+    {
+        "city": "Salem",
+        "state": "Texas",
+        "lat": "30.81575",
+        "lng": "-97.02388",
+        "distance": "69.44081",
+        "estimated_cost": 301.38
+    },
+    {
+        "city": "Marlow",
+        "state": "Texas",
+        "lat": "30.8488",
+        "lng": "-96.92165",
+        "distance": "69.53444",
+        "estimated_cost": 301.57
+    },
+    {
+        "city": "Purmela",
+        "state": "Texas",
+        "lat": "31.48377",
+        "lng": "-97.96225",
+        "distance": "69.58302",
+        "estimated_cost": 301.67
+    },
+    {
+        "city": "Davilla",
+        "state": "Texas",
+        "lat": "30.78575",
+        "lng": "-97.275",
+        "distance": "69.90089",
+        "estimated_cost": 302.3
+    },
+    {
+        "city": "Ding Dong",
+        "state": "Texas",
+        "lat": "30.98185",
+        "lng": "-97.77113",
+        "distance": "70.17106",
+        "estimated_cost": 302.84
+    },
+    {
+        "city": "Nesbitt",
+        "state": "Texas",
+        "lat": "31.09824",
+        "lng": "-96.59692",
+        "distance": "70.17322",
+        "estimated_cost": 302.85
+    },
+    {
+        "city": "Huron",
+        "state": "Texas",
+        "lat": "32.03988",
+        "lng": "-97.36001",
+        "distance": "70.27184",
+        "estimated_cost": 303.04
+    },
+    {
+        "city": "Woodbury",
+        "state": "Texas",
+        "lat": "32.0496",
+        "lng": "-97.23084",
+        "distance": "70.33817",
+        "estimated_cost": 303.18
+    },
+    {
+        "city": "Slater",
+        "state": "Texas",
+        "lat": "31.3435",
+        "lng": "-97.96975",
+        "distance": "70.383",
+        "estimated_cost": 303.27
+    },
+    {
+        "city": "South Purmela",
+        "state": "Texas",
+        "lat": "31.46988",
+        "lng": "-97.97225",
+        "distance": "70.38389",
+        "estimated_cost": 303.27
+    },
+    {
+        "city": "Cedar Valley",
+        "state": "Texas",
+        "lat": "30.90574",
+        "lng": "-97.67751",
+        "distance": "70.53134",
+        "estimated_cost": 303.56
+    },
+    {
+        "city": "Calvert Junction",
+        "state": "Texas",
+        "lat": "30.94213",
+        "lng": "-96.73748",
+        "distance": "70.69072",
+        "estimated_cost": 303.88
+    },
+    {
+        "city": "Petteway",
+        "state": "Texas",
+        "lat": "31.18463",
+        "lng": "-96.53803",
+        "distance": "71.07401",
+        "estimated_cost": 304.65
+    },
+    {
+        "city": "Bartlett",
+        "state": "Texas",
+        "lat": "30.79491",
+        "lng": "-97.42556",
+        "distance": "71.15039",
+        "estimated_cost": 304.8
+    },
+    {
+        "city": "Ding Dong",
+        "state": "Texas",
+        "lat": "30.97379",
+        "lng": "-97.77752",
+        "distance": "71.22835",
+        "estimated_cost": 304.96
+    },
+    {
+        "city": "Box Church",
+        "state": "Texas",
+        "lat": "31.46767",
+        "lng": "-96.48748",
+        "distance": "71.25821",
+        "estimated_cost": 305.02
+    },
+    {
+        "city": "Copperas Cove",
+        "state": "Texas",
+        "lat": "31.12406",
+        "lng": "-97.90308",
+        "distance": "71.38223",
+        "estimated_cost": 305.26
+    },
+    {
+        "city": "Ireland",
+        "state": "Texas",
+        "lat": "31.56683",
+        "lng": "-97.96531",
+        "distance": "71.43197",
+        "estimated_cost": 305.36
+    },
+    {
+        "city": "Doyle",
+        "state": "Texas",
+        "lat": "31.5735",
+        "lng": "-96.50526",
+        "distance": "71.4786",
+        "estimated_cost": 305.46
+    },
+    {
+        "city": "Lakeside Village",
+        "state": "Texas",
+        "lat": "32.02099",
+        "lng": "-97.49391",
+        "distance": "71.52051",
+        "estimated_cost": 305.54
+    },
+    {
+        "city": "Schwertner",
+        "state": "Texas",
+        "lat": "30.81547",
+        "lng": "-97.51417",
+        "distance": "71.64812",
+        "estimated_cost": 305.8
+    },
+    {
+        "city": "Forest Glade",
+        "state": "Texas",
+        "lat": "31.63072",
+        "lng": "-96.52193",
+        "distance": "71.77982",
+        "estimated_cost": 306.06
+    },
+    {
+        "city": "Calvert",
+        "state": "Texas",
+        "lat": "30.97797",
+        "lng": "-96.67386",
+        "distance": "72.1566",
+        "estimated_cost": 306.81
+    },
+    {
+        "city": "Headsville",
+        "state": "Texas",
+        "lat": "31.26129",
+        "lng": "-96.49581",
+        "distance": "72.34874",
+        "estimated_cost": 307.2
+    },
+    {
+        "city": "Dawson",
+        "state": "Texas",
+        "lat": "31.89405",
+        "lng": "-96.71471",
+        "distance": "72.45421",
+        "estimated_cost": 307.41
+    },
+    {
+        "city": "Southwest Bell",
+        "state": "Texas",
+        "lat": "30.97079",
+        "lng": "-97.79219",
+        "distance": "72.47706",
+        "estimated_cost": 307.45
+    },
+    {
+        "city": "Irene",
+        "state": "Texas",
+        "lat": "31.9921",
+        "lng": "-96.87139",
+        "distance": "72.6391",
+        "estimated_cost": 307.78
+    },
+    {
+        "city": "Pelham",
+        "state": "Texas",
+        "lat": "31.9596",
+        "lng": "-96.80527",
+        "distance": "72.80002",
+        "estimated_cost": 308.1
+    },
+    {
+        "city": "Lakenon",
+        "state": "Texas",
+        "lat": "32.0521",
+        "lng": "-97.02445",
+        "distance": "73.36855",
+        "estimated_cost": 309.24
+    },
+    {
+        "city": "Sharp",
+        "state": "Texas",
+        "lat": "30.7513",
+        "lng": "-97.1561",
+        "distance": "73.99291",
+        "estimated_cost": 310.49
+    },
+    {
+        "city": "Branchville",
+        "state": "Texas",
+        "lat": "30.88436",
+        "lng": "-96.76387",
+        "distance": "74.02272",
+        "estimated_cost": 310.55
+    },
+    {
+        "city": "Barton",
+        "state": "Texas",
+        "lat": "30.91991",
+        "lng": "-96.71164",
+        "distance": "74.17381",
+        "estimated_cost": 310.85
+    },
+    {
+        "city": "Maxdale",
+        "state": "Texas",
+        "lat": "30.9899",
+        "lng": "-97.83557",
+        "distance": "74.19269",
+        "estimated_cost": 310.89
+    },
+    {
+        "city": "Carls Corner",
+        "state": "Texas",
+        "lat": "32.07099",
+        "lng": "-97.07223",
+        "distance": "74.31863",
+        "estimated_cost": 311.14
+    },
+    {
+        "city": "Rodney",
+        "state": "Texas",
+        "lat": "31.82183",
+        "lng": "-96.61165",
+        "distance": "74.33467",
+        "estimated_cost": 311.17
+    },
+    {
+        "city": "Jarrell",
+        "state": "Texas",
+        "lat": "30.82491",
+        "lng": "-97.60445",
+        "distance": "74.35518",
+        "estimated_cost": 311.21
+    },
+    {
+        "city": "Whiteway",
+        "state": "Texas",
+        "lat": "31.64293",
+        "lng": "-97.9717",
+        "distance": "74.41823",
+        "estimated_cost": 311.34
+    },
+    {
+        "city": "Grub Hill",
+        "state": "Texas",
+        "lat": "32.08626",
+        "lng": "-97.27918",
+        "distance": "74.5229",
+        "estimated_cost": 311.55
+    },
+    {
+        "city": "Brandon",
+        "state": "Texas",
+        "lat": "32.04571",
+        "lng": "-96.96056",
+        "distance": "74.57369",
+        "estimated_cost": 311.65
+    },
+    {
+        "city": "Tehuacana",
+        "state": "Texas",
+        "lat": "31.74128",
+        "lng": "-96.54693",
+        "distance": "74.61534",
+        "estimated_cost": 311.73
+    },
+    {
+        "city": "Topsey",
+        "state": "Texas",
+        "lat": "31.21906",
+        "lng": "-97.98503",
+        "distance": "74.67089",
+        "estimated_cost": 311.84
+    },
+    {
+        "city": "The Crossroads",
+        "state": "Texas",
+        "lat": "30.74742",
+        "lng": "-97.13221",
+        "distance": "74.68566",
+        "estimated_cost": 311.87
+    },
+    {
+        "city": "Eldorado Center",
+        "state": "Texas",
+        "lat": "31.85127",
+        "lng": "-96.62804",
+        "distance": "75.15456",
+        "estimated_cost": 312.81
+    },
+    {
+        "city": "Marvin",
+        "state": "Texas",
+        "lat": "30.91463",
+        "lng": "-96.70303",
+        "distance": "75.16011",
+        "estimated_cost": 312.82
+    },
+    {
+        "city": "Lovelace",
+        "state": "Texas",
+        "lat": "32.08904",
+        "lng": "-97.12862",
+        "distance": "75.38259",
+        "estimated_cost": 313.27
+    },
+    {
+        "city": "Mayfield",
+        "state": "Texas",
+        "lat": "32.09654",
+        "lng": "-97.19418",
+        "distance": "75.63963",
+        "estimated_cost": 313.78
+    },
+    {
+        "city": "Morgan",
+        "state": "Texas",
+        "lat": "32.01876",
+        "lng": "-97.60836",
+        "distance": "75.71689",
+        "estimated_cost": 313.93
+    },
+    {
+        "city": "Tracy",
+        "state": "Texas",
+        "lat": "30.74186",
+        "lng": "-97.09721",
+        "distance": "75.80202",
+        "estimated_cost": 314.1
+    },
+    {
+        "city": "Emmett",
+        "state": "Texas",
+        "lat": "31.98766",
+        "lng": "-96.79277",
+        "distance": "76.04212",
+        "estimated_cost": 314.58
+    },
+    {
+        "city": "Pearl",
+        "state": "Texas",
+        "lat": "31.41016",
+        "lng": "-98.03503",
+        "distance": "76.11674",
+        "estimated_cost": 314.73
+    },
+    {
+        "city": "Red Hill",
+        "state": "Texas",
+        "lat": "32.09654",
+        "lng": "-97.33696",
+        "distance": "76.16272",
+        "estimated_cost": 314.83
+    },
+    {
+        "city": "Spring Hill",
+        "state": "Texas",
+        "lat": "31.93627",
+        "lng": "-96.71027",
+        "distance": "76.21837",
+        "estimated_cost": 314.94
+    },
+    {
+        "city": "Hoyte",
+        "state": "Texas",
+        "lat": "30.78491",
+        "lng": "-96.91554",
+        "distance": "76.22745",
+        "estimated_cost": 314.95
+    },
+    {
+        "city": "Sonterra",
+        "state": "Texas",
+        "lat": "30.80333",
+        "lng": "-97.60022",
+        "distance": "76.28641",
+        "estimated_cost": 315.07
+    },
+    {
+        "city": "Springfield",
+        "state": "Texas",
+        "lat": "31.65961",
+        "lng": "-96.48276",
+        "distance": "76.36443",
+        "estimated_cost": 315.23
+    },
+    {
+        "city": "Minerva",
+        "state": "Texas",
+        "lat": "30.75825",
+        "lng": "-96.98804",
+        "distance": "76.54736",
+        "estimated_cost": 315.59
+    },
+    {
+        "city": "Corn Hill",
+        "state": "Texas",
+        "lat": "30.80685",
+        "lng": "-97.61501",
+        "distance": "76.59656",
+        "estimated_cost": 315.69
+    },
+    {
+        "city": "Union High",
+        "state": "Texas",
+        "lat": "31.84377",
+        "lng": "-96.59693",
+        "distance": "76.92308",
+        "estimated_cost": 316.35
+    },
+    {
+        "city": "Kopperl",
+        "state": "Texas",
+        "lat": "32.06987",
+        "lng": "-97.50391",
+        "distance": "76.941",
+        "estimated_cost": 316.38
+    },
+    {
+        "city": "Blanton",
+        "state": "Texas",
+        "lat": "32.10682",
+        "lng": "-97.3164",
+        "distance": "77.07305",
+        "estimated_cost": 316.65
+    },
+    {
+        "city": "Mexia",
+        "state": "Texas",
+        "lat": "31.67989",
+        "lng": "-96.4822",
+        "distance": "77.23239",
+        "estimated_cost": 316.96
+    },
+    {
+        "city": "Willow Creek",
+        "state": "Texas",
+        "lat": "31.28629",
+        "lng": "-96.43636",
+        "distance": "77.28731",
+        "estimated_cost": 317.07
+    },
+    {
+        "city": "Shiloh",
+        "state": "Texas",
+        "lat": "31.61184",
+        "lng": "-96.45359",
+        "distance": "77.321",
+        "estimated_cost": 317.14
+    },
+    {
+        "city": "Center",
+        "state": "Texas",
+        "lat": "31.51073",
+        "lng": "-96.4247",
+        "distance": "77.69552",
+        "estimated_cost": 317.89
+    },
+    {
+        "city": "Port Sullivan (historical)",
+        "state": "Texas",
+        "lat": "30.88352",
+        "lng": "-96.70331",
+        "distance": "77.73016",
+        "estimated_cost": 317.96
+    },
+    {
+        "city": "Lanham",
+        "state": "Texas",
+        "lat": "31.75265",
+        "lng": "-97.95253",
+        "distance": "77.73884",
+        "estimated_cost": 317.98
+    },
+    {
+        "city": "Old Union",
+        "state": "Texas",
+        "lat": "31.40879",
+        "lng": "-96.41636",
+        "distance": "77.80867",
+        "estimated_cost": 318.12
+    },
+    {
+        "city": "Owensville",
+        "state": "Texas",
+        "lat": "31.07296",
+        "lng": "-96.51941",
+        "distance": "77.98441",
+        "estimated_cost": 318.47
+    },
+    {
+        "city": "Mertens",
+        "state": "Texas",
+        "lat": "32.05849",
+        "lng": "-96.89666",
+        "distance": "78.18137",
+        "estimated_cost": 318.86
+    },
+    {
+        "city": "Midway",
+        "state": "Texas",
+        "lat": "32.0921",
+        "lng": "-97.00167",
+        "distance": "78.22684",
+        "estimated_cost": 318.95
+    },
+    {
+        "city": "Friendship",
+        "state": "Texas",
+        "lat": "30.71408",
+        "lng": "-97.33028",
+        "distance": "78.27412",
+        "estimated_cost": 319.05
+    },
+    {
+        "city": "Oletha",
+        "state": "Texas",
+        "lat": "31.35851",
+        "lng": "-96.41303",
+        "distance": "78.39616",
+        "estimated_cost": 319.29
+    },
+    {
+        "city": "Hanover",
+        "state": "Texas",
+        "lat": "30.8038",
+        "lng": "-96.82165",
+        "distance": "78.40632",
+        "estimated_cost": 319.31
+    },
+    {
+        "city": "LaSalle",
+        "state": "Texas",
+        "lat": "31.53323",
+        "lng": "-96.41887",
+        "distance": "78.61199",
+        "estimated_cost": 319.72
+    },
+    {
+        "city": "Brushie Prairie",
+        "state": "Texas",
+        "lat": "31.99432",
+        "lng": "-96.75527",
+        "distance": "78.65787",
+        "estimated_cost": 319.82
+    },
+    {
+        "city": "Mountain View",
+        "state": "Texas",
+        "lat": "32.11237",
+        "lng": "-97.07612",
+        "distance": "78.7426",
+        "estimated_cost": 319.99
+    },
+    {
+        "city": "Prairie Grove",
+        "state": "Texas",
+        "lat": "31.571",
+        "lng": "-96.42303",
+        "distance": "79.01478",
+        "estimated_cost": 320.53
+    },
+    {
+        "city": "New Corn Hill",
+        "state": "Texas",
+        "lat": "30.76963",
+        "lng": "-97.58751",
+        "distance": "79.10546",
+        "estimated_cost": 320.71
+    },
+    {
+        "city": "Bald Prairie",
+        "state": "Texas",
+        "lat": "31.22351",
+        "lng": "-96.43275",
+        "distance": "79.22764",
+        "estimated_cost": 320.96
+    },
+    {
+        "city": "Holden",
+        "state": "Texas",
+        "lat": "31.65322",
+        "lng": "-96.44748",
+        "distance": "79.2694",
+        "estimated_cost": 321.04
+    },
+    {
+        "city": "Osceola",
+        "state": "Texas",
+        "lat": "32.13071",
+        "lng": "-97.22723",
+        "distance": "79.33432",
+        "estimated_cost": 321.17
+    },
+    {
+        "city": "Liberty",
+        "state": "Texas",
+        "lat": "30.77714",
+        "lng": "-96.8522",
+        "distance": "79.60119",
+        "estimated_cost": 321.7
+    },
+    {
+        "city": "Port Sullivan",
+        "state": "Texas",
+        "lat": "30.86602",
+        "lng": "-96.69553",
+        "distance": "79.69114",
+        "estimated_cost": 321.88
+    },
+    {
+        "city": "Navarro Mills",
+        "state": "Texas",
+        "lat": "31.95793",
+        "lng": "-96.68221",
+        "distance": "79.77196",
+        "estimated_cost": 322.04
+    },
+    {
+        "city": "Granger",
+        "state": "Texas",
+        "lat": "30.71769",
+        "lng": "-97.44278",
+        "distance": "79.85086",
+        "estimated_cost": 322.2
+    },
+    {
+        "city": "Seger",
+        "state": "Texas",
+        "lat": "30.9213",
+        "lng": "-96.62331",
+        "distance": "79.97165",
+        "estimated_cost": 322.44
+    },
+    {
+        "city": "San Gabriel",
+        "state": "Texas",
+        "lat": "30.69436",
+        "lng": "-97.1961",
+        "distance": "80.01016",
+        "estimated_cost": 322.52
+    },
+    {
+        "city": "Keelersville",
+        "state": "Texas",
+        "lat": "30.73602",
+        "lng": "-97.51834",
+        "distance": "80.02717",
+        "estimated_cost": 322.55
+    },
+    {
+        "city": "Goodland",
+        "state": "Texas",
+        "lat": "30.88213",
+        "lng": "-96.66803",
+        "distance": "80.07717",
+        "estimated_cost": 322.65
+    },
+    {
+        "city": "Theon",
+        "state": "Texas",
+        "lat": "30.76297",
+        "lng": "-97.59723",
+        "distance": "80.17133",
+        "estimated_cost": 322.84
+    },
+    {
+        "city": "Aleman",
+        "state": "Texas",
+        "lat": "31.63238",
+        "lng": "-98.04225",
+        "distance": "80.39978",
+        "estimated_cost": 323.3
+    },
+    {
+        "city": "Laneport",
+        "state": "Texas",
+        "lat": "30.69075",
+        "lng": "-97.27888",
+        "distance": "80.43741",
+        "estimated_cost": 323.37
+    },
+    {
+        "city": "Bee House",
+        "state": "Texas",
+        "lat": "31.40239",
+        "lng": "-98.08086",
+        "distance": "80.48901",
+        "estimated_cost": 323.48
+    },
+    {
+        "city": "Bee House",
+        "state": "Texas",
+        "lat": "31.40266",
+        "lng": "-98.08114",
+        "distance": "80.51476",
+        "estimated_cost": 323.53
+    },
+    {
+        "city": "Kimball (historical)",
+        "state": "Texas",
+        "lat": "32.10904",
+        "lng": "-97.48585",
+        "distance": "80.52718",
+        "estimated_cost": 323.55
+    },
+    {
+        "city": "Fallon",
+        "state": "Texas",
+        "lat": "31.581",
+        "lng": "-96.40637",
+        "distance": "80.80162",
+        "estimated_cost": 324.1
+    },
+    {
+        "city": "Izoro",
+        "state": "Texas",
+        "lat": "31.29433",
+        "lng": "-98.07559",
+        "distance": "81.13554",
+        "estimated_cost": 324.77
+    },
+    {
+        "city": "Oakalla",
+        "state": "Texas",
+        "lat": "30.98629",
+        "lng": "-97.9253",
+        "distance": "81.21124",
+        "estimated_cost": 324.92
+    },
+    {
+        "city": "Elm Grove",
+        "state": "Texas",
+        "lat": "30.6852",
+        "lng": "-97.32",
+        "distance": "81.35167",
+        "estimated_cost": 325.2
+    },
+    {
+        "city": "Slab Crossing",
+        "state": "Texas",
+        "lat": "31.52599",
+        "lng": "-98.08114",
+        "distance": "81.3816",
+        "estimated_cost": 325.26
+    },
+    {
+        "city": "Point Enterprise",
+        "state": "Texas",
+        "lat": "31.65906",
+        "lng": "-96.42553",
+        "distance": "81.4477",
+        "estimated_cost": 325.4
+    },
+    {
+        "city": "Elliot",
+        "state": "Texas",
+        "lat": "30.9538",
+        "lng": "-96.56858",
+        "distance": "81.53352",
+        "estimated_cost": 325.57
+    },
+    {
+        "city": "Woodrow",
+        "state": "Texas",
+        "lat": "32.14821",
+        "lng": "-97.31668",
+        "distance": "81.64285",
+        "estimated_cost": 325.79
+    },
+    {
+        "city": "Kempner",
+        "state": "Texas",
+        "lat": "31.08101",
+        "lng": "-98.00252",
+        "distance": "82.00263",
+        "estimated_cost": 326.51
+    },
+    {
+        "city": "Ohio",
+        "state": "Texas",
+        "lat": "31.53933",
+        "lng": "-98.08614",
+        "distance": "82.08048",
+        "estimated_cost": 326.66
+    },
+    {
+        "city": "Blum",
+        "state": "Texas",
+        "lat": "32.14265",
+        "lng": "-97.39724",
+        "distance": "82.11384",
+        "estimated_cost": 326.73
+    },
+    {
+        "city": "Walburg",
+        "state": "Texas",
+        "lat": "30.73686",
+        "lng": "-97.58029",
+        "distance": "82.13115",
+        "estimated_cost": 326.76
+    },
+    {
+        "city": "Ballard Crossing",
+        "state": "Texas",
+        "lat": "31.53988",
+        "lng": "-98.08864",
+        "distance": "82.32478",
+        "estimated_cost": 327.15
+    },
+    {
+        "city": "Lost Prairie",
+        "state": "Texas",
+        "lat": "31.49878",
+        "lng": "-96.37192",
+        "distance": "82.51374",
+        "estimated_cost": 327.53
+    },
+    {
+        "city": "Hare",
+        "state": "Texas",
+        "lat": "30.67103",
+        "lng": "-97.27305",
+        "distance": "82.59425",
+        "estimated_cost": 327.69
+    },
+    {
+        "city": "Liberty Hill",
+        "state": "Texas",
+        "lat": "30.67381",
+        "lng": "-97.14332",
+        "distance": "82.66486",
+        "estimated_cost": 327.83
+    },
+    {
+        "city": "Bi-Stone",
+        "state": "Texas",
+        "lat": "31.68628",
+        "lng": "-96.42276",
+        "distance": "82.73388",
+        "estimated_cost": 327.97
+    },
+    {
+        "city": "Seale",
+        "state": "Texas",
+        "lat": "31.31323",
+        "lng": "-96.37303",
+        "distance": "82.74461",
+        "estimated_cost": 327.99
+    },
+    {
+        "city": "Itasca",
+        "state": "Texas",
+        "lat": "32.15959",
+        "lng": "-97.15001",
+        "distance": "82.92238",
+        "estimated_cost": 328.34
+    },
+    {
+        "city": "Retreat",
+        "state": "Texas",
+        "lat": "32.13459",
+        "lng": "-97.47419",
+        "distance": "82.92834",
+        "estimated_cost": 328.36
+    },
+    {
+        "city": "Florence",
+        "state": "Texas",
+        "lat": "30.8413",
+        "lng": "-97.79363",
+        "distance": "83.02073",
+        "estimated_cost": 328.54
+    },
+    {
+        "city": "Raleigh",
+        "state": "Texas",
+        "lat": "32.00904",
+        "lng": "-96.69888",
+        "distance": "83.1461",
+        "estimated_cost": 328.79
+    },
+    {
+        "city": "Purdon",
+        "state": "Texas",
+        "lat": "31.94905",
+        "lng": "-96.61665",
+        "distance": "83.28225",
+        "estimated_cost": 329.06
+    },
+    {
+        "city": "Milford",
+        "state": "Texas",
+        "lat": "32.1246",
+        "lng": "-96.94528",
+        "distance": "83.2912",
+        "estimated_cost": 329.08
+    },
+    {
+        "city": "Franklin",
+        "state": "Texas",
+        "lat": "31.02602",
+        "lng": "-96.48524",
+        "distance": "83.42839",
+        "estimated_cost": 329.36
+    },
+    {
+        "city": "Silver City",
+        "state": "Texas",
+        "lat": "31.9746",
+        "lng": "-96.64054",
+        "distance": "83.77482",
+        "estimated_cost": 330.05
+    },
+    {
+        "city": "Rumley",
+        "state": "Texas",
+        "lat": "31.17295",
+        "lng": "-98.06808",
+        "distance": "83.78141",
+        "estimated_cost": 330.06
+    },
+    {
+        "city": "Round Prairie",
+        "state": "Texas",
+        "lat": "31.29601",
+        "lng": "-96.36441",
+        "distance": "83.84359",
+        "estimated_cost": 330.19
+    },
+    {
+        "city": "Wortham",
+        "state": "Texas",
+        "lat": "31.78794",
+        "lng": "-96.46248",
+        "distance": "84.12105",
+        "estimated_cost": 330.74
+    },
+    {
+        "city": "Frost",
+        "state": "Texas",
+        "lat": "32.08015",
+        "lng": "-96.80666",
+        "distance": "84.13897",
+        "estimated_cost": 330.78
+    },
+    {
+        "city": "Covington",
+        "state": "Texas",
+        "lat": "32.17848",
+        "lng": "-97.25807",
+        "distance": "84.65835",
+        "estimated_cost": 331.82
+    },
+    {
+        "city": "Detmold",
+        "state": "Texas",
+        "lat": "30.6502",
+        "lng": "-97.21416",
+        "distance": "84.84449",
+        "estimated_cost": 332.19
+    },
+    {
+        "city": "Mozo",
+        "state": "Texas",
+        "lat": "30.69158",
+        "lng": "-97.525",
+        "distance": "84.88772",
+        "estimated_cost": 332.28
+    },
+    {
+        "city": "Brooks Crossing",
+        "state": "Texas",
+        "lat": "31.11628",
+        "lng": "-98.0553",
+        "distance": "84.90221",
+        "estimated_cost": 332.3
+    },
+    {
+        "city": "Hoxie",
+        "state": "Texas",
+        "lat": "30.65436",
+        "lng": "-97.34611",
+        "distance": "85.0295",
+        "estimated_cost": 332.56
+    },
+    {
+        "city": "Parsley Crossing",
+        "state": "Texas",
+        "lat": "31.56766",
+        "lng": "-98.11226",
+        "distance": "85.08309",
+        "estimated_cost": 332.67
+    },
+    {
+        "city": "Gause",
+        "state": "Texas",
+        "lat": "30.78519",
+        "lng": "-96.72136",
+        "distance": "85.30648",
+        "estimated_cost": 333.11
+    },
+    {
+        "city": "Valley Junction",
+        "state": "Texas",
+        "lat": "30.84186",
+        "lng": "-96.63775",
+        "distance": "85.33361",
+        "estimated_cost": 333.17
+    },
+    {
+        "city": "Hearne",
+        "state": "Texas",
+        "lat": "30.87852",
+        "lng": "-96.59303",
+        "distance": "85.34559",
+        "estimated_cost": 333.19
+    },
+    {
+        "city": "Fairy",
+        "state": "Texas",
+        "lat": "31.84598",
+        "lng": "-97.98253",
+        "distance": "85.53307",
+        "estimated_cost": 333.57
+    },
+    {
+        "city": "Derden",
+        "state": "Texas",
+        "lat": "32.18376",
+        "lng": "-97.32863",
+        "distance": "85.6784",
+        "estimated_cost": 333.86
+    },
+    {
+        "city": "Nashville",
+        "state": "Texas",
+        "lat": "30.82583",
+        "lng": "-96.65278",
+        "distance": "85.73369",
+        "estimated_cost": 333.97
+    },
+    {
+        "city": "Milano",
+        "state": "Texas",
+        "lat": "30.71047",
+        "lng": "-96.86331",
+        "distance": "85.79849",
+        "estimated_cost": 334.1
+    },
+    {
+        "city": "Hallmark Crossing",
+        "state": "Texas",
+        "lat": "31.08573",
+        "lng": "-98.05142",
+        "distance": "85.95709",
+        "estimated_cost": 334.41
+    },
+    {
+        "city": "Pursley",
+        "state": "Texas",
+        "lat": "31.91794",
+        "lng": "-96.54387",
+        "distance": "86.00685",
+        "estimated_cost": 334.51
+    },
+    {
+        "city": "Personville",
+        "state": "Texas",
+        "lat": "31.51267",
+        "lng": "-96.33664",
+        "distance": "86.01996",
+        "estimated_cost": 334.54
+    },
+    {
+        "city": "Sandoval",
+        "state": "Texas",
+        "lat": "30.6402",
+        "lng": "-97.29055",
+        "distance": "86.0967",
+        "estimated_cost": 334.69
+    },
+    {
+        "city": "Dresden",
+        "state": "Texas",
+        "lat": "32.03071",
+        "lng": "-96.68055",
+        "distance": "86.1061",
+        "estimated_cost": 334.71
+    },
+    {
+        "city": "Walnut Springs",
+        "state": "Texas",
+        "lat": "32.05765",
+        "lng": "-97.74947",
+        "distance": "86.33825",
+        "estimated_cost": 335.18
+    },
+    {
+        "city": "New Baden",
+        "state": "Texas",
+        "lat": "31.05102",
+        "lng": "-96.42913",
+        "distance": "86.71368",
+        "estimated_cost": 335.93
+    },
+    {
+        "city": "Rockdale",
+        "state": "Texas",
+        "lat": "30.65548",
+        "lng": "-97.00137",
+        "distance": "87.12939",
+        "estimated_cost": 336.76
+    },
+    {
+        "city": "Waterloo",
+        "state": "Texas",
+        "lat": "30.63881",
+        "lng": "-97.38833",
+        "distance": "87.32737",
+        "estimated_cost": 337.15
+    },
+    {
+        "city": "Iredell",
+        "state": "Texas",
+        "lat": "31.98515",
+        "lng": "-97.87197",
+        "distance": "87.43034",
+        "estimated_cost": 337.36
+    },
+    {
+        "city": "Evant",
+        "state": "Texas",
+        "lat": "31.47627",
+        "lng": "-98.15198",
+        "distance": "87.46663",
+        "estimated_cost": 337.43
+    },
+    {
+        "city": "Handy",
+        "state": "Texas",
+        "lat": "30.6352",
+        "lng": "-97.08999",
+        "distance": "87.57984",
+        "estimated_cost": 337.66
+    },
+    {
+        "city": "Berrys Creek",
+        "state": "Texas",
+        "lat": "30.71519",
+        "lng": "-97.66001",
+        "distance": "87.59478",
+        "estimated_cost": 337.69
+    },
+    {
+        "city": "Briggs",
+        "state": "Texas",
+        "lat": "30.88963",
+        "lng": "-97.92502",
+        "distance": "87.92269",
+        "estimated_cost": 338.35
+    },
+    {
+        "city": "Easterly",
+        "state": "Texas",
+        "lat": "31.10546",
+        "lng": "-96.38413",
+        "distance": "87.98153",
+        "estimated_cost": 338.46
+    },
+    {
+        "city": "Cotton Gin",
+        "state": "Texas",
+        "lat": "31.681",
+        "lng": "-96.36053",
+        "distance": "88.06937",
+        "estimated_cost": 338.64
+    },
+    {
+        "city": "Marjorie",
+        "state": "Texas",
+        "lat": "30.63131",
+        "lng": "-97.08416",
+        "distance": "88.09472",
+        "estimated_cost": 338.69
+    },
+    {
+        "city": "Gause-Milano",
+        "state": "Texas",
+        "lat": "30.73286",
+        "lng": "-96.75837",
+        "distance": "88.25705",
+        "estimated_cost": 339.01
+    },
+    {
+        "city": "Wuthrich Hill",
+        "state": "Texas",
+        "lat": "30.62603",
+        "lng": "-97.36055",
+        "distance": "88.32407",
+        "estimated_cost": 339.15
+    },
+    {
+        "city": "Circleville",
+        "state": "Texas",
+        "lat": "30.63742",
+        "lng": "-97.43556",
+        "distance": "88.34768",
+        "estimated_cost": 339.2
+    },
+    {
+        "city": "Fair Oaks",
+        "state": "Texas",
+        "lat": "31.48684",
+        "lng": "-96.30747",
+        "distance": "88.48002",
+        "estimated_cost": 339.46
+    },
+    {
+        "city": "Weir",
+        "state": "Texas",
+        "lat": "30.6738",
+        "lng": "-97.58473",
+        "distance": "88.74023",
+        "estimated_cost": 339.98
+    },
+    {
+        "city": "Thorndale",
+        "state": "Texas",
+        "lat": "30.61381",
+        "lng": "-97.20555",
+        "distance": "88.89932",
+        "estimated_cost": 340.3
+    },
+    {
+        "city": "Shortall",
+        "state": "Texas",
+        "lat": "31.07545",
+        "lng": "-98.08169",
+        "distance": "89.0562",
+        "estimated_cost": 340.61
+    },
+    {
+        "city": "Highland",
+        "state": "Texas",
+        "lat": "32.17209",
+        "lng": "-97.54974",
+        "distance": "89.06991",
+        "estimated_cost": 340.64
+    },
+    {
+        "city": "Black Jack",
+        "state": "Texas",
+        "lat": "30.88852",
+        "lng": "-96.5283",
+        "distance": "89.13991",
+        "estimated_cost": 340.78
+    },
+    {
+        "city": "Praesel",
+        "state": "Texas",
+        "lat": "30.63103",
+        "lng": "-97.00999",
+        "distance": "89.55223",
+        "estimated_cost": 341.6
+    },
+    {
+        "city": "Plum Grove",
+        "state": "Texas",
+        "lat": "32.1957",
+        "lng": "-96.98945",
+        "distance": "89.59783",
+        "estimated_cost": 341.7
+    },
+    {
+        "city": "Blooming Grove",
+        "state": "Texas",
+        "lat": "32.0921",
+        "lng": "-96.71582",
+        "distance": "89.71121",
+        "estimated_cost": 341.92
+    },
+    {
+        "city": "Adamsville",
+        "state": "Texas",
+        "lat": "31.30128",
+        "lng": "-98.16892",
+        "distance": "89.79131",
+        "estimated_cost": 342.08
+    },
+    {
+        "city": "Currie",
+        "state": "Texas",
+        "lat": "31.86377",
+        "lng": "-96.44359",
+        "distance": "90.01826",
+        "estimated_cost": 342.54
+    },
+    {
+        "city": "Lone Oak",
+        "state": "Texas",
+        "lat": "32.11876",
+        "lng": "-96.75972",
+        "distance": "90.04795",
+        "estimated_cost": 342.6
+    },
+    {
+        "city": "Sun City",
+        "state": "Texas",
+        "lat": "30.71588",
+        "lng": "-97.71734",
+        "distance": "90.19544",
+        "estimated_cost": 342.89
+    },
+    {
+        "city": "Hamilton",
+        "state": "Texas",
+        "lat": "31.70377",
+        "lng": "-98.12392",
+        "distance": "90.29214",
+        "estimated_cost": 343.08
+    },
+    {
+        "city": "Greens Crossing",
+        "state": "Texas",
+        "lat": "30.83574",
+        "lng": "-97.90169",
+        "distance": "90.42506",
+        "estimated_cost": 343.35
+    },
+    {
+        "city": "Serenada",
+        "state": "Texas",
+        "lat": "30.69936",
+        "lng": "-97.69195",
+        "distance": "90.58472",
+        "estimated_cost": 343.67
+    },
+    {
+        "city": "New Hope",
+        "state": "Texas",
+        "lat": "31.41129",
+        "lng": "-96.28136",
+        "distance": "90.64283",
+        "estimated_cost": 343.79
+    },
+    {
+        "city": "Tatsie Crossing",
+        "state": "Texas",
+        "lat": "30.80103",
+        "lng": "-96.60664",
+        "distance": "90.69757",
+        "estimated_cost": 343.9
+    },
+    {
+        "city": "Files Valley",
+        "state": "Texas",
+        "lat": "32.22265",
+        "lng": "-97.07695",
+        "distance": "90.76202",
+        "estimated_cost": 344.02
+    },
+    {
+        "city": "Farrar",
+        "state": "Texas",
+        "lat": "31.45684",
+        "lng": "-96.2808",
+        "distance": "90.78974",
+        "estimated_cost": 344.08
+    },
+    {
+        "city": "Faubion Crossing",
+        "state": "Texas",
+        "lat": "31.39072",
+        "lng": "-98.19003",
+        "distance": "90.90398",
+        "estimated_cost": 344.31
+    },
+    {
+        "city": "Jonah",
+        "state": "Texas",
+        "lat": "30.63797",
+        "lng": "-97.54084",
+        "distance": "91.00275",
+        "estimated_cost": 344.51
+    },
+    {
+        "city": "Italy",
+        "state": "Texas",
+        "lat": "32.18404",
+        "lng": "-96.88472",
+        "distance": "91.45701",
+        "estimated_cost": 345.41
+    },
+    {
+        "city": "Watson",
+        "state": "Texas",
+        "lat": "30.93435",
+        "lng": "-98.01447",
+        "distance": "91.48902",
+        "estimated_cost": 345.48
+    },
+    {
+        "city": "Tatsie",
+        "state": "Texas",
+        "lat": "30.79353",
+        "lng": "-96.60219",
+        "distance": "91.60377",
+        "estimated_cost": 345.71
+    },
+    {
+        "city": "Salty",
+        "state": "Texas",
+        "lat": "30.59353",
+        "lng": "-97.13277",
+        "distance": "91.62136",
+        "estimated_cost": 345.74
+    },
+    {
+        "city": "Thrall",
+        "state": "Texas",
+        "lat": "30.59048",
+        "lng": "-97.29694",
+        "distance": "91.63652",
+        "estimated_cost": 345.77
+    }
+]

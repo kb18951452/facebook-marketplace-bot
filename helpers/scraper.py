@@ -10,8 +10,9 @@ from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
-from selenium.common.exceptions import InvalidArgumentException
+from selenium.common.exceptions import InvalidArgumentException, TimeoutException
 from selenium.common.exceptions import ElementClickInterceptedException
+
 
 class Scraper:
 	# This time is used when we are waiting for element to get loaded in the html
@@ -33,6 +34,7 @@ class Scraper:
 	# Add these options in order to make chrome driver appear as a human instead of detecting it as a bot
 	# Also change the 'cdc_' string in the chromedriver.exe with Notepad++ for example with 'abc_' to prevent detecting it as a bot
 	def setup_driver_options(self):
+
 		self.driver_options = Options()
 
 		arguments = [
@@ -52,8 +54,9 @@ class Scraper:
 
 	# Setup chrome driver with predefined options
 	def setup_driver(self):
-		chrome_driver_path = ChromeDriverManager().install()
-		self.driver = webdriver.Chrome(service=ChromeService(chrome_driver_path), options = self.driver_options)
+		# chrome_driver_path = ChromeDriverManager().install()
+		chrome_driver_path = './chromedriver/chromedriver.exe'
+		self.driver = webdriver.Chrome(service=ChromeService(chrome_driver_path), options=self.driver_options)
 		self.driver.get(self.url)
 		self.driver.maximize_window()
 
@@ -68,12 +71,12 @@ class Scraper:
 		if self.is_cookie_file():
 			# Load cookies
 			self.load_cookies()
-			
+
 			# Check if user is logged in after adding the cookies
 			is_logged_in = self.is_logged_in(5)
 			if is_logged_in:
 				return
-		
+
 		# Wait for the user to log in with maximum amount of time 5 minutes
 		print('Please login manually in the browser and after that you will be automatically loged in with cookies. Note that if you do not log in for five minutes, the program will turn off.')
 		is_logged_in = self.is_logged_in(300)
@@ -94,7 +97,7 @@ class Scraper:
 		# Load cookies from the file
 		cookies_file = open(self.cookies_file_path, 'rb')
 		cookies = pickle.load(cookies_file)
-		
+
 		for cookie in cookies:
 			self.driver.add_cookie(cookie)
 
@@ -104,7 +107,7 @@ class Scraper:
 
 	# Save cookies to file
 	def save_cookies(self):
-		# Do not save cookies if there is no cookies_file name 
+		# Do not save cookies if there is no cookies_file name
 		if not hasattr(self, 'cookies_file_path'):
 			return
 
@@ -114,7 +117,7 @@ class Scraper:
 
 		# Open or create cookies file
 		cookies_file = open(self.cookies_file_path, 'wb')
-		
+
 		# Get current cookies from the driver
 		cookies = self.driver.get_cookies()
 
@@ -233,7 +236,7 @@ class Scraper:
 			element.click()
 		except ElementClickInterceptedException:
 			self.driver.execute_script("arguments[0].click();", element)
-		
+
 		element.send_keys(text)
 
 	def input_file_add_files(self, selector, files):
@@ -270,7 +273,7 @@ class Scraper:
 			self.wait_random_time()
 
 		element = self.find_element(selector)
-		
+
 		# Select all of the text in the input
 		element.send_keys(Keys.LEFT_SHIFT + Keys.HOME)
 		# Remove the selected text with backspace
@@ -283,7 +286,19 @@ class Scraper:
 			WebDriverWait(self.driver, self.wait_element_time).until(wait_until)
 		except:
 			print('Error waiting the element with selector "' + selector + '" to be invisible')
-	
+
+	def element_wait_to_be_present(self, selector, selector_type=By.CSS_SELECTOR):
+		wait_until = EC.presence_of_element_located((selector_type, selector))
+
+		try:
+			WebDriverWait(self.driver, self.wait_element_time).until(wait_until)
+		except TimeoutException:
+			self.logger.error(f'Error waiting for the element with selector "{selector}" to be present')
+		except Exception as e:
+			self.logger.exception(f'Unexpected error while waiting for \
+	    element with selector "{selector}" to be present: {e}')
+			exit()
+
 	def scroll_to_element(self, selector):
 		element = self.find_element(selector)
 
