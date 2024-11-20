@@ -200,7 +200,7 @@ class Scraper:
 			self.driver.execute_script("arguments[0].click();", element)
 
 	# Wait random time before clicking on the element
-	def element_click_by_xpath(self, xpath, delay = True):
+	def element_click_by_xpath(self, xpath, delay=True):
 		if delay:
 			self.wait_random_time()
 

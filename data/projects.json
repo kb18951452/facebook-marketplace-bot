@@ -1,0 +1,104 @@
+{
+  "projects": [
+    {
+      "type": "Land Clearing",
+      "description": "Clear bushes, small trees, or debris for new construction, landscaping, or gardening."
+    },
+    {
+      "type": "Pond Excavation",
+      "description": "Digging new ponds for fishing, irrigation, or aesthetic purposes."
+    },
+    {
+      "type": "Foundation Digging",
+      "description": "Prepare foundations for structures like sheds, garages, or home additions."
+    },
+    {
+      "type": "Trenching for Utilities",
+      "description": "Install or repair utility lines by trenching for water, sewer, or electrical conduits."
+    },
+    {
+      "type": "Driveway and Pathway",
+      "description": "Create new driveways or pathways by excavating and leveling the ground."
+    },
+    {
+      "type": "Garden Bed Preparation",
+      "description": "Dig deep for large scale garden projects or raised beds."
+    },
+    {
+      "type": "Tree Stump Removal",
+      "description": "Extract stumps or prepare areas post tree removal for construction or replanting."
+    },
+    {
+      "type": "Demolition Work",
+      "description": "Break down old structures, concrete, or other materials requiring controlled demolition."
+    },
+    {
+      "type": "Culvert Installation",
+      "description": "Dig for culverts to manage water flow, especially useful in areas prone to drainage issues."
+    },
+    {
+      "type": "Irrigation System",
+      "description": "Trench for drip or sprinkler irrigation systems in yards or agricultural settings."
+    },
+    {
+      "type": "Septic System",
+      "description": "Excavate for new septic installations or repair existing systems."
+    },
+    {
+      "type": "Retaining Wall",
+      "description": "Prepare the site for retaining walls to stabilize soil or create terraces."
+    },
+    {
+      "type": "Dirt and Gravel Moving",
+      "description": "Grade or move large volumes of dirt or gravel for landscaping or construction."
+    },
+    {
+      "type": "Slope Stabilization",
+      "description": "Stabilize slopes or hillsides to prevent erosion or landslides."
+    },
+    {
+      "type": "Swimming Pool Excavation",
+      "description": "Dig out the necessary volume of soil for installing an inground swimming pool."
+    },
+    {
+      "type": "French Drain Installation",
+      "description": "Create trenches for French drains to manage yard water drainage."
+    },
+    {
+      "type": "Landscape Features",
+      "description": "Excavate for features like rock gardens, water features, or outdoor fire pits."
+    },
+    {
+      "type": "Deck or Patio Foundation",
+      "description": "Digging for deck posts or leveling areas for patios."
+    },
+    {
+      "type": "Underground Storage",
+      "description": "Digging spaces for underground storage tanks (like for rainwater or oil)."
+    },
+    {
+      "type": "Trail Building",
+      "description": "Create hiking or biking trails through woods or over uneven terrain."
+    },
+    {
+      "type": "Playground Setup",
+      "description": "Prepare the ground for playground equipment installation, ensuring safety and drainage."
+    },
+    {
+      "type": "Soil Aeration",
+      "description": "Deep aeration for agricultural or sports fields to improve soil health."
+    },
+    {
+      "type": "Cable & Pipe Burial",
+      "description": "Bury cables or pipes that need to be protected or hidden, like for telecom or gas lines."
+    },
+    {
+      "type": "Horse Arena Construction",
+      "description": "Level and prepare the ground for equestrian arenas or riding rings."
+    },
+    {
+      "type": "Water Well Installation",
+      "description": "Digging initial stages or areas around for water well installations."
+    }
+  ]
+}

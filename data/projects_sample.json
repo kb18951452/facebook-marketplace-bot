@@ -1,0 +1,22 @@
+[
+    {
+      "type": "{equipment_title} Rental",
+      "description": "Extract stumps or prepare areas post tree removal for construction or replanting.",
+      "Equipment": ["KX71-3"]
+    },
+    {
+      "type": "Tree Stump Removal",
+      "description": "Extract stumps or prepare areas post tree removal for construction or replanting.",
+      "Equipment": ["KX71-3"]
+    },
+    {
+      "type": "Foundation Digging",
+      "description": "Prepare foundations for structures like sheds, garages, or home additions.",
+      "Equipment": ["KX71-3", "SVL75-2"]
+    },
+    {
+      "type": "Driveway and Pathway",
+      "description": "Create new driveways or pathways by excavating and leveling the ground.",
+      "Equipment": ["SVL75-2"]
+    }
+  ]

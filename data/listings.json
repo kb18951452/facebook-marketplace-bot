@@ -1,0 +1,14 @@
+[
+  {
+    "Photos_Folder": "./photos",
+    "Photos_Names": ["photo1.png"],
+    "Price": "200",
+    "Description": "Fake Description",
+    "Location": "Lorena, Texas",
+    "Title": "Fake Title",
+    "Category": "Miscellaneous",
+    "Condition": "Used - Like New",
+    "Brand": "Unknown",
+    "Equipment": ["KX71-3", "SVL75-2"]
+  }
+]

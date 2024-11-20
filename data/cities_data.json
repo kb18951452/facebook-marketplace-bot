@@ -1,7 +1,7 @@
 [
     {
         "city": "Lorena",
-        "state": "Texas",
+        "state": "TX",
         "lat": "31.38656",
         "lng": "-97.21556",
         "distance": "3.66019",
@@ -9,7 +9,7 @@
     },
     {
         "city": "Spring Valley",
-        "state": "Texas",
+        "state": "TX",
         "lat": "31.39989",
         "lng": "-97.29001",
         "distance": "5.53907",
@@ -17,7 +17,7 @@
     },
     {
         "city": "Hewitt",
-        "state": "Texas",
+        "state": "TX",
         "lat": "31.46239",
         "lng": "-97.19584",
         "distance": "6.39367",
@@ -25,7 +25,7 @@
     },
     {
         "city": "Ritchie",
-        "state": "Texas",
+        "state": "TX",
         "lat": "31.47933",
         "lng": "-97.22667",
         "distance": "7.14445",
@@ -33,7 +33,7 @@
     },
     {
         "city": "Atco",
-        "state": "Texas",
+        "state": "TX",
         "lat": "31.47989",
         "lng": "-97.24528",
         "distance": "7.23818",
@@ -41,7 +41,7 @@
     },
     {
         "city": "South Bosque",
-        "state": "Texas",
+        "state": "TX",
         "lat": "31.48183",
         "lng": "-97.28806",
         "distance": "8.963",
@@ -49,7 +49,7 @@
     },
     {
         "city": "Moody-Lorena",
-        "state": "Texas",
+        "state": "TX",
         "lat": "31.33862",
         "lng": "-97.27693",
         "distance": "9.40359",
@@ -57,7 +57,7 @@
     },
     {
         "city": "Jewell",
-        "state": "Texas",
+        "state": "TX",
         "lat": "31.50294",
         "lng": "-97.19612",
         "distance": "10.38736",
@@ -65,7 +65,7 @@
     },
     {
         "city": "Woodway",
-        "state": "Texas",
+        "state": "TX",
         "lat": "31.506",
         "lng": "-97.20501",
         "distance": "10.44678",
@@ -73,7 +73,7 @@
     },
     {
         "city": "Bruceville",
-        "state": "Texas",
+        "state": "TX",
         "lat": "31.31934",
         "lng": "-97.23667",
         "distance": "10.63672",
@@ -81,7 +81,7 @@
     },
     {
         "city": "Levi",
-        "state": "Texas",
+        "state": "TX",
         "lat": "31.37712",
         "lng": "-97.12222",
         "distance": "11.49269",
@@ -89,7 +89,7 @@
     },
     {
         "city": "Bruceville-Eddy",
-        "state": "Texas",
+        "state": "TX",
         "lat": "31.30517",
         "lng": "-97.25167",
         "distance": "12.31337",
@@ -97,7 +97,7 @@
     },
     {
         "city": "Robinson",
-        "state": "Texas",
+        "state": "TX",
         "lat": "31.46767",
         "lng": "-97.11472",
         "distance": "12.79056",
@@ -105,7 +105,7 @@
     },
     {
         "city": "Rosenthal",
-        "state": "Texas",
+        "state": "TX",
         "lat": "31.41739",
         "lng": "-97.09944",
         "distance": "12.85222",
@@ -113,7 +113,7 @@
     },
     {
         "city": "Eddy",
-        "state": "Texas",
+        "state": "TX",
         "lat": "31.29462",
         "lng": "-97.25223",
         "distance": "13.48081",
@@ -121,7 +121,7 @@
     },
     {
         "city": "Beverly Hills",
-        "state": "Texas",
+        "state": "TX",
         "lat": "31.52156",
         "lng": "-97.15389",
         "distance": "14.06133",
@@ -129,7 +129,7 @@
     },
     {
         "city": "Golinda",
-        "state": "Texas",
+        "state": "TX",
         "lat": "31.37767",
         "lng": "-97.08278",
         "distance": "15.02734",
@@ -137,7 +137,7 @@
     },
     {
         "city": "Beverly",
-        "state": "Texas",
+        "state": "TX",
         "lat": "31.52517",
         "lng": "-97.14195",
         "distance": "15.0338",
@@ -145,7 +145,7 @@
     },
     {
         "city": "Mooreville",
-        "state": "Texas",
+        "state": "TX",
         "lat": "31.30212",
         "lng": "-97.14083",
         "distance": "15.39226",
@@ -153,7 +153,7 @@
     },
     {
         "city": "Windsor",
-        "state": "Texas",
+        "state": "TX",
         "lat": "31.52211",
         "lng": "-97.34196",
         "distance": "15.63613",
@@ -161,7 +161,7 @@
     },
     {
         "city": "Speegleville",
-        "state": "Texas",
+        "state": "TX",
         "lat": "31.556",
         "lng": "-97.25251",
         "distance": "15.6979",
@@ -169,7 +169,7 @@
     },
     {
         "city": "Willow Grove",
-        "state": "Texas",
+        "state": "TX",
         "lat": "31.55016",
         "lng": "-97.29584",
         "distance": "16.05106",
@@ -177,7 +177,7 @@
     },
     {
         "city": "Downs",
-        "state": "Texas",
+        "state": "TX",
         "lat": "31.45406",
         "lng": "-97.07",
         "distance": "16.22757",
@@ -185,7 +185,7 @@
     },
     {
         "city": "North Prairie",
-        "state": "Texas",
+        "state": "TX",
         "lat": "31.34184",
         "lng": "-97.08361",
         "distance": "16.50798",
@@ -193,7 +193,7 @@
     },
     {
         "city": "Downsville",
-        "state": "Texas",
+        "state": "TX",
         "lat": "31.45573",
         "lng": "-97.06694",
         "distance": "16.55684",
@@ -201,7 +201,7 @@
     },
     {
         "city": "McGregor",
-        "state": "Texas",
+        "state": "TX",
         "lat": "31.44406",
         "lng": "-97.40918",
         "distance": "16.90377",
@@ -209,7 +209,7 @@
     },
     {
         "city": "Moody",
-        "state": "Texas",
+        "state": "TX",
         "lat": "31.30823",
         "lng": "-97.3614",
         "distance": "16.92322",
@@ -217,7 +217,7 @@
     },
     {
         "city": "Waco",
-        "state": "Texas",
+        "state": "TX",
         "lat": "31.54933",
         "lng": "-97.14667",
         "distance": "17.05243",
@@ -225,7 +225,7 @@
     },
     {
         "city": "Asa",
-        "state": "Texas",
+        "state": "TX",
         "lat": "31.41434",
         "lng": "-97.05416",
         "distance": "17.15615",
@@ -233,7 +233,7 @@
     },
     {
         "city": "Highland",
-        "state": "Texas",
+        "state": "TX",
         "lat": "31.53461",
         "lng": "-97.35168",
         "distance": "17.28999",
@@ -241,7 +241,7 @@
     },
     {
         "city": "Ocee",
-        "state": "Texas",
+        "state": "TX",
         "lat": "31.556",
         "lng": "-97.35557",
         "distance": "19.38213",
@@ -249,7 +249,7 @@
     },
     {
         "city": "Dott",
-        "state": "Texas",
+        "state": "TX",
         "lat": "31.26156",
         "lng": "-97.12472",
         "distance": "19.99231",
@@ -257,7 +257,7 @@
     },
     {
         "city": "Cego",
-        "state": "Texas",
+        "state": "TX",
         "lat": "31.24518",
         "lng": "-97.1625",
         "distance": "20.06685",
@@ -265,7 +265,7 @@
     },
     {
         "city": "Guda",
-        "state": "Texas",
+        "state": "TX",
         "lat": "31.35878",
         "lng": "-97.03277",
         "distance": "20.19089",
@@ -273,7 +273,7 @@
     },
     {
         "city": "East Waco",
-        "state": "Texas",
+        "state": "TX",
         "lat": "31.55711",
         "lng": "-97.09695",
         "distance": "20.45529",
@@ -281,7 +281,7 @@
     },
     {
         "city": "Vemo",
-        "state": "Texas",
+        "state": "TX",
         "lat": "31.55017",
         "lng": "-97.085",
         "distance": "20.63445",
@@ -289,7 +289,7 @@
     },
     {
         "city": "Satin",
-        "state": "Texas",
+        "state": "TX",
         "lat": "31.34656",
         "lng": "-97.03166",
         "distance": "20.75079",
@@ -297,7 +297,7 @@
     },
     {
         "city": "Bannas Junction",
-        "state": "Texas",
+        "state": "TX",
         "lat": "31.60322",
         "lng": "-97.19473",
         "distance": "21.18227",
@@ -305,7 +305,7 @@
     },
     {
         "city": "Blevins",
-        "state": "Texas",
+        "state": "TX",
         "lat": "31.22323",
         "lng": "-97.20861",
         "distance": "21.43375",
@@ -313,7 +313,7 @@
     },
     {
         "city": "Whitson",
-        "state": "Texas",
+        "state": "TX",
         "lat": "31.33378",
         "lng": "-97.44057",
         "distance": "21.57713",
@@ -321,7 +321,7 @@
     },
     {
         "city": "Wardlaw",
-        "state": "Texas",
+        "state": "TX",
         "lat": "31.54656",
         "lng": "-97.06472",
         "distance": "21.73617",
@@ -329,7 +329,7 @@
     },
     {
         "city": "Bosqueville",
-        "state": "Texas",
+        "state": "TX",
         "lat": "31.60905",
         "lng": "-97.19528",
         "distance": "21.80983",
@@ -337,7 +337,7 @@
     },
     {
         "city": "Stampede",
-        "state": "Texas",
+        "state": "TX",
         "lat": "31.28212",
         "lng": "-97.4039",
         "distance": "21.85142",
@@ -345,7 +345,7 @@
     },
     {
         "city": "Chilton",
-        "state": "Texas",
+        "state": "TX",
         "lat": "31.28018",
         "lng": "-97.06416",
         "distance": "22.07468",
@@ -353,7 +353,7 @@
     },
     {
         "city": "Bellmead",
-        "state": "Texas",
+        "state": "TX",
         "lat": "31.59405",
         "lng": "-97.10889",
         "distance": "23.14306",
@@ -361,7 +361,7 @@
     },
     {
         "city": "Neale",
-        "state": "Texas",
+        "state": "TX",
         "lat": "31.52295",
         "lng": "-97.02416",
         "distance": "23.29058",
@@ -369,7 +369,7 @@
     },
     {
         "city": "Eichelberger Crossing",
-        "state": "Texas",
+        "state": "TX",
         "lat": "31.61683",
         "lng": "-97.30807",
         "distance": "23.41476",
@@ -377,7 +377,7 @@
     },
     {
         "city": "Crawford",
-        "state": "Texas",
+        "state": "TX",
         "lat": "31.53433",
         "lng": "-97.44307",
         "distance": "23.80816",
@@ -385,7 +385,7 @@
     },
     {
         "city": "Valley View",
-        "state": "Texas",
+        "state": "TX",
         "lat": "31.631",
         "lng": "-97.24445",
         "distance": "23.93944",
@@ -393,7 +393,7 @@
     },
     {
         "city": "Troy",
-        "state": "Texas",
+        "state": "TX",
         "lat": "31.20684",
         "lng": "-97.30278",
         "distance": "24.00249",
@@ -401,7 +401,7 @@
     },
     {
         "city": "Erath",
-        "state": "Texas",
+        "state": "TX",
         "lat": "31.63322",
         "lng": "-97.26362",
         "distance": "24.32431",
@@ -409,7 +409,7 @@
     },
     {
         "city": "Caldwell Crossing",
-        "state": "Texas",
+        "state": "TX",
         "lat": "31.62405",
         "lng": "-97.33473",
         "distance": "25.0291",
@@ -417,7 +417,7 @@
     },
     {
         "city": "Durango",
-        "state": "Texas",
+        "state": "TX",
         "lat": "31.2049",
         "lng": "-97.13055",
         "distance": "25.33858",
@@ -425,7 +425,7 @@
     },
     {
         "city": "Harrison",
-        "state": "Texas",
+        "state": "TX",
         "lat": "31.52267",
         "lng": "-96.99888",
         "distance": "25.36867",
@@ -433,7 +433,7 @@
     },
     {
         "city": "Meador Grove",
-        "state": "Texas",
+        "state": "TX",
         "lat": "31.28545",
         "lng": "-97.45696",
         "distance": "25.59036",
@@ -441,7 +441,7 @@
     },
     {
         "city": "Oglesby",
-        "state": "Texas",
+        "state": "TX",
         "lat": "31.4185",
         "lng": "-97.50724",
         "distance": "25.9282",
@@ -449,7 +449,7 @@
     },
     {
         "city": "Pendleton",
-        "state": "Texas",
+        "state": "TX",
         "lat": "31.19518",
         "lng": "-97.34862",
         "distance": "26.70723",
@@ -457,7 +457,7 @@
     },
     {
         "city": "China Spring",
-        "state": "Texas",
+        "state": "TX",
         "lat": "31.64917",
         "lng": "-97.30472",
         "distance": "26.77743",
@@ -465,7 +465,7 @@
     },
     {
         "city": "Lacy-Lakeview",
-        "state": "Texas",
+        "state": "TX",
         "lat": "31.62933",
         "lng": "-97.10278",
         "distance": "26.83532",
@@ -473,7 +473,7 @@
     },
     {
         "city": "Belfalls",
-        "state": "Texas",
+        "state": "TX",
         "lat": "31.17323",
         "lng": "-97.20361",
         "distance": "26.99572",
@@ -481,7 +481,7 @@
     },
     {
         "city": "China Springs",
-        "state": "Texas",
+        "state": "TX",
         "lat": "31.65239",
         "lng": "-97.30779",
         "distance": "27.19618",
@@ -489,7 +489,7 @@
     },
     {
         "city": "Oaklake",
-        "state": "Texas",
+        "state": "TX",
         "lat": "31.57239",
         "lng": "-97.01333",
         "distance": "27.30251",
@@ -497,7 +497,7 @@
     },
     {
         "city": "Cavitt",
-        "state": "Texas",
+        "state": "TX",
         "lat": "31.37572",
         "lng": "-97.51863",
         "distance": "27.36801",
@@ -505,7 +505,7 @@
     },
     {
         "city": "Ocaw",
-        "state": "Texas",
+        "state": "TX",
         "lat": "31.62322",
         "lng": "-97.07806",
         "distance": "27.43627",
@@ -513,7 +513,7 @@
     },
     {
         "city": "Triangle",
-        "state": "Texas",
+        "state": "TX",
         "lat": "31.28157",
         "lng": "-96.98999",
         "distance": "27.59364",
@@ -521,7 +521,7 @@
     },
     {
         "city": "Northcrest",
-        "state": "Texas",
+        "state": "TX",
         "lat": "31.63655",
         "lng": "-97.09972",
         "distance": "27.67903",
@@ -529,7 +529,7 @@
     },
     {
         "city": "Lime City",
-        "state": "Texas",
+        "state": "TX",
         "lat": "31.39461",
         "lng": "-97.52724",
         "distance": "27.92493",
@@ -537,7 +537,7 @@
     },
     {
         "city": "Rock Creek",
-        "state": "Texas",
+        "state": "TX",
         "lat": "31.66711",
         "lng": "-97.24167",
         "distance": "27.93316",
@@ -545,7 +545,7 @@
     },
     {
         "city": "Rocky Hill",
-        "state": "Texas",
+        "state": "TX",
         "lat": "31.34767",
         "lng": "-96.9486",
         "distance": "28.21623",
@@ -553,7 +553,7 @@
     },
     {
         "city": "White Hall",
-        "state": "Texas",
+        "state": "TX",
         "lat": "31.21934",
         "lng": "-97.42973",
         "distance": "28.58145",
@@ -561,7 +561,7 @@
     },
     {
         "city": "Tomlinson Hill",
-        "state": "Texas",
+        "state": "TX",
         "lat": "31.26573",
         "lng": "-96.98805",
         "distance": "28.72755",
@@ -569,7 +569,7 @@
     },
     {
         "city": "Lake Creek",
-        "state": "Texas",
+        "state": "TX",
         "lat": "31.50934",
         "lng": "-96.95055",
         "distance": "28.94005",
@@ -577,7 +577,7 @@
     },
     {
         "city": "Berger",
-        "state": "Texas",
+        "state": "TX",
         "lat": "31.16379",
         "lng": "-97.31973",
         "distance": "29.03607",
@@ -585,7 +585,7 @@
     },
     {
         "city": "Northwest Bell",
-        "state": "Texas",
+        "state": "TX",
         "lat": "31.22875",
         "lng": "-97.4511",
         "distance": "29.19456",
@@ -593,7 +593,7 @@
     },
     {
         "city": "Hallsburg",
-        "state": "Texas",
+        "state": "TX",
         "lat": "31.53878",
         "lng": "-96.95611",
         "distance": "29.79672",
@@ -601,7 +601,7 @@
     },
     {
         "city": "Patrick",
-        "state": "Texas",
+        "state": "TX",
         "lat": "31.68433",
         "lng": "-97.24806",
         "distance": "29.86208",
@@ -609,7 +609,7 @@
     },
     {
         "city": "Lott",
-        "state": "Texas",
+        "state": "TX",
         "lat": "31.20351",
         "lng": "-97.03666",
         "distance": "30.1026",
@@ -617,7 +617,7 @@
     },
     {
         "city": "Riesel",
-        "state": "Texas",
+        "state": "TX",
         "lat": "31.47489",
         "lng": "-96.92333",
         "distance": "30.31733",
@@ -625,7 +625,7 @@
     },
     {
         "city": "Perry",
-        "state": "Texas",
+        "state": "TX",
         "lat": "31.41795",
         "lng": "-96.91527",
         "distance": "30.36397",
@@ -633,7 +633,7 @@
     },
     {
         "city": "Elm Mott",
-        "state": "Texas",
+        "state": "TX",
         "lat": "31.67183",
         "lng": "-97.09889",
         "distance": "31.2307",
@@ -641,7 +641,7 @@
     },
     {
         "city": "Gholson",
-        "state": "Texas",
+        "state": "TX",
         "lat": "31.701",
         "lng": "-97.2164",
         "distance": "31.72965",
@@ -649,7 +649,7 @@
     },
     {
         "city": "The Grove",
-        "state": "Texas",
+        "state": "TX",
         "lat": "31.27323",
         "lng": "-97.52529",
         "distance": "31.8318",
@@ -657,7 +657,7 @@
     },
     {
         "city": "Oenaville",
-        "state": "Texas",
+        "state": "TX",
         "lat": "31.12768",
         "lng": "-97.22833",
         "distance": "31.89045",
@@ -665,7 +665,7 @@
     },
     {
         "city": "Belco",
-        "state": "Texas",
+        "state": "TX",
         "lat": "31.13601",
         "lng": "-97.33945",
         "distance": "32.53171",
@@ -673,7 +673,7 @@
     },
     {
         "city": "Moffat",
-        "state": "Texas",
+        "state": "TX",
         "lat": "31.1999",
         "lng": "-97.46834",
         "distance": "32.63983",
@@ -681,7 +681,7 @@
     },
     {
         "city": "Owl Creek",
-        "state": "Texas",
+        "state": "TX",
         "lat": "31.2274",
         "lng": "-97.51168",
         "distance": "33.60767",
@@ -689,7 +689,7 @@
     },
     {
         "city": "Osage",
-        "state": "Texas",
+        "state": "TX",
         "lat": "31.52461",
         "lng": "-97.56474",
         "distance": "33.63691",
@@ -697,7 +697,7 @@
     },
     {
         "city": "Blackland",
-        "state": "Texas",
+        "state": "TX",
         "lat": "31.47906",
         "lng": "-96.88638",
         "distance": "33.84627",
@@ -705,7 +705,7 @@
     },
     {
         "city": "Marlin",
-        "state": "Texas",
+        "state": "TX",
         "lat": "31.30629",
         "lng": "-96.89804",
         "distance": "34.22292",
@@ -713,7 +713,7 @@
     },
     {
         "city": "Pecan Grove (historical)",
-        "state": "Texas",
+        "state": "TX",
         "lat": "31.39517",
         "lng": "-97.5953",
         "distance": "34.37525",
@@ -721,7 +721,7 @@
     },
     {
         "city": "Rock Springs",
-        "state": "Texas",
+        "state": "TX",
         "lat": "31.68599",
         "lng": "-97.41668",
         "distance": "34.6426",
@@ -729,7 +729,7 @@
     },
     {
         "city": "Westphalia",
-        "state": "Texas",
+        "state": "TX",
         "lat": "31.11907",
         "lng": "-97.11527",
         "distance": "34.7497",
@@ -737,7 +737,7 @@
     },
     {
         "city": "Bland",
-        "state": "Texas",
+        "state": "TX",
         "lat": "31.21295",
         "lng": "-97.51446",
         "distance": "34.82638",
@@ -745,7 +745,7 @@
     },
     {
         "city": "Leon Junction",
-        "state": "Texas",
+        "state": "TX",
         "lat": "31.341",
         "lng": "-97.59418",
         "distance": "35.18391",
@@ -753,7 +753,7 @@
     },
     {
         "city": "Rogers Hill",
-        "state": "Texas",
+        "state": "TX",
         "lat": "31.73127",
         "lng": "-97.19889",
         "distance": "35.20322",
@@ -761,7 +761,7 @@
     },
     {
         "city": "Valley Mills",
-        "state": "Texas",
+        "state": "TX",
         "lat": "31.65933",
         "lng": "-97.47224",
         "distance": "35.23809",
@@ -769,7 +769,7 @@
     },
     {
         "city": "Ross",
-        "state": "Texas",
+        "state": "TX",
         "lat": "31.7185",
         "lng": "-97.11917",
         "distance": "35.36326",
@@ -777,7 +777,7 @@
     },
     {
         "city": "Elk",
-        "state": "Texas",
+        "state": "TX",
         "lat": "31.61656",
         "lng": "-96.93583",
         "distance": "36.10344",
@@ -785,7 +785,7 @@
     },
     {
         "city": "Battle",
-        "state": "Texas",
+        "state": "TX",
         "lat": "31.55267",
         "lng": "-96.88944",
         "distance": "36.16166",
@@ -793,7 +793,7 @@
     },
     {
         "city": "Ratibor",
-        "state": "Texas",
+        "state": "TX",
         "lat": "31.0874",
         "lng": "-97.2125",
         "distance": "36.41122",
@@ -801,7 +801,7 @@
     },
     {
         "city": "Jubilee Springs",
-        "state": "Texas",
+        "state": "TX",
         "lat": "31.17684",
         "lng": "-97.49918",
         "distance": "36.51539",
@@ -809,7 +809,7 @@
     },
     {
         "city": "Temple",
-        "state": "Texas",
+        "state": "TX",
         "lat": "31.09823",
         "lng": "-97.34278",
         "distance": "36.62904",
@@ -817,7 +817,7 @@
     },
     {
         "city": "Axtell",
-        "state": "Texas",
+        "state": "TX",
         "lat": "31.65822",
         "lng": "-96.97139",
         "distance": "36.74878",
@@ -825,7 +825,7 @@
     },
     {
         "city": "Morgans Point Resort",
-        "state": "Texas",
+        "state": "TX",
         "lat": "31.14823",
         "lng": "-97.46334",
         "distance": "36.75623",
@@ -833,7 +833,7 @@
     },
     {
         "city": "Gober",
-        "state": "Texas",
+        "state": "TX",
         "lat": "31.09851",
         "lng": "-97.36889",
         "distance": "37.37608",
@@ -841,7 +841,7 @@
     },
     {
         "city": "East Bell",
-        "state": "Texas",
+        "state": "TX",
         "lat": "31.07612",
         "lng": "-97.18708",
         "distance": "37.87256",
@@ -849,7 +849,7 @@
     },
     {
         "city": "Sunrise",
-        "state": "Texas",
+        "state": "TX",
         "lat": "31.2724",
         "lng": "-96.87304",
         "distance": "37.87515",
@@ -857,7 +857,7 @@
     },
     {
         "city": "Travis",
-        "state": "Texas",
+        "state": "TX",
         "lat": "31.13546",
         "lng": "-97.00277",
         "distance": "38.07502",
@@ -865,7 +865,7 @@
     },
     {
         "city": "Airville",
-        "state": "Texas",
+        "state": "TX",
         "lat": "31.07713",
         "lng": "-97.16361",
         "distance": "38.09458",
@@ -873,7 +873,7 @@
     },
     {
         "city": "Tokio",
-        "state": "Texas",
+        "state": "TX",
         "lat": "31.7585",
         "lng": "-97.15584",
         "distance": "38.78519",
@@ -881,7 +881,7 @@
     },
     {
         "city": "Mound",
-        "state": "Texas",
+        "state": "TX",
         "lat": "31.35183",
         "lng": "-97.63752",
         "distance": "38.96685",
@@ -889,7 +889,7 @@
     },
     {
         "city": "Wiggins",
-        "state": "Texas",
+        "state": "TX",
         "lat": "31.76127",
         "lng": "-97.15806",
         "distance": "39.04765",
@@ -897,7 +897,7 @@
     },
     {
         "city": "McClanahan",
-        "state": "Texas",
+        "state": "TX",
         "lat": "31.35712",
         "lng": "-96.8286",
         "distance": "39.15047",
@@ -905,7 +905,7 @@
     },
     {
         "city": "Ocker",
-        "state": "Texas",
+        "state": "TX",
         "lat": "31.07074",
         "lng": "-97.14361",
         "distance": "39.1689",
@@ -913,7 +913,7 @@
     },
     {
         "city": "Coryell",
-        "state": "Texas",
+        "state": "TX",
         "lat": "31.54627",
         "lng": "-97.61835",
         "distance": "39.25344",
@@ -921,7 +921,7 @@
     },
     {
         "city": "Barclay",
-        "state": "Texas",
+        "state": "TX",
         "lat": "31.07657",
         "lng": "-97.10944",
         "distance": "39.39814",
@@ -929,7 +929,7 @@
     },
     {
         "city": "Flat",
-        "state": "Texas",
+        "state": "TX",
         "lat": "31.30878",
         "lng": "-97.63002",
         "distance": "39.43099",
@@ -937,7 +937,7 @@
     },
     {
         "city": "Seaton",
-        "state": "Texas",
+        "state": "TX",
         "lat": "31.05768",
         "lng": "-97.21611",
         "distance": "39.68467",
@@ -945,7 +945,7 @@
     },
     {
         "city": "Woodland",
-        "state": "Texas",
+        "state": "TX",
         "lat": "31.13129",
         "lng": "-97.48946",
         "distance": "39.75421",
@@ -953,7 +953,7 @@
     },
     {
         "city": "Cedar Springs",
-        "state": "Texas",
+        "state": "TX",
         "lat": "31.17796",
         "lng": "-96.91943",
         "distance": "39.90632",
@@ -961,7 +961,7 @@
     },
     {
         "city": "Union Hill",
-        "state": "Texas",
+        "state": "TX",
         "lat": "31.17323",
         "lng": "-97.54612",
         "distance": "39.99881",
@@ -969,7 +969,7 @@
     },
     {
         "city": "Greenock",
-        "state": "Texas",
+        "state": "TX",
         "lat": "31.76627",
         "lng": "-97.34557",
         "distance": "40.32073",
@@ -977,7 +977,7 @@
     },
     {
         "city": "Oscar",
-        "state": "Texas",
+        "state": "TX",
         "lat": "31.05074",
         "lng": "-97.26222",
         "distance": "40.50126",
@@ -985,7 +985,7 @@
     },
     {
         "city": "Mart",
-        "state": "Texas",
+        "state": "TX",
         "lat": "31.54239",
         "lng": "-96.8336",
         "distance": "40.62671",
@@ -993,7 +993,7 @@
     },
     {
         "city": "Otto",
-        "state": "Texas",
+        "state": "TX",
         "lat": "31.44906",
         "lng": "-96.80888",
         "distance": "40.64545",
@@ -1001,7 +1001,7 @@
     },
     {
         "city": "Leroy",
-        "state": "Texas",
+        "state": "TX",
         "lat": "31.73155",
         "lng": "-97.01778",
         "distance": "40.66361",
@@ -1009,7 +1009,7 @@
     },
     {
         "city": "Midway",
-        "state": "Texas",
+        "state": "TX",
         "lat": "31.07879",
         "lng": "-97.41112",
         "distance": "40.92015",
@@ -1017,7 +1017,7 @@
     },
     {
         "city": "Cold Springs",
-        "state": "Texas",
+        "state": "TX",
         "lat": "31.24184",
         "lng": "-97.61668",
         "distance": "41.13661",
@@ -1025,7 +1025,7 @@
     },
     {
         "city": "Smith",
-        "state": "Texas",
+        "state": "TX",
         "lat": "31.05546",
         "lng": "-97.35139",
         "distance": "41.41515",
@@ -1033,7 +1033,7 @@
     },
     {
         "city": "Zabcikville",
-        "state": "Texas",
+        "state": "TX",
         "lat": "31.04518",
         "lng": "-97.16666",
         "distance": "41.53853",
@@ -1041,7 +1041,7 @@
     },
     {
         "city": "Mosheim",
-        "state": "Texas",
+        "state": "TX",
         "lat": "31.62627",
         "lng": "-97.60002",
         "distance": "41.85903",
@@ -1049,7 +1049,7 @@
     },
     {
         "city": "Zipperlandville",
-        "state": "Texas",
+        "state": "TX",
         "lat": "31.06879",
         "lng": "-97.05527",
         "distance": "42.04033",
@@ -1057,7 +1057,7 @@
     },
     {
         "city": "South Mountain",
-        "state": "Texas",
+        "state": "TX",
         "lat": "31.42767",
         "lng": "-97.67752",
         "distance": "42.13762",
@@ -1065,7 +1065,7 @@
     },
     {
         "city": "Spivey Crossing",
-        "state": "Texas",
+        "state": "TX",
         "lat": "31.78849",
         "lng": "-97.32446",
         "distance": "42.25424",
@@ -1073,7 +1073,7 @@
     },
     {
         "city": "Terry Chapel",
-        "state": "Texas",
+        "state": "TX",
         "lat": "31.05324",
         "lng": "-97.09333",
         "distance": "42.33414",
@@ -1081,7 +1081,7 @@
     },
     {
         "city": "Tyson",
-        "state": "Texas",
+        "state": "TX",
         "lat": "31.79877",
         "lng": "-97.23945",
         "distance": "42.52675",
@@ -1089,7 +1089,7 @@
     },
     {
         "city": "Tours",
-        "state": "Texas",
+        "state": "TX",
         "lat": "31.75988",
         "lng": "-97.03778",
         "distance": "42.53352",
@@ -1097,7 +1097,7 @@
     },
     {
         "city": "Westcliff",
-        "state": "Texas",
+        "state": "TX",
         "lat": "31.11518",
         "lng": "-97.5164",
         "distance": "42.74733",
@@ -1105,7 +1105,7 @@
     },
     {
         "city": "Stringtown",
-        "state": "Texas",
+        "state": "TX",
         "lat": "31.02379",
         "lng": "-97.24111",
         "distance": "43.40725",
@@ -1113,7 +1113,7 @@
     },
     {
         "city": "Cyclone",
-        "state": "Texas",
+        "state": "TX",
         "lat": "31.02768",
         "lng": "-97.15083",
         "distance": "43.70629",
@@ -1121,7 +1121,7 @@
     },
     {
         "city": "Watt",
-        "state": "Texas",
+        "state": "TX",
         "lat": "31.64378",
         "lng": "-96.85888",
         "distance": "43.76269",
@@ -1129,7 +1129,7 @@
     },
     {
         "city": "Lebanon",
-        "state": "Texas",
+        "state": "TX",
         "lat": "31.81044",
         "lng": "-97.27057",
         "distance": "43.95064",
@@ -1137,7 +1137,7 @@
     },
     {
         "city": "Pendell",
-        "state": "Texas",
+        "state": "TX",
         "lat": "31.71377",
         "lng": "-97.54141",
         "distance": "44.09127",
@@ -1145,7 +1145,7 @@
     },
     {
         "city": "Heidenheimer",
-        "state": "Texas",
+        "state": "TX",
         "lat": "31.01824",
         "lng": "-97.30278",
         "distance": "44.49579",
@@ -1153,7 +1153,7 @@
     },
     {
         "city": "Cayote",
-        "state": "Texas",
+        "state": "TX",
         "lat": "31.76877",
         "lng": "-97.45752",
         "distance": "44.54349",
@@ -1161,7 +1161,7 @@
     },
     {
         "city": "Pleasant Grove",
-        "state": "Texas",
+        "state": "TX",
         "lat": "31.13046",
         "lng": "-96.9036",
         "distance": "44.61614",
@@ -1169,7 +1169,7 @@
     },
     {
         "city": "Hobbs",
-        "state": "Texas",
+        "state": "TX",
         "lat": "31.05212",
         "lng": "-97.43945",
         "distance": "44.74313",
@@ -1177,7 +1177,7 @@
     },
     {
         "city": "Curry Crossing",
-        "state": "Texas",
+        "state": "TX",
         "lat": "31.20295",
         "lng": "-97.63752",
         "distance": "45.00405",
@@ -1185,7 +1185,7 @@
     },
     {
         "city": "West",
-        "state": "Texas",
+        "state": "TX",
         "lat": "31.80238",
         "lng": "-97.09167",
         "distance": "45.01596",
@@ -1193,7 +1193,7 @@
     },
     {
         "city": "Fort Gates",
-        "state": "Texas",
+        "state": "TX",
         "lat": "31.39961",
         "lng": "-97.7078",
         "distance": "45.03417",
@@ -1201,7 +1201,7 @@
     },
     {
         "city": "Rosebud",
-        "state": "Texas",
+        "state": "TX",
         "lat": "31.07296",
         "lng": "-96.9786",
         "distance": "45.11037",
@@ -1209,7 +1209,7 @@
     },
     {
         "city": "Belton",
-        "state": "Texas",
+        "state": "TX",
         "lat": "31.05601",
         "lng": "-97.46445",
         "distance": "45.4538",
@@ -1217,7 +1217,7 @@
     },
     {
         "city": "Brookhaven",
-        "state": "Texas",
+        "state": "TX",
         "lat": "31.18045",
         "lng": "-97.62613",
         "distance": "45.46819",
@@ -1225,7 +1225,7 @@
     },
     {
         "city": "Coymack",
-        "state": "Texas",
+        "state": "TX",
         "lat": "31.18018",
         "lng": "-96.84248",
         "distance": "45.5288",
@@ -1233,7 +1233,7 @@
     },
     {
         "city": "Riggs Ford",
-        "state": "Texas",
+        "state": "TX",
         "lat": "31.21795",
         "lng": "-97.65474",
         "distance": "45.58562",
@@ -1241,7 +1241,7 @@
     },
     {
         "city": "Red Ranger",
-        "state": "Texas",
+        "state": "TX",
         "lat": "31.00657",
         "lng": "-97.18027",
         "distance": "45.60668",
@@ -1249,7 +1249,7 @@
     },
     {
         "city": "Smiths Bend",
-        "state": "Texas",
+        "state": "TX",
         "lat": "31.83016",
         "lng": "-97.30446",
         "distance": "46.47979",
@@ -1257,7 +1257,7 @@
     },
     {
         "city": "Highbank",
-        "state": "Texas",
+        "state": "TX",
         "lat": "31.1699",
         "lng": "-96.83359",
         "distance": "46.87889",
@@ -1265,7 +1265,7 @@
     },
     {
         "city": "Wilson",
-        "state": "Texas",
+        "state": "TX",
         "lat": "31.01824",
         "lng": "-97.06388",
         "distance": "46.92767",
@@ -1273,7 +1273,7 @@
     },
     {
         "city": "Hoen",
-        "state": "Texas",
+        "state": "TX",
         "lat": "31.78155",
         "lng": "-96.98555",
         "distance": "46.99035",
@@ -1281,7 +1281,7 @@
     },
     {
         "city": "Leedale",
-        "state": "Texas",
+        "state": "TX",
         "lat": "30.98657",
         "lng": "-97.19805",
         "distance": "47.65676",
@@ -1289,7 +1289,7 @@
     },
     {
         "city": "Dog Ridge (historical)",
-        "state": "Texas",
+        "state": "TX",
         "lat": "31.05407",
         "lng": "-97.50668",
         "distance": "47.70375",
@@ -1297,7 +1297,7 @@
     },
     {
         "city": "Beacon",
-        "state": "Texas",
+        "state": "TX",
         "lat": "31.18268",
         "lng": "-96.81165",
         "distance": "47.81475",
@@ -1305,7 +1305,7 @@
     },
     {
         "city": "Victoria",
-        "state": "Texas",
+        "state": "TX",
         "lat": "31.59795",
         "lng": "-96.77666",
         "distance": "47.98601",
@@ -1313,7 +1313,7 @@
     },
     {
         "city": "Wilderville",
-        "state": "Texas",
+        "state": "TX",
         "lat": "31.10463",
         "lng": "-96.88304",
         "distance": "48.0336",
@@ -1321,7 +1321,7 @@
     },
     {
         "city": "Meeks",
-        "state": "Texas",
+        "state": "TX",
         "lat": "30.99213",
         "lng": "-97.11722",
         "distance": "48.22838",
@@ -1329,7 +1329,7 @@
     },
     {
         "city": "Reagan",
-        "state": "Texas",
+        "state": "TX",
         "lat": "31.21824",
         "lng": "-96.78248",
         "distance": "48.261",
@@ -1337,7 +1337,7 @@
     },
     {
         "city": "Aquilla",
-        "state": "Texas",
+        "state": "TX",
         "lat": "31.85155",
         "lng": "-97.21806",
         "distance": "48.40167",
@@ -1345,7 +1345,7 @@
     },
     {
         "city": "Gatesville",
-        "state": "Texas",
+        "state": "TX",
         "lat": "31.43516",
         "lng": "-97.74391",
         "distance": "48.47603",
@@ -1353,7 +1353,7 @@
     },
     {
         "city": "Little River",
-        "state": "Texas",
+        "state": "TX",
         "lat": "30.98879",
         "lng": "-97.36611",
         "distance": "48.9165",
@@ -1361,7 +1361,7 @@
     },
     {
         "city": "Little River-Academy",
-        "state": "Texas",
+        "state": "TX",
         "lat": "30.98629",
         "lng": "-97.35861",
         "distance": "49.0072",
@@ -1369,7 +1369,7 @@
     },
     {
         "city": "Academy",
-        "state": "Texas",
+        "state": "TX",
         "lat": "30.98102",
         "lng": "-97.34167",
         "distance": "49.21524",
@@ -1377,7 +1377,7 @@
     },
     {
         "city": "Cottonwood",
-        "state": "Texas",
+        "state": "TX",
         "lat": "31.82738",
         "lng": "-97.04167",
         "distance": "49.22611",
@@ -1385,7 +1385,7 @@
     },
     {
         "city": "Ben Hur",
-        "state": "Texas",
+        "state": "TX",
         "lat": "31.51045",
         "lng": "-96.72776",
         "distance": "49.31078",
@@ -1393,7 +1393,7 @@
     },
     {
         "city": "Odds",
-        "state": "Texas",
+        "state": "TX",
         "lat": "31.40906",
         "lng": "-96.71582",
         "distance": "49.33473",
@@ -1401,7 +1401,7 @@
     },
     {
         "city": "Blue Ridge",
-        "state": "Texas",
+        "state": "TX",
         "lat": "31.27629",
         "lng": "-96.74137",
         "distance": "49.39752",
@@ -1409,7 +1409,7 @@
     },
     {
         "city": "Stranger",
-        "state": "Texas",
+        "state": "TX",
         "lat": "31.32684",
         "lng": "-96.72443",
         "distance": "49.51251",
@@ -1417,7 +1417,7 @@
     },
     {
         "city": "Burlington",
-        "state": "Texas",
+        "state": "TX",
         "lat": "31.01518",
         "lng": "-96.99666",
         "distance": "49.8154",
@@ -1425,7 +1425,7 @@
     },
     {
         "city": "Prairie Hill",
-        "state": "Texas",
+        "state": "TX",
         "lat": "31.65517",
         "lng": "-96.78888",
         "distance": "49.99179",
@@ -1433,7 +1433,7 @@
     },
     {
         "city": "Midway",
-        "state": "Texas",
+        "state": "TX",
         "lat": "31.54267",
         "lng": "-96.72915",
         "distance": "50.06235",
@@ -1441,7 +1441,7 @@
     },
     {
         "city": "Little Elm",
-        "state": "Texas",
+        "state": "TX",
         "lat": "31.43906",
         "lng": "-96.70721",
         "distance": "50.2102",
@@ -1449,7 +1449,7 @@
     },
     {
         "city": "Childers Mill (historical)",
-        "state": "Texas",
+        "state": "TX",
         "lat": "30.99796",
         "lng": "-97.44223",
         "distance": "50.32087",
@@ -1457,7 +1457,7 @@
     },
     {
         "city": "Mount Calm",
-        "state": "Texas",
+        "state": "TX",
         "lat": "31.75627",
         "lng": "-96.87916",
         "distance": "50.67335",
@@ -1465,7 +1465,7 @@
     },
     {
         "city": "New Colony",
-        "state": "Texas",
+        "state": "TX",
         "lat": "30.96213",
         "lng": "-97.16305",
         "distance": "50.69997",
@@ -1473,7 +1473,7 @@
     },
     {
         "city": "Menlow",
-        "state": "Texas",
+        "state": "TX",
         "lat": "31.8696",
         "lng": "-97.16056",
         "distance": "50.86528",
@@ -1481,7 +1481,7 @@
     },
     {
         "city": "Birome",
-        "state": "Texas",
+        "state": "TX",
         "lat": "31.81322",
         "lng": "-96.96278",
         "distance": "51.11027",
@@ -1489,7 +1489,7 @@
     },
     {
         "city": "Laguna Park",
-        "state": "Texas",
+        "state": "TX",
         "lat": "31.85932",
         "lng": "-97.37974",
         "distance": "51.12765",
@@ -1497,7 +1497,7 @@
     },
     {
         "city": "Buffalo Mop",
-        "state": "Texas",
+        "state": "TX",
         "lat": "31.41906",
         "lng": "-96.69471",
         "distance": "51.33649",
@@ -1505,7 +1505,7 @@
     },
     {
         "city": "Mason Crossing",
-        "state": "Texas",
+        "state": "TX",
         "lat": "31.20545",
         "lng": "-97.71557",
         "distance": "51.35752",
@@ -1513,7 +1513,7 @@
     },
     {
         "city": "Nolanville",
-        "state": "Texas",
+        "state": "TX",
         "lat": "31.07879",
         "lng": "-97.60557",
         "distance": "51.38611",
@@ -1521,7 +1521,7 @@
     },
     {
         "city": "Hurst Springs",
-        "state": "Texas",
+        "state": "TX",
         "lat": "31.66571",
         "lng": "-97.69419",
         "distance": "51.73067",
@@ -1529,7 +1529,7 @@
     },
     {
         "city": "Kirk",
-        "state": "Texas",
+        "state": "TX",
         "lat": "31.58711",
         "lng": "-96.72804",
         "distance": "51.75719",
@@ -1537,7 +1537,7 @@
     },
     {
         "city": "Eloise",
-        "state": "Texas",
+        "state": "TX",
         "lat": "31.12296",
         "lng": "-96.80859",
         "distance": "51.92428",
@@ -1545,7 +1545,7 @@
     },
     {
         "city": "Prairie Valley",
-        "state": "Texas",
+        "state": "TX",
         "lat": "31.8771",
         "lng": "-97.32835",
         "distance": "51.9764",
@@ -1553,7 +1553,7 @@
     },
     {
         "city": "Clifton",
-        "state": "Texas",
+        "state": "TX",
         "lat": "31.78238",
         "lng": "-97.57669",
         "distance": "52.06807",
@@ -1561,7 +1561,7 @@
     },
     {
         "city": "Edgeworth",
-        "state": "Texas",
+        "state": "TX",
         "lat": "30.95157",
         "lng": "-97.14055",
         "distance": "52.18517",
@@ -1569,7 +1569,7 @@
     },
     {
         "city": "Briary",
-        "state": "Texas",
+        "state": "TX",
         "lat": "31.04463",
         "lng": "-96.89193",
         "distance": "52.48215",
@@ -1577,7 +1577,7 @@
     },
     {
         "city": "South Elm",
-        "state": "Texas",
+        "state": "TX",
         "lat": "30.94741",
         "lng": "-97.13027",
         "distance": "52.81597",
@@ -1585,7 +1585,7 @@
     },
     {
         "city": "Summers Mill",
-        "state": "Texas",
+        "state": "TX",
         "lat": "30.96991",
         "lng": "-97.43167",
         "distance": "52.82975",
@@ -1593,7 +1593,7 @@
     },
     {
         "city": "Turnersville",
-        "state": "Texas",
+        "state": "TX",
         "lat": "31.61738",
         "lng": "-97.73891",
         "distance": "52.88727",
@@ -1601,7 +1601,7 @@
     },
     {
         "city": "Womack",
-        "state": "Texas",
+        "state": "TX",
         "lat": "31.8371",
         "lng": "-97.49613",
         "distance": "52.94874",
@@ -1609,7 +1609,7 @@
     },
     {
         "city": "Ames",
-        "state": "Texas",
+        "state": "TX",
         "lat": "31.52099",
         "lng": "-97.77947",
         "distance": "53.09345",
@@ -1617,7 +1617,7 @@
     },
     {
         "city": "Yarrelton",
-        "state": "Texas",
+        "state": "TX",
         "lat": "30.95074",
         "lng": "-97.07999",
         "distance": "53.56861",
@@ -1625,7 +1625,7 @@
     },
     {
         "city": "Rogers",
-        "state": "Texas",
+        "state": "TX",
         "lat": "30.93157",
         "lng": "-97.22666",
         "distance": "53.6323",
@@ -1633,7 +1633,7 @@
     },
     {
         "city": "Big Hill",
-        "state": "Texas",
+        "state": "TX",
         "lat": "31.46767",
         "lng": "-96.67359",
         "distance": "53.64407",
@@ -1641,7 +1641,7 @@
     },
     {
         "city": "Coit",
-        "state": "Texas",
+        "state": "TX",
         "lat": "31.38323",
         "lng": "-96.67137",
         "distance": "53.68131",
@@ -1649,7 +1649,7 @@
     },
     {
         "city": "Crossroad Store",
-        "state": "Texas",
+        "state": "TX",
         "lat": "31.73405",
         "lng": "-97.6653",
         "distance": "54.04746",
@@ -1657,7 +1657,7 @@
     },
     {
         "city": "Long Branch",
-        "state": "Texas",
+        "state": "TX",
         "lat": "31.25879",
         "lng": "-96.69498",
         "distance": "54.20343",
@@ -1665,7 +1665,7 @@
     },
     {
         "city": "Abbott",
-        "state": "Texas",
+        "state": "TX",
         "lat": "31.88488",
         "lng": "-97.07334",
         "distance": "54.27194",
@@ -1673,7 +1673,7 @@
     },
     {
         "city": "Samuel Man Barfield III",
-        "state": "Texas",
+        "state": "TX",
         "lat": "31.08054",
         "lng": "-97.65461",
         "distance": "54.57117",
@@ -1681,7 +1681,7 @@
     },
     {
         "city": "Harker Heights",
-        "state": "Texas",
+        "state": "TX",
         "lat": "31.08351",
         "lng": "-97.65974",
         "distance": "54.70818",
@@ -1689,7 +1689,7 @@
     },
     {
         "city": "Woodland Hills",
-        "state": "Texas",
+        "state": "TX",
         "lat": "31.9021",
         "lng": "-97.3339",
         "distance": "54.79753",
@@ -1697,7 +1697,7 @@
     },
     {
         "city": "Delia",
-        "state": "Texas",
+        "state": "TX",
         "lat": "31.70683",
         "lng": "-96.76777",
         "distance": "54.85825",
@@ -1705,7 +1705,7 @@
     },
     {
         "city": "Clarkson",
-        "state": "Texas",
+        "state": "TX",
         "lat": "30.99519",
         "lng": "-96.92498",
         "distance": "55.13333",
@@ -1713,7 +1713,7 @@
     },
     {
         "city": "New Clarkson",
-        "state": "Texas",
+        "state": "TX",
         "lat": "31.00602",
         "lng": "-96.90554",
         "distance": "55.15361",
@@ -1721,7 +1721,7 @@
     },
     {
         "city": "Sparks",
-        "state": "Texas",
+        "state": "TX",
         "lat": "30.92852",
         "lng": "-97.35972",
         "distance": "55.2687",
@@ -1729,7 +1729,7 @@
     },
     {
         "city": "Ben Arnold",
-        "state": "Texas",
+        "state": "TX",
         "lat": "30.9638",
         "lng": "-96.98804",
         "distance": "55.29595",
@@ -1737,7 +1737,7 @@
     },
     {
         "city": "Alto Springs",
-        "state": "Texas",
+        "state": "TX",
         "lat": "31.28601",
         "lng": "-96.67054",
         "distance": "55.55094",
@@ -1745,7 +1745,7 @@
     },
     {
         "city": "Vaughan",
-        "state": "Texas",
+        "state": "TX",
         "lat": "31.9146",
         "lng": "-97.17362",
         "distance": "55.66905",
@@ -1753,7 +1753,7 @@
     },
     {
         "city": "Mustang",
-        "state": "Texas",
+        "state": "TX",
         "lat": "31.68294",
         "lng": "-96.73749",
         "distance": "55.75681",
@@ -1761,7 +1761,7 @@
     },
     {
         "city": "Hubbard-Mount Calm",
-        "state": "Texas",
+        "state": "TX",
         "lat": "31.79064",
         "lng": "-96.84332",
         "distance": "55.77698",
@@ -1769,7 +1769,7 @@
     },
     {
         "city": "Baileyville",
-        "state": "Texas",
+        "state": "TX",
         "lat": "31.05268",
         "lng": "-96.82859",
         "distance": "55.78572",
@@ -1777,7 +1777,7 @@
     },
     {
         "city": "Walker Village",
-        "state": "Texas",
+        "state": "TX",
         "lat": "31.13601",
         "lng": "-97.72446",
         "distance": "55.98985",
@@ -1785,7 +1785,7 @@
     },
     {
         "city": "Bowers",
-        "state": "Texas",
+        "state": "TX",
         "lat": "30.91185",
         "lng": "-97.18611",
         "distance": "56.00447",
@@ -1793,7 +1793,7 @@
     },
     {
         "city": "Joe Lee",
-        "state": "Texas",
+        "state": "TX",
         "lat": "30.91074",
         "lng": "-97.28083",
         "distance": "56.11019",
@@ -1801,7 +1801,7 @@
     },
     {
         "city": "Lone Star",
-        "state": "Texas",
+        "state": "TX",
         "lat": "31.10295",
         "lng": "-97.69891",
         "distance": "56.16725",
@@ -1809,7 +1809,7 @@
     },
     {
         "city": "Norse",
-        "state": "Texas",
+        "state": "TX",
         "lat": "31.75599",
         "lng": "-97.67252",
         "distance": "56.17108",
@@ -1817,7 +1817,7 @@
     },
     {
         "city": "Frosa",
-        "state": "Texas",
+        "state": "TX",
         "lat": "31.62739",
         "lng": "-96.69749",
         "distance": "56.17505",
@@ -1825,7 +1825,7 @@
     },
     {
         "city": "North Elm",
-        "state": "Texas",
+        "state": "TX",
         "lat": "30.93241",
         "lng": "-97.04832",
         "distance": "56.40228",
@@ -1833,7 +1833,7 @@
     },
     {
         "city": "Lavender",
-        "state": "Texas",
+        "state": "TX",
         "lat": "31.53461",
         "lng": "-96.65582",
         "distance": "56.56849",
@@ -1841,7 +1841,7 @@
     },
     {
         "city": "Saint Elijah Village",
-        "state": "Texas",
+        "state": "TX",
         "lat": "31.22239",
         "lng": "-97.7878",
         "distance": "56.83396",
@@ -1849,7 +1849,7 @@
     },
     {
         "city": "Lakewood Harbor",
-        "state": "Texas",
+        "state": "TX",
         "lat": "31.90377",
         "lng": "-97.41974",
         "distance": "56.94184",
@@ -1857,7 +1857,7 @@
     },
     {
         "city": "Pleasant Grove",
-        "state": "Texas",
+        "state": "TX",
         "lat": "31.42851",
         "lng": "-96.63581",
         "distance": "56.95051",
@@ -1865,7 +1865,7 @@
     },
     {
         "city": "Penelope",
-        "state": "Texas",
+        "state": "TX",
         "lat": "31.86016",
         "lng": "-96.92666",
         "distance": "57.33045",
@@ -1873,7 +1873,7 @@
     },
     {
         "city": "Killeen",
-        "state": "Texas",
+        "state": "TX",
         "lat": "31.11712",
         "lng": "-97.7278",
         "distance": "57.43761",
@@ -1881,7 +1881,7 @@
     },
     {
         "city": "Middle Crossing",
-        "state": "Texas",
+        "state": "TX",
         "lat": "31.21489",
         "lng": "-97.79419",
         "distance": "57.71475",
@@ -1889,7 +1889,7 @@
     },
     {
         "city": "Union Grove",
-        "state": "Texas",
+        "state": "TX",
         "lat": "31.00046",
         "lng": "-97.60196",
         "distance": "57.79892",
@@ -1897,7 +1897,7 @@
     },
     {
         "city": "Pancake",
-        "state": "Texas",
+        "state": "TX",
         "lat": "31.61766",
         "lng": "-97.79975",
         "distance": "58.18457",
@@ -1905,7 +1905,7 @@
     },
     {
         "city": "Kosse",
-        "state": "Texas",
+        "state": "TX",
         "lat": "31.30768",
         "lng": "-96.63192",
         "distance": "58.56579",
@@ -1913,7 +1913,7 @@
     },
     {
         "city": "McNair Village",
-        "state": "Texas",
+        "state": "TX",
         "lat": "31.13406",
         "lng": "-97.75919",
         "distance": "58.88764",
@@ -1921,7 +1921,7 @@
     },
     {
         "city": "Marak",
-        "state": "Texas",
+        "state": "TX",
         "lat": "30.90185",
         "lng": "-97.0686",
         "distance": "59.08096",
@@ -1929,7 +1929,7 @@
     },
     {
         "city": "Malone-Penelope",
-        "state": "Texas",
+        "state": "TX",
         "lat": "31.87056",
         "lng": "-96.90907",
         "distance": "59.17833",
@@ -1937,7 +1937,7 @@
     },
     {
         "city": "Mustang",
-        "state": "Texas",
+        "state": "TX",
         "lat": "31.25129",
         "lng": "-96.64192",
         "distance": "59.26117",
@@ -1945,7 +1945,7 @@
     },
     {
         "city": "Chaffee Village",
-        "state": "Texas",
+        "state": "TX",
         "lat": "31.12962",
         "lng": "-97.76169",
         "distance": "59.3522",
@@ -1953,7 +1953,7 @@
     },
     {
         "city": "Salado",
-        "state": "Texas",
+        "state": "TX",
         "lat": "30.94713",
         "lng": "-97.53862",
         "distance": "59.44587",
@@ -1961,7 +1961,7 @@
     },
     {
         "city": "Horn Hill",
-        "state": "Texas",
+        "state": "TX",
         "lat": "31.56906",
         "lng": "-96.6336",
         "distance": "59.59206",
@@ -1969,7 +1969,7 @@
     },
     {
         "city": "Splawn",
-        "state": "Texas",
+        "state": "TX",
         "lat": "30.92019",
         "lng": "-96.98582",
         "distance": "59.79379",
@@ -1977,7 +1977,7 @@
     },
     {
         "city": "Bremond",
-        "state": "Texas",
+        "state": "TX",
         "lat": "31.16518",
         "lng": "-96.67692",
         "distance": "59.90044",
@@ -1985,7 +1985,7 @@
     },
     {
         "city": "Bosque",
-        "state": "Texas",
+        "state": "TX",
         "lat": "31.85488",
         "lng": "-97.60391",
         "distance": "60.03039",
@@ -1993,7 +1993,7 @@
     },
     {
         "city": "Whitney",
-        "state": "Texas",
+        "state": "TX",
         "lat": "31.95182",
         "lng": "-97.3214",
         "distance": "60.06201",
@@ -2001,7 +2001,7 @@
     },
     {
         "city": "Hogg",
-        "state": "Texas",
+        "state": "TX",
         "lat": "31.14379",
         "lng": "-96.68775",
         "distance": "60.1442",
@@ -2009,7 +2009,7 @@
     },
     {
         "city": "Fort Cavazos",
-        "state": "Texas",
+        "state": "TX",
         "lat": "31.13489",
         "lng": "-97.77561",
         "distance": "60.17286",
@@ -2017,7 +2017,7 @@
     },
     {
         "city": "Chatt",
-        "state": "Texas",
+        "state": "TX",
         "lat": "31.94377",
         "lng": "-97.08973",
         "distance": "60.19023",
@@ -2025,7 +2025,7 @@
     },
     {
         "city": "House Crossing",
-        "state": "Texas",
+        "state": "TX",
         "lat": "31.18573",
         "lng": "-97.80891",
         "distance": "60.31006",
@@ -2033,7 +2033,7 @@
     },
     {
         "city": "Jackson Crossing",
-        "state": "Texas",
+        "state": "TX",
         "lat": "31.2485",
         "lng": "-97.8378",
         "distance": "60.31296",
@@ -2041,7 +2041,7 @@
     },
     {
         "city": "Ater",
-        "state": "Texas",
+        "state": "TX",
         "lat": "31.52322",
         "lng": "-97.86114",
         "distance": "60.73478",
@@ -2049,7 +2049,7 @@
     },
     {
         "city": "Cedar Shores",
-        "state": "Texas",
+        "state": "TX",
         "lat": "31.93488",
         "lng": "-97.44168",
         "distance": "60.87104",
@@ -2057,7 +2057,7 @@
     },
     {
         "city": "Hammond",
-        "state": "Texas",
+        "state": "TX",
         "lat": "31.09518",
         "lng": "-96.71387",
         "distance": "60.98601",
@@ -2065,7 +2065,7 @@
     },
     {
         "city": "Buckholts",
-        "state": "Texas",
+        "state": "TX",
         "lat": "30.87297",
         "lng": "-97.12499",
         "distance": "61.02621",
@@ -2073,7 +2073,7 @@
     },
     {
         "city": "Purmela-Levita",
-        "state": "Texas",
+        "state": "TX",
         "lat": "31.46016",
         "lng": "-97.87502",
         "distance": "61.08642",
@@ -2081,7 +2081,7 @@
     },
     {
         "city": "Holland",
-        "state": "Texas",
+        "state": "TX",
         "lat": "30.87824",
         "lng": "-97.40167",
         "distance": "61.63473",
@@ -2089,7 +2089,7 @@
     },
     {
         "city": "Thelma",
-        "state": "Texas",
+        "state": "TX",
         "lat": "31.58322",
         "lng": "-96.61109",
         "distance": "62.0921",
@@ -2097,7 +2097,7 @@
     },
     {
         "city": "Silver City",
-        "state": "Texas",
+        "state": "TX",
         "lat": "30.90991",
         "lng": "-96.95026",
         "distance": "62.24179",
@@ -2105,7 +2105,7 @@
     },
     {
         "city": "Peoria",
-        "state": "Texas",
+        "state": "TX",
         "lat": "31.97821",
         "lng": "-97.22195",
         "distance": "62.43291",
@@ -2113,7 +2113,7 @@
     },
     {
         "city": "Comanche Village I",
-        "state": "Texas",
+        "state": "TX",
         "lat": "31.14156",
         "lng": "-97.8078",
         "distance": "62.45266",
@@ -2121,7 +2121,7 @@
     },
     {
         "city": "Arnett",
-        "state": "Texas",
+        "state": "TX",
         "lat": "31.44516",
         "lng": "-97.89142",
         "distance": "62.53473",
@@ -2129,7 +2129,7 @@
     },
     {
         "city": "Salter",
-        "state": "Texas",
+        "state": "TX",
         "lat": "31.03463",
         "lng": "-96.74526",
         "distance": "62.88575",
@@ -2137,7 +2137,7 @@
     },
     {
         "city": "Comanche Village II",
-        "state": "Texas",
+        "state": "TX",
         "lat": "31.13684",
         "lng": "-97.81002",
         "distance": "62.89418",
@@ -2145,7 +2145,7 @@
     },
     {
         "city": "Jones Prairie",
-        "state": "Texas",
+        "state": "TX",
         "lat": "30.96296",
         "lng": "-96.83498",
         "distance": "62.97135",
@@ -2153,7 +2153,7 @@
     },
     {
         "city": "Thornton",
-        "state": "Texas",
+        "state": "TX",
         "lat": "31.41101",
         "lng": "-96.5722",
         "distance": "62.9876",
@@ -2161,7 +2161,7 @@
     },
     {
         "city": "South Bell",
-        "state": "Texas",
+        "state": "TX",
         "lat": "30.92309",
         "lng": "-97.56611",
         "distance": "63.05998",
@@ -2169,7 +2169,7 @@
     },
     {
         "city": "Levita",
-        "state": "Texas",
+        "state": "TX",
         "lat": "31.51488",
         "lng": "-97.88808",
         "distance": "63.0816",
@@ -2177,7 +2177,7 @@
     },
     {
         "city": "Calina",
-        "state": "Texas",
+        "state": "TX",
         "lat": "31.75655",
         "lng": "-96.69999",
         "distance": "63.29873",
@@ -2185,7 +2185,7 @@
     },
     {
         "city": "Antelope Crossing",
-        "state": "Texas",
+        "state": "TX",
         "lat": "31.24684",
         "lng": "-97.87197",
         "distance": "63.47066",
@@ -2193,7 +2193,7 @@
     },
     {
         "city": "Hubbard",
-        "state": "Texas",
+        "state": "TX",
         "lat": "31.84849",
         "lng": "-96.79721",
         "distance": "63.47614",
@@ -2201,7 +2201,7 @@
     },
     {
         "city": "Sandy",
-        "state": "Texas",
+        "state": "TX",
         "lat": "31.68461",
         "lng": "-96.64193",
         "distance": "63.70748",
@@ -2209,7 +2209,7 @@
     },
     {
         "city": "Comanche Village III",
-        "state": "Texas",
+        "state": "TX",
         "lat": "31.14101",
         "lng": "-97.82419",
         "distance": "63.85068",
@@ -2217,7 +2217,7 @@
     },
     {
         "city": "Vilas",
-        "state": "Texas",
+        "state": "TX",
         "lat": "30.84102",
         "lng": "-97.30361",
         "distance": "64.00577",
@@ -2225,7 +2225,7 @@
     },
     {
         "city": "Pidcoke",
-        "state": "Texas",
+        "state": "TX",
         "lat": "31.27906",
         "lng": "-97.88836",
         "distance": "64.0174",
@@ -2233,7 +2233,7 @@
     },
     {
         "city": "Corinth",
-        "state": "Texas",
+        "state": "TX",
         "lat": "30.84308",
         "lng": "-97.13518",
         "distance": "64.14297",
@@ -2241,7 +2241,7 @@
     },
     {
         "city": "Echols",
-        "state": "Texas",
+        "state": "TX",
         "lat": "31.686",
         "lng": "-96.63749",
         "distance": "64.15211",
@@ -2249,7 +2249,7 @@
     },
     {
         "city": "Belmena",
-        "state": "Texas",
+        "state": "TX",
         "lat": "30.9088",
         "lng": "-96.90859",
         "distance": "64.17968",
@@ -2257,7 +2257,7 @@
     },
     {
         "city": "Pettibone",
-        "state": "Texas",
+        "state": "TX",
         "lat": "30.84991",
         "lng": "-97.08082",
         "distance": "64.37323",
@@ -2265,7 +2265,7 @@
     },
     {
         "city": "Malone",
-        "state": "Texas",
+        "state": "TX",
         "lat": "31.91794",
         "lng": "-96.89472",
         "distance": "64.38536",
@@ -2273,7 +2273,7 @@
     },
     {
         "city": "Val Verde",
-        "state": "Texas",
+        "state": "TX",
         "lat": "30.83436",
         "lng": "-97.24777",
         "distance": "64.41763",
@@ -2281,7 +2281,7 @@
     },
     {
         "city": "Quinif",
-        "state": "Texas",
+        "state": "TX",
         "lat": "30.87713",
         "lng": "-96.97776",
         "distance": "64.49326",
@@ -2289,7 +2289,7 @@
     },
     {
         "city": "King",
-        "state": "Texas",
+        "state": "TX",
         "lat": "31.37961",
         "lng": "-97.91475",
         "distance": "64.80822",
@@ -2297,7 +2297,7 @@
     },
     {
         "city": "Jonesboro",
-        "state": "Texas",
+        "state": "TX",
         "lat": "31.6146",
         "lng": "-97.87669",
         "distance": "64.87368",
@@ -2305,7 +2305,7 @@
     },
     {
         "city": "Beulah",
-        "state": "Texas",
+        "state": "TX",
         "lat": "31.45767",
         "lng": "-96.55192",
         "distance": "65.06811",
@@ -2313,7 +2313,7 @@
     },
     {
         "city": "Winslow",
-        "state": "Texas",
+        "state": "TX",
         "lat": "31.99599",
         "lng": "-97.12417",
         "distance": "65.23769",
@@ -2321,7 +2321,7 @@
     },
     {
         "city": "Crossroads",
-        "state": "Texas",
+        "state": "TX",
         "lat": "30.96435",
         "lng": "-96.79137",
         "distance": "65.45138",
@@ -2329,7 +2329,7 @@
     },
     {
         "city": "Bynum",
-        "state": "Texas",
+        "state": "TX",
         "lat": "31.97182",
         "lng": "-97.00306",
         "distance": "65.50031",
@@ -2337,7 +2337,7 @@
     },
     {
         "city": "Munger",
-        "state": "Texas",
+        "state": "TX",
         "lat": "31.796",
         "lng": "-96.70638",
         "distance": "65.53346",
@@ -2345,7 +2345,7 @@
     },
     {
         "city": "Elm Ridge",
-        "state": "Texas",
+        "state": "TX",
         "lat": "30.84769",
         "lng": "-97.04138",
         "distance": "65.56942",
@@ -2353,7 +2353,7 @@
     },
     {
         "city": "Kay Bee Heights",
-        "state": "Texas",
+        "state": "TX",
         "lat": "31.11851",
         "lng": "-97.83141",
         "distance": "65.67571",
@@ -2361,7 +2361,7 @@
     },
     {
         "city": "Tidwell Prairie",
-        "state": "Texas",
+        "state": "TX",
         "lat": "31.08991",
         "lng": "-96.65748",
         "distance": "65.74934",
@@ -2369,7 +2369,7 @@
     },
     {
         "city": "Montague Village",
-        "state": "Texas",
+        "state": "TX",
         "lat": "31.11656",
         "lng": "-97.8328",
         "distance": "65.8988",
@@ -2377,7 +2377,7 @@
     },
     {
         "city": "Hillsboro",
-        "state": "Texas",
+        "state": "TX",
         "lat": "32.01099",
         "lng": "-97.13001",
         "distance": "66.7955",
@@ -2385,7 +2385,7 @@
     },
     {
         "city": "Cameron",
-        "state": "Texas",
+        "state": "TX",
         "lat": "30.85325",
         "lng": "-96.97693",
         "distance": "66.98109",
@@ -2393,7 +2393,7 @@
     },
     {
         "city": "Coolidge",
-        "state": "Texas",
+        "state": "TX",
         "lat": "31.75405",
         "lng": "-96.64999",
         "distance": "67.0079",
@@ -2401,7 +2401,7 @@
     },
     {
         "city": "Donahoe",
-        "state": "Texas",
+        "state": "TX",
         "lat": "30.81602",
         "lng": "-97.33306",
         "distance": "67.09857",
@@ -2409,7 +2409,7 @@
     },
     {
         "city": "Live Oak Resorts",
-        "state": "Texas",
+        "state": "TX",
         "lat": "32.01043",
         "lng": "-97.36251",
         "distance": "67.099",
@@ -2417,7 +2417,7 @@
     },
     {
         "city": "Fort Parker",
-        "state": "Texas",
+        "state": "TX",
         "lat": "31.56378",
         "lng": "-96.5472",
         "distance": "67.35407",
@@ -2425,7 +2425,7 @@
     },
     {
         "city": "Davis Prairie",
-        "state": "Texas",
+        "state": "TX",
         "lat": "31.42045",
         "lng": "-96.52553",
         "distance": "67.42257",
@@ -2433,7 +2433,7 @@
     },
     {
         "city": "Prairie Dell",
-        "state": "Texas",
+        "state": "TX",
         "lat": "30.88407",
         "lng": "-97.58029",
         "distance": "67.49115",
@@ -2441,7 +2441,7 @@
     },
     {
         "city": "Groesbeck",
-        "state": "Texas",
+        "state": "TX",
         "lat": "31.52434",
         "lng": "-96.53387",
         "distance": "67.68018",
@@ -2449,7 +2449,7 @@
     },
     {
         "city": "Mountain View Estates",
-        "state": "Texas",
+        "state": "TX",
         "lat": "31.00518",
         "lng": "-97.7628",
         "distance": "67.82952",
@@ -2457,7 +2457,7 @@
     },
     {
         "city": "Maysfield",
-        "state": "Texas",
+        "state": "TX",
         "lat": "30.89713",
         "lng": "-96.85109",
         "distance": "68.09527",
@@ -2465,7 +2465,7 @@
     },
     {
         "city": "White Rock",
-        "state": "Texas",
+        "state": "TX",
         "lat": "31.2199",
         "lng": "-96.55497",
         "distance": "68.2192",
@@ -2473,7 +2473,7 @@
     },
     {
         "city": "Datura",
-        "state": "Texas",
+        "state": "TX",
         "lat": "31.72433",
         "lng": "-96.61304",
         "distance": "68.23408",
@@ -2481,7 +2481,7 @@
     },
     {
         "city": "Cummins Crossing",
-        "state": "Texas",
+        "state": "TX",
         "lat": "30.80241",
         "lng": "-97.16499",
         "distance": "68.27026",
@@ -2489,7 +2489,7 @@
     },
     {
         "city": "Youngsport",
-        "state": "Texas",
+        "state": "TX",
         "lat": "30.9574",
         "lng": "-97.71918",
         "distance": "68.63312",
@@ -2497,7 +2497,7 @@
     },
     {
         "city": "Cranfills Gap",
-        "state": "Texas",
+        "state": "TX",
         "lat": "31.77377",
         "lng": "-97.82586",
         "distance": "68.76895",
@@ -2505,7 +2505,7 @@
     },
     {
         "city": "Red Hill",
-        "state": "Texas",
+        "state": "TX",
         "lat": "31.48739",
         "lng": "-96.51303",
         "distance": "69.04899",
@@ -2513,7 +2513,7 @@
     },
     {
         "city": "Meridian",
-        "state": "Texas",
+        "state": "TX",
         "lat": "31.92321",
         "lng": "-97.65669",
         "distance": "69.09755",
@@ -2521,7 +2521,7 @@
     },
     {
         "city": "Salem",
-        "state": "Texas",
+        "state": "TX",
         "lat": "30.81575",
         "lng": "-97.02388",
         "distance": "69.44081",
@@ -2529,7 +2529,7 @@
     },
     {
         "city": "Marlow",
-        "state": "Texas",
+        "state": "TX",
         "lat": "30.8488",
         "lng": "-96.92165",
         "distance": "69.53444",
@@ -2537,7 +2537,7 @@
     },
     {
         "city": "Purmela",
-        "state": "Texas",
+        "state": "TX",
         "lat": "31.48377",
         "lng": "-97.96225",
         "distance": "69.58302",
@@ -2545,7 +2545,7 @@
     },
     {
         "city": "Davilla",
-        "state": "Texas",
+        "state": "TX",
         "lat": "30.78575",
         "lng": "-97.275",
         "distance": "69.90089",
@@ -2553,7 +2553,7 @@
     },
     {
         "city": "Ding Dong",
-        "state": "Texas",
+        "state": "TX",
         "lat": "30.98185",
         "lng": "-97.77113",
         "distance": "70.17106",
@@ -2561,7 +2561,7 @@
     },
     {
         "city": "Nesbitt",
-        "state": "Texas",
+        "state": "TX",
         "lat": "31.09824",
         "lng": "-96.59692",
         "distance": "70.17322",
@@ -2569,7 +2569,7 @@
     },
     {
         "city": "Huron",
-        "state": "Texas",
+        "state": "TX",
         "lat": "32.03988",
         "lng": "-97.36001",
         "distance": "70.27184",
@@ -2577,7 +2577,7 @@
     },
     {
         "city": "Woodbury",
-        "state": "Texas",
+        "state": "TX",
         "lat": "32.0496",
         "lng": "-97.23084",
         "distance": "70.33817",
@@ -2585,7 +2585,7 @@
     },
     {
         "city": "Slater",
-        "state": "Texas",
+        "state": "TX",
         "lat": "31.3435",
         "lng": "-97.96975",
         "distance": "70.383",
@@ -2593,7 +2593,7 @@
     },
     {
         "city": "South Purmela",
-        "state": "Texas",
+        "state": "TX",
         "lat": "31.46988",
         "lng": "-97.97225",
         "distance": "70.38389",
@@ -2601,7 +2601,7 @@
     },
     {
         "city": "Cedar Valley",
-        "state": "Texas",
+        "state": "TX",
         "lat": "30.90574",
         "lng": "-97.67751",
         "distance": "70.53134",
@@ -2609,7 +2609,7 @@
     },
     {
         "city": "Calvert Junction",
-        "state": "Texas",
+        "state": "TX",
         "lat": "30.94213",
         "lng": "-96.73748",
         "distance": "70.69072",
@@ -2617,7 +2617,7 @@
     },
     {
         "city": "Petteway",
-        "state": "Texas",
+        "state": "TX",
         "lat": "31.18463",
         "lng": "-96.53803",
         "distance": "71.07401",
@@ -2625,7 +2625,7 @@
     },
     {
         "city": "Bartlett",
-        "state": "Texas",
+        "state": "TX",
         "lat": "30.79491",
         "lng": "-97.42556",
         "distance": "71.15039",
@@ -2633,7 +2633,7 @@
     },
     {
         "city": "Ding Dong",
-        "state": "Texas",
+        "state": "TX",
         "lat": "30.97379",
         "lng": "-97.77752",
         "distance": "71.22835",
@@ -2641,7 +2641,7 @@
     },
     {
         "city": "Box Church",
-        "state": "Texas",
+        "state": "TX",
         "lat": "31.46767",
         "lng": "-96.48748",
         "distance": "71.25821",
@@ -2649,7 +2649,7 @@
     },
     {
         "city": "Copperas Cove",
-        "state": "Texas",
+        "state": "TX",
         "lat": "31.12406",
         "lng": "-97.90308",
         "distance": "71.38223",
@@ -2657,7 +2657,7 @@
     },
     {
         "city": "Ireland",
-        "state": "Texas",
+        "state": "TX",
         "lat": "31.56683",
         "lng": "-97.96531",
         "distance": "71.43197",
@@ -2665,7 +2665,7 @@
     },
     {
         "city": "Doyle",
-        "state": "Texas",
+        "state": "TX",
         "lat": "31.5735",
         "lng": "-96.50526",
         "distance": "71.4786",
@@ -2673,7 +2673,7 @@
     },
     {
         "city": "Lakeside Village",
-        "state": "Texas",
+        "state": "TX",
         "lat": "32.02099",
         "lng": "-97.49391",
         "distance": "71.52051",
@@ -2681,7 +2681,7 @@
     },
     {
         "city": "Schwertner",
-        "state": "Texas",
+        "state": "TX",
         "lat": "30.81547",
         "lng": "-97.51417",
         "distance": "71.64812",
@@ -2689,7 +2689,7 @@
     },
     {
         "city": "Forest Glade",
-        "state": "Texas",
+        "state": "TX",
         "lat": "31.63072",
         "lng": "-96.52193",
         "distance": "71.77982",
@@ -2697,7 +2697,7 @@
     },
     {
         "city": "Calvert",
-        "state": "Texas",
+        "state": "TX",
         "lat": "30.97797",
         "lng": "-96.67386",
         "distance": "72.1566",
@@ -2705,7 +2705,7 @@
     },
     {
         "city": "Headsville",
-        "state": "Texas",
+        "state": "TX",
         "lat": "31.26129",
         "lng": "-96.49581",
         "distance": "72.34874",
@@ -2713,7 +2713,7 @@
     },
     {
         "city": "Dawson",
-        "state": "Texas",
+        "state": "TX",
         "lat": "31.89405",
         "lng": "-96.71471",
         "distance": "72.45421",
@@ -2721,7 +2721,7 @@
     },
     {
         "city": "Southwest Bell",
-        "state": "Texas",
+        "state": "TX",
         "lat": "30.97079",
         "lng": "-97.79219",
         "distance": "72.47706",
@@ -2729,7 +2729,7 @@
     },
     {
         "city": "Irene",
-        "state": "Texas",
+        "state": "TX",
         "lat": "31.9921",
         "lng": "-96.87139",
         "distance": "72.6391",
@@ -2737,7 +2737,7 @@
     },
     {
         "city": "Pelham",
-        "state": "Texas",
+        "state": "TX",
         "lat": "31.9596",
         "lng": "-96.80527",
         "distance": "72.80002",
@@ -2745,7 +2745,7 @@
     },
     {
         "city": "Lakenon",
-        "state": "Texas",
+        "state": "TX",
         "lat": "32.0521",
         "lng": "-97.02445",
         "distance": "73.36855",
@@ -2753,7 +2753,7 @@
     },
     {
         "city": "Sharp",
-        "state": "Texas",
+        "state": "TX",
         "lat": "30.7513",
         "lng": "-97.1561",
         "distance": "73.99291",
@@ -2761,7 +2761,7 @@
     },
     {
         "city": "Branchville",
-        "state": "Texas",
+        "state": "TX",
         "lat": "30.88436",
         "lng": "-96.76387",
         "distance": "74.02272",
@@ -2769,7 +2769,7 @@
     },
     {
         "city": "Barton",
-        "state": "Texas",
+        "state": "TX",
         "lat": "30.91991",
         "lng": "-96.71164",
         "distance": "74.17381",
@@ -2777,7 +2777,7 @@
     },
     {
         "city": "Maxdale",
-        "state": "Texas",
+        "state": "TX",
         "lat": "30.9899",
         "lng": "-97.83557",
         "distance": "74.19269",
@@ -2785,7 +2785,7 @@
     },
     {
         "city": "Carls Corner",
-        "state": "Texas",
+        "state": "TX",
         "lat": "32.07099",
         "lng": "-97.07223",
         "distance": "74.31863",
@@ -2793,7 +2793,7 @@
     },
     {
         "city": "Rodney",
-        "state": "Texas",
+        "state": "TX",
         "lat": "31.82183",
         "lng": "-96.61165",
         "distance": "74.33467",
@@ -2801,7 +2801,7 @@
     },
     {
         "city": "Jarrell",
-        "state": "Texas",
+        "state": "TX",
         "lat": "30.82491",
         "lng": "-97.60445",
         "distance": "74.35518",
@@ -2809,7 +2809,7 @@
     },
     {
         "city": "Whiteway",
-        "state": "Texas",
+        "state": "TX",
         "lat": "31.64293",
         "lng": "-97.9717",
         "distance": "74.41823",
@@ -2817,7 +2817,7 @@
     },
     {
         "city": "Grub Hill",
-        "state": "Texas",
+        "state": "TX",
         "lat": "32.08626",
         "lng": "-97.27918",
         "distance": "74.5229",
@@ -2825,7 +2825,7 @@
     },
     {
         "city": "Brandon",
-        "state": "Texas",
+        "state": "TX",
         "lat": "32.04571",
         "lng": "-96.96056",
         "distance": "74.57369",
@@ -2833,7 +2833,7 @@
     },
     {
         "city": "Tehuacana",
-        "state": "Texas",
+        "state": "TX",
         "lat": "31.74128",
         "lng": "-96.54693",
         "distance": "74.61534",
@@ -2841,7 +2841,7 @@
     },
     {
         "city": "Topsey",
-        "state": "Texas",
+        "state": "TX",
         "lat": "31.21906",
         "lng": "-97.98503",
         "distance": "74.67089",
@@ -2849,7 +2849,7 @@
     },
     {
         "city": "The Crossroads",
-        "state": "Texas",
+        "state": "TX",
         "lat": "30.74742",
         "lng": "-97.13221",
         "distance": "74.68566",
@@ -2857,7 +2857,7 @@
     },
     {
         "city": "Eldorado Center",
-        "state": "Texas",
+        "state": "TX",
         "lat": "31.85127",
         "lng": "-96.62804",
         "distance": "75.15456",
@@ -2865,7 +2865,7 @@
     },
     {
         "city": "Marvin",
-        "state": "Texas",
+        "state": "TX",
         "lat": "30.91463",
         "lng": "-96.70303",
         "distance": "75.16011",
@@ -2873,7 +2873,7 @@
     },
     {
         "city": "Lovelace",
-        "state": "Texas",
+        "state": "TX",
         "lat": "32.08904",
         "lng": "-97.12862",
         "distance": "75.38259",
@@ -2881,7 +2881,7 @@
     },
     {
         "city": "Mayfield",
-        "state": "Texas",
+        "state": "TX",
         "lat": "32.09654",
         "lng": "-97.19418",
         "distance": "75.63963",
@@ -2889,7 +2889,7 @@
     },
     {
         "city": "Morgan",
-        "state": "Texas",
+        "state": "TX",
         "lat": "32.01876",
         "lng": "-97.60836",
         "distance": "75.71689",
@@ -2897,7 +2897,7 @@
     },
     {
         "city": "Tracy",
-        "state": "Texas",
+        "state": "TX",
         "lat": "30.74186",
         "lng": "-97.09721",
         "distance": "75.80202",
@@ -2905,7 +2905,7 @@
     },
     {
         "city": "Emmett",
-        "state": "Texas",
+        "state": "TX",
         "lat": "31.98766",
         "lng": "-96.79277",
         "distance": "76.04212",
@@ -2913,7 +2913,7 @@
     },
     {
         "city": "Pearl",
-        "state": "Texas",
+        "state": "TX",
         "lat": "31.41016",
         "lng": "-98.03503",
         "distance": "76.11674",
@@ -2921,7 +2921,7 @@
     },
     {
         "city": "Red Hill",
-        "state": "Texas",
+        "state": "TX",
         "lat": "32.09654",
         "lng": "-97.33696",
         "distance": "76.16272",
@@ -2929,7 +2929,7 @@
     },
     {
         "city": "Spring Hill",
-        "state": "Texas",
+        "state": "TX",
         "lat": "31.93627",
         "lng": "-96.71027",
         "distance": "76.21837",
@@ -2937,7 +2937,7 @@
     },
     {
         "city": "Hoyte",
-        "state": "Texas",
+        "state": "TX",
         "lat": "30.78491",
         "lng": "-96.91554",
         "distance": "76.22745",
@@ -2945,7 +2945,7 @@
     },
     {
         "city": "Sonterra",
-        "state": "Texas",
+        "state": "TX",
         "lat": "30.80333",
         "lng": "-97.60022",
         "distance": "76.28641",
@@ -2953,7 +2953,7 @@
     },
     {
         "city": "Springfield",
-        "state": "Texas",
+        "state": "TX",
         "lat": "31.65961",
         "lng": "-96.48276",
         "distance": "76.36443",
@@ -2961,7 +2961,7 @@
     },
     {
         "city": "Minerva",
-        "state": "Texas",
+        "state": "TX",
         "lat": "30.75825",
         "lng": "-96.98804",
         "distance": "76.54736",
@@ -2969,7 +2969,7 @@
     },
     {
         "city": "Corn Hill",
-        "state": "Texas",
+        "state": "TX",
         "lat": "30.80685",
         "lng": "-97.61501",
         "distance": "76.59656",
@@ -2977,7 +2977,7 @@
     },
     {
         "city": "Union High",
-        "state": "Texas",
+        "state": "TX",
         "lat": "31.84377",
         "lng": "-96.59693",
         "distance": "76.92308",
@@ -2985,7 +2985,7 @@
     },
     {
         "city": "Kopperl",
-        "state": "Texas",
+        "state": "TX",
         "lat": "32.06987",
         "lng": "-97.50391",
         "distance": "76.941",
@@ -2993,7 +2993,7 @@
     },
     {
         "city": "Blanton",
-        "state": "Texas",
+        "state": "TX",
         "lat": "32.10682",
         "lng": "-97.3164",
         "distance": "77.07305",
@@ -3001,7 +3001,7 @@
     },
     {
         "city": "Mexia",
-        "state": "Texas",
+        "state": "TX",
         "lat": "31.67989",
         "lng": "-96.4822",
         "distance": "77.23239",
@@ -3009,7 +3009,7 @@
     },
     {
         "city": "Willow Creek",
-        "state": "Texas",
+        "state": "TX",
         "lat": "31.28629",
         "lng": "-96.43636",
         "distance": "77.28731",
@@ -3017,7 +3017,7 @@
     },
     {
         "city": "Shiloh",
-        "state": "Texas",
+        "state": "TX",
         "lat": "31.61184",
         "lng": "-96.45359",
         "distance": "77.321",
@@ -3025,7 +3025,7 @@
     },
     {
         "city": "Center",
-        "state": "Texas",
+        "state": "TX",
         "lat": "31.51073",
         "lng": "-96.4247",
         "distance": "77.69552",
@@ -3033,7 +3033,7 @@
     },
     {
         "city": "Port Sullivan (historical)",
-        "state": "Texas",
+        "state": "TX",
         "lat": "30.88352",
         "lng": "-96.70331",
         "distance": "77.73016",
@@ -3041,7 +3041,7 @@
     },
     {
         "city": "Lanham",
-        "state": "Texas",
+        "state": "TX",
         "lat": "31.75265",
         "lng": "-97.95253",
         "distance": "77.73884",
@@ -3049,7 +3049,7 @@
     },
     {
         "city": "Old Union",
-        "state": "Texas",
+        "state": "TX",
         "lat": "31.40879",
         "lng": "-96.41636",
         "distance": "77.80867",
@@ -3057,7 +3057,7 @@
     },
     {
         "city": "Owensville",
-        "state": "Texas",
+        "state": "TX",
         "lat": "31.07296",
         "lng": "-96.51941",
         "distance": "77.98441",
@@ -3065,7 +3065,7 @@
     },
     {
         "city": "Mertens",
-        "state": "Texas",
+        "state": "TX",
         "lat": "32.05849",
         "lng": "-96.89666",
         "distance": "78.18137",
@@ -3073,7 +3073,7 @@
     },
     {
         "city": "Midway",
-        "state": "Texas",
+        "state": "TX",
         "lat": "32.0921",
         "lng": "-97.00167",
         "distance": "78.22684",
@@ -3081,7 +3081,7 @@
     },
     {
         "city": "Friendship",
-        "state": "Texas",
+        "state": "TX",
         "lat": "30.71408",
         "lng": "-97.33028",
         "distance": "78.27412",
@@ -3089,7 +3089,7 @@
     },
     {
         "city": "Oletha",
-        "state": "Texas",
+        "state": "TX",
         "lat": "31.35851",
         "lng": "-96.41303",
         "distance": "78.39616",
@@ -3097,7 +3097,7 @@
     },
     {
         "city": "Hanover",
-        "state": "Texas",
+        "state": "TX",
         "lat": "30.8038",
         "lng": "-96.82165",
         "distance": "78.40632",
@@ -3105,7 +3105,7 @@
     },
     {
         "city": "LaSalle",
-        "state": "Texas",
+        "state": "TX",
         "lat": "31.53323",
         "lng": "-96.41887",
         "distance": "78.61199",
@@ -3113,7 +3113,7 @@
     },
     {
         "city": "Brushie Prairie",
-        "state": "Texas",
+        "state": "TX",
         "lat": "31.99432",
         "lng": "-96.75527",
         "distance": "78.65787",
@@ -3121,7 +3121,7 @@
     },
     {
         "city": "Mountain View",
-        "state": "Texas",
+        "state": "TX",
         "lat": "32.11237",
         "lng": "-97.07612",
         "distance": "78.7426",
@@ -3129,7 +3129,7 @@
     },
     {
         "city": "Prairie Grove",
-        "state": "Texas",
+        "state": "TX",
         "lat": "31.571",
         "lng": "-96.42303",
         "distance": "79.01478",
@@ -3137,7 +3137,7 @@
     },
     {
         "city": "New Corn Hill",
-        "state": "Texas",
+        "state": "TX",
         "lat": "30.76963",
         "lng": "-97.58751",
         "distance": "79.10546",
@@ -3145,7 +3145,7 @@
     },
     {
         "city": "Bald Prairie",
-        "state": "Texas",
+        "state": "TX",
         "lat": "31.22351",
         "lng": "-96.43275",
         "distance": "79.22764",
@@ -3153,7 +3153,7 @@
     },
     {
         "city": "Holden",
-        "state": "Texas",
+        "state": "TX",
         "lat": "31.65322",
         "lng": "-96.44748",
         "distance": "79.2694",
@@ -3161,7 +3161,7 @@
     },
     {
         "city": "Osceola",
-        "state": "Texas",
+        "state": "TX",
         "lat": "32.13071",
         "lng": "-97.22723",
         "distance": "79.33432",
@@ -3169,7 +3169,7 @@
     },
     {
         "city": "Liberty",
-        "state": "Texas",
+        "state": "TX",
         "lat": "30.77714",
         "lng": "-96.8522",
         "distance": "79.60119",
@@ -3177,7 +3177,7 @@
     },
     {
         "city": "Port Sullivan",
-        "state": "Texas",
+        "state": "TX",
         "lat": "30.86602",
         "lng": "-96.69553",
         "distance": "79.69114",
@@ -3185,7 +3185,7 @@
     },
     {
         "city": "Navarro Mills",
-        "state": "Texas",
+        "state": "TX",
         "lat": "31.95793",
         "lng": "-96.68221",
         "distance": "79.77196",
@@ -3193,7 +3193,7 @@
     },
     {
         "city": "Granger",
-        "state": "Texas",
+        "state": "TX",
         "lat": "30.71769",
         "lng": "-97.44278",
         "distance": "79.85086",
@@ -3201,7 +3201,7 @@
     },
     {
         "city": "Seger",
-        "state": "Texas",
+        "state": "TX",
         "lat": "30.9213",
         "lng": "-96.62331",
         "distance": "79.97165",
@@ -3209,7 +3209,7 @@
     },
     {
         "city": "San Gabriel",
-        "state": "Texas",
+        "state": "TX",
         "lat": "30.69436",
         "lng": "-97.1961",
         "distance": "80.01016",
@@ -3217,7 +3217,7 @@
     },
     {
         "city": "Keelersville",
-        "state": "Texas",
+        "state": "TX",
         "lat": "30.73602",
         "lng": "-97.51834",
         "distance": "80.02717",
@@ -3225,7 +3225,7 @@
     },
     {
         "city": "Goodland",
-        "state": "Texas",
+        "state": "TX",
         "lat": "30.88213",
         "lng": "-96.66803",
         "distance": "80.07717",
@@ -3233,7 +3233,7 @@
     },
     {
         "city": "Theon",
-        "state": "Texas",
+        "state": "TX",
         "lat": "30.76297",
         "lng": "-97.59723",
         "distance": "80.17133",
@@ -3241,7 +3241,7 @@
     },
     {
         "city": "Aleman",
-        "state": "Texas",
+        "state": "TX",
         "lat": "31.63238",
         "lng": "-98.04225",
         "distance": "80.39978",
@@ -3249,7 +3249,7 @@
     },
     {
         "city": "Laneport",
-        "state": "Texas",
+        "state": "TX",
         "lat": "30.69075",
         "lng": "-97.27888",
         "distance": "80.43741",
@@ -3257,7 +3257,7 @@
     },
     {
         "city": "Bee House",
-        "state": "Texas",
+        "state": "TX",
         "lat": "31.40239",
         "lng": "-98.08086",
         "distance": "80.48901",
@@ -3265,7 +3265,7 @@
     },
     {
         "city": "Bee House",
-        "state": "Texas",
+        "state": "TX",
         "lat": "31.40266",
         "lng": "-98.08114",
         "distance": "80.51476",
@@ -3273,7 +3273,7 @@
     },
     {
         "city": "Kimball (historical)",
-        "state": "Texas",
+        "state": "TX",
         "lat": "32.10904",
         "lng": "-97.48585",
         "distance": "80.52718",
@@ -3281,7 +3281,7 @@
     },
     {
         "city": "Fallon",
-        "state": "Texas",
+        "state": "TX",
         "lat": "31.581",
         "lng": "-96.40637",
         "distance": "80.80162",
@@ -3289,7 +3289,7 @@
     },
     {
         "city": "Izoro",
-        "state": "Texas",
+        "state": "TX",
         "lat": "31.29433",
         "lng": "-98.07559",
         "distance": "81.13554",
@@ -3297,7 +3297,7 @@
     },
     {
         "city": "Oakalla",
-        "state": "Texas",
+        "state": "TX",
         "lat": "30.98629",
         "lng": "-97.9253",
         "distance": "81.21124",
@@ -3305,7 +3305,7 @@
     },
     {
         "city": "Elm Grove",
-        "state": "Texas",
+        "state": "TX",
         "lat": "30.6852",
         "lng": "-97.32",
         "distance": "81.35167",
@@ -3313,7 +3313,7 @@
     },
     {
         "city": "Slab Crossing",
-        "state": "Texas",
+        "state": "TX",
         "lat": "31.52599",
         "lng": "-98.08114",
         "distance": "81.3816",
@@ -3321,7 +3321,7 @@
     },
     {
         "city": "Point Enterprise",
-        "state": "Texas",
+        "state": "TX",
         "lat": "31.65906",
         "lng": "-96.42553",
         "distance": "81.4477",
@@ -3329,7 +3329,7 @@
     },
     {
         "city": "Elliot",
-        "state": "Texas",
+        "state": "TX",
         "lat": "30.9538",
         "lng": "-96.56858",
         "distance": "81.53352",
@@ -3337,7 +3337,7 @@
     },
     {
         "city": "Woodrow",
-        "state": "Texas",
+        "state": "TX",
         "lat": "32.14821",
         "lng": "-97.31668",
         "distance": "81.64285",
@@ -3345,7 +3345,7 @@
     },
     {
         "city": "Kempner",
-        "state": "Texas",
+        "state": "TX",
         "lat": "31.08101",
         "lng": "-98.00252",
         "distance": "82.00263",
@@ -3353,7 +3353,7 @@
     },
     {
         "city": "Ohio",
-        "state": "Texas",
+        "state": "TX",
         "lat": "31.53933",
         "lng": "-98.08614",
         "distance": "82.08048",
@@ -3361,7 +3361,7 @@
     },
     {
         "city": "Blum",
-        "state": "Texas",
+        "state": "TX",
         "lat": "32.14265",
         "lng": "-97.39724",
         "distance": "82.11384",
@@ -3369,7 +3369,7 @@
     },
     {
         "city": "Walburg",
-        "state": "Texas",
+        "state": "TX",
         "lat": "30.73686",
         "lng": "-97.58029",
         "distance": "82.13115",
@@ -3377,7 +3377,7 @@
     },
     {
         "city": "Ballard Crossing",
-        "state": "Texas",
+        "state": "TX",
         "lat": "31.53988",
         "lng": "-98.08864",
         "distance": "82.32478",
@@ -3385,7 +3385,7 @@
     },
     {
         "city": "Lost Prairie",
-        "state": "Texas",
+        "state": "TX",
         "lat": "31.49878",
         "lng": "-96.37192",
         "distance": "82.51374",
@@ -3393,7 +3393,7 @@
     },
     {
         "city": "Hare",
-        "state": "Texas",
+        "state": "TX",
         "lat": "30.67103",
         "lng": "-97.27305",
         "distance": "82.59425",
@@ -3401,7 +3401,7 @@
     },
     {
         "city": "Liberty Hill",
-        "state": "Texas",
+        "state": "TX",
         "lat": "30.67381",
         "lng": "-97.14332",
         "distance": "82.66486",
@@ -3409,7 +3409,7 @@
     },
     {
         "city": "Bi-Stone",
-        "state": "Texas",
+        "state": "TX",
         "lat": "31.68628",
         "lng": "-96.42276",
         "distance": "82.73388",
@@ -3417,7 +3417,7 @@
     },
     {
         "city": "Seale",
-        "state": "Texas",
+        "state": "TX",
         "lat": "31.31323",
         "lng": "-96.37303",
         "distance": "82.74461",
@@ -3425,7 +3425,7 @@
     },
     {
         "city": "Itasca",
-        "state": "Texas",
+        "state": "TX",
         "lat": "32.15959",
         "lng": "-97.15001",
         "distance": "82.92238",
@@ -3433,7 +3433,7 @@
     },
     {
         "city": "Retreat",
-        "state": "Texas",
+        "state": "TX",
         "lat": "32.13459",
         "lng": "-97.47419",
         "distance": "82.92834",
@@ -3441,7 +3441,7 @@
     },
     {
         "city": "Florence",
-        "state": "Texas",
+        "state": "TX",
         "lat": "30.8413",
         "lng": "-97.79363",
         "distance": "83.02073",
@@ -3449,7 +3449,7 @@
     },
     {
         "city": "Raleigh",
-        "state": "Texas",
+        "state": "TX",
         "lat": "32.00904",
         "lng": "-96.69888",
         "distance": "83.1461",
@@ -3457,7 +3457,7 @@
     },
     {
         "city": "Purdon",
-        "state": "Texas",
+        "state": "TX",
         "lat": "31.94905",
         "lng": "-96.61665",
         "distance": "83.28225",
@@ -3465,7 +3465,7 @@
     },
     {
         "city": "Milford",
-        "state": "Texas",
+        "state": "TX",
         "lat": "32.1246",
         "lng": "-96.94528",
         "distance": "83.2912",
@@ -3473,7 +3473,7 @@
     },
     {
         "city": "Franklin",
-        "state": "Texas",
+        "state": "TX",
         "lat": "31.02602",
         "lng": "-96.48524",
         "distance": "83.42839",
@@ -3481,7 +3481,7 @@
     },
     {
         "city": "Silver City",
-        "state": "Texas",
+        "state": "TX",
         "lat": "31.9746",
         "lng": "-96.64054",
         "distance": "83.77482",
@@ -3489,7 +3489,7 @@
     },
     {
         "city": "Rumley",
-        "state": "Texas",
+        "state": "TX",
         "lat": "31.17295",
         "lng": "-98.06808",
         "distance": "83.78141",
@@ -3497,7 +3497,7 @@
     },
     {
         "city": "Round Prairie",
-        "state": "Texas",
+        "state": "TX",
         "lat": "31.29601",
         "lng": "-96.36441",
         "distance": "83.84359",
@@ -3505,7 +3505,7 @@
     },
     {
         "city": "Wortham",
-        "state": "Texas",
+        "state": "TX",
         "lat": "31.78794",
         "lng": "-96.46248",
         "distance": "84.12105",
@@ -3513,7 +3513,7 @@
     },
     {
         "city": "Frost",
-        "state": "Texas",
+        "state": "TX",
         "lat": "32.08015",
         "lng": "-96.80666",
         "distance": "84.13897",
@@ -3521,7 +3521,7 @@
     },
     {
         "city": "Covington",
-        "state": "Texas",
+        "state": "TX",
         "lat": "32.17848",
         "lng": "-97.25807",
         "distance": "84.65835",
@@ -3529,7 +3529,7 @@
     },
     {
         "city": "Detmold",
-        "state": "Texas",
+        "state": "TX",
         "lat": "30.6502",
         "lng": "-97.21416",
         "distance": "84.84449",
@@ -3537,7 +3537,7 @@
     },
     {
         "city": "Mozo",
-        "state": "Texas",
+        "state": "TX",
         "lat": "30.69158",
         "lng": "-97.525",
         "distance": "84.88772",
@@ -3545,7 +3545,7 @@
     },
     {
         "city": "Brooks Crossing",
-        "state": "Texas",
+        "state": "TX",
         "lat": "31.11628",
         "lng": "-98.0553",
         "distance": "84.90221",
@@ -3553,7 +3553,7 @@
     },
     {
         "city": "Hoxie",
-        "state": "Texas",
+        "state": "TX",
         "lat": "30.65436",
         "lng": "-97.34611",
         "distance": "85.0295",
@@ -3561,7 +3561,7 @@
     },
     {
         "city": "Parsley Crossing",
-        "state": "Texas",
+        "state": "TX",
         "lat": "31.56766",
         "lng": "-98.11226",
         "distance": "85.08309",
@@ -3569,7 +3569,7 @@
     },
     {
         "city": "Gause",
-        "state": "Texas",
+        "state": "TX",
         "lat": "30.78519",
         "lng": "-96.72136",
         "distance": "85.30648",
@@ -3577,7 +3577,7 @@
     },
     {
         "city": "Valley Junction",
-        "state": "Texas",
+        "state": "TX",
         "lat": "30.84186",
         "lng": "-96.63775",
         "distance": "85.33361",
@@ -3585,7 +3585,7 @@
     },
     {
         "city": "Hearne",
-        "state": "Texas",
+        "state": "TX",
         "lat": "30.87852",
         "lng": "-96.59303",
         "distance": "85.34559",
@@ -3593,7 +3593,7 @@
     },
     {
         "city": "Fairy",
-        "state": "Texas",
+        "state": "TX",
         "lat": "31.84598",
         "lng": "-97.98253",
         "distance": "85.53307",
@@ -3601,7 +3601,7 @@
     },
     {
         "city": "Derden",
-        "state": "Texas",
+        "state": "TX",
         "lat": "32.18376",
         "lng": "-97.32863",
         "distance": "85.6784",
@@ -3609,7 +3609,7 @@
     },
     {
         "city": "Nashville",
-        "state": "Texas",
+        "state": "TX",
         "lat": "30.82583",
         "lng": "-96.65278",
         "distance": "85.73369",
@@ -3617,7 +3617,7 @@
     },
     {
         "city": "Milano",
-        "state": "Texas",
+        "state": "TX",
         "lat": "30.71047",
         "lng": "-96.86331",
         "distance": "85.79849",
@@ -3625,7 +3625,7 @@
     },
     {
         "city": "Hallmark Crossing",
-        "state": "Texas",
+        "state": "TX",
         "lat": "31.08573",
         "lng": "-98.05142",
         "distance": "85.95709",
@@ -3633,7 +3633,7 @@
     },
     {
         "city": "Pursley",
-        "state": "Texas",
+        "state": "TX",
         "lat": "31.91794",
         "lng": "-96.54387",
         "distance": "86.00685",
@@ -3641,7 +3641,7 @@
     },
     {
         "city": "Personville",
-        "state": "Texas",
+        "state": "TX",
         "lat": "31.51267",
         "lng": "-96.33664",
         "distance": "86.01996",
@@ -3649,7 +3649,7 @@
     },
     {
         "city": "Sandoval",
-        "state": "Texas",
+        "state": "TX",
         "lat": "30.6402",
         "lng": "-97.29055",
         "distance": "86.0967",
@@ -3657,7 +3657,7 @@
     },
     {
         "city": "Dresden",
-        "state": "Texas",
+        "state": "TX",
         "lat": "32.03071",
         "lng": "-96.68055",
         "distance": "86.1061",
@@ -3665,7 +3665,7 @@
     },
     {
         "city": "Walnut Springs",
-        "state": "Texas",
+        "state": "TX",
         "lat": "32.05765",
         "lng": "-97.74947",
         "distance": "86.33825",
@@ -3673,7 +3673,7 @@
     },
     {
         "city": "New Baden",
-        "state": "Texas",
+        "state": "TX",
         "lat": "31.05102",
         "lng": "-96.42913",
         "distance": "86.71368",
@@ -3681,7 +3681,7 @@
     },
     {
         "city": "Rockdale",
-        "state": "Texas",
+        "state": "TX",
         "lat": "30.65548",
         "lng": "-97.00137",
         "distance": "87.12939",
@@ -3689,7 +3689,7 @@
     },
     {
         "city": "Waterloo",
-        "state": "Texas",
+        "state": "TX",
         "lat": "30.63881",
         "lng": "-97.38833",
         "distance": "87.32737",
@@ -3697,7 +3697,7 @@
     },
     {
         "city": "Iredell",
-        "state": "Texas",
+        "state": "TX",
         "lat": "31.98515",
         "lng": "-97.87197",
         "distance": "87.43034",
@@ -3705,7 +3705,7 @@
     },
     {
         "city": "Evant",
-        "state": "Texas",
+        "state": "TX",
         "lat": "31.47627",
         "lng": "-98.15198",
         "distance": "87.46663",
@@ -3713,7 +3713,7 @@
     },
     {
         "city": "Handy",
-        "state": "Texas",
+        "state": "TX",
         "lat": "30.6352",
         "lng": "-97.08999",
         "distance": "87.57984",
@@ -3721,7 +3721,7 @@
     },
     {
         "city": "Berrys Creek",
-        "state": "Texas",
+        "state": "TX",
         "lat": "30.71519",
         "lng": "-97.66001",
         "distance": "87.59478",
@@ -3729,7 +3729,7 @@
     },
     {
         "city": "Briggs",
-        "state": "Texas",
+        "state": "TX",
         "lat": "30.88963",
         "lng": "-97.92502",
         "distance": "87.92269",
@@ -3737,7 +3737,7 @@
     },
     {
         "city": "Easterly",
-        "state": "Texas",
+        "state": "TX",
         "lat": "31.10546",
         "lng": "-96.38413",
         "distance": "87.98153",
@@ -3745,7 +3745,7 @@
     },
     {
         "city": "Cotton Gin",
-        "state": "Texas",
+        "state": "TX",
         "lat": "31.681",
         "lng": "-96.36053",
         "distance": "88.06937",
@@ -3753,7 +3753,7 @@
     },
     {
         "city": "Marjorie",
-        "state": "Texas",
+        "state": "TX",
         "lat": "30.63131",
         "lng": "-97.08416",
         "distance": "88.09472",
@@ -3761,7 +3761,7 @@
     },
     {
         "city": "Gause-Milano",
-        "state": "Texas",
+        "state": "TX",
         "lat": "30.73286",
         "lng": "-96.75837",
         "distance": "88.25705",
@@ -3769,7 +3769,7 @@
     },
     {
         "city": "Wuthrich Hill",
-        "state": "Texas",
+        "state": "TX",
         "lat": "30.62603",
         "lng": "-97.36055",
         "distance": "88.32407",
@@ -3777,7 +3777,7 @@
     },
     {
         "city": "Circleville",
-        "state": "Texas",
+        "state": "TX",
         "lat": "30.63742",
         "lng": "-97.43556",
         "distance": "88.34768",
@@ -3785,7 +3785,7 @@
     },
     {
         "city": "Fair Oaks",
-        "state": "Texas",
+        "state": "TX",
         "lat": "31.48684",
         "lng": "-96.30747",
         "distance": "88.48002",
@@ -3793,7 +3793,7 @@
     },
     {
         "city": "Weir",
-        "state": "Texas",
+        "state": "TX",
         "lat": "30.6738",
         "lng": "-97.58473",
         "distance": "88.74023",
@@ -3801,7 +3801,7 @@
     },
     {
         "city": "Thorndale",
-        "state": "Texas",
+        "state": "TX",
         "lat": "30.61381",
         "lng": "-97.20555",
         "distance": "88.89932",
@@ -3809,7 +3809,7 @@
     },
     {
         "city": "Shortall",
-        "state": "Texas",
+        "state": "TX",
         "lat": "31.07545",
         "lng": "-98.08169",
         "distance": "89.0562",
@@ -3817,7 +3817,7 @@
     },
     {
         "city": "Highland",
-        "state": "Texas",
+        "state": "TX",
         "lat": "32.17209",
         "lng": "-97.54974",
         "distance": "89.06991",
@@ -3825,7 +3825,7 @@
     },
     {
         "city": "Black Jack",
-        "state": "Texas",
+        "state": "TX",
         "lat": "30.88852",
         "lng": "-96.5283",
         "distance": "89.13991",
@@ -3833,7 +3833,7 @@
     },
     {
         "city": "Praesel",
-        "state": "Texas",
+        "state": "TX",
         "lat": "30.63103",
         "lng": "-97.00999",
         "distance": "89.55223",
@@ -3841,7 +3841,7 @@
     },
     {
         "city": "Plum Grove",
-        "state": "Texas",
+        "state": "TX",
         "lat": "32.1957",
         "lng": "-96.98945",
         "distance": "89.59783",
@@ -3849,7 +3849,7 @@
     },
     {
         "city": "Blooming Grove",
-        "state": "Texas",
+        "state": "TX",
         "lat": "32.0921",
         "lng": "-96.71582",
         "distance": "89.71121",
@@ -3857,7 +3857,7 @@
     },
     {
         "city": "Adamsville",
-        "state": "Texas",
+        "state": "TX",
         "lat": "31.30128",
         "lng": "-98.16892",
         "distance": "89.79131",
@@ -3865,7 +3865,7 @@
     },
     {
         "city": "Currie",
-        "state": "Texas",
+        "state": "TX",
         "lat": "31.86377",
         "lng": "-96.44359",
         "distance": "90.01826",
@@ -3873,7 +3873,7 @@
     },
     {
         "city": "Lone Oak",
-        "state": "Texas",
+        "state": "TX",
         "lat": "32.11876",
         "lng": "-96.75972",
         "distance": "90.04795",
@@ -3881,7 +3881,7 @@
     },
     {
         "city": "Sun City",
-        "state": "Texas",
+        "state": "TX",
         "lat": "30.71588",
         "lng": "-97.71734",
         "distance": "90.19544",
@@ -3889,7 +3889,7 @@
     },
     {
         "city": "Hamilton",
-        "state": "Texas",
+        "state": "TX",
         "lat": "31.70377",
         "lng": "-98.12392",
         "distance": "90.29214",
@@ -3897,7 +3897,7 @@
     },
     {
         "city": "Greens Crossing",
-        "state": "Texas",
+        "state": "TX",
         "lat": "30.83574",
         "lng": "-97.90169",
         "distance": "90.42506",
@@ -3905,7 +3905,7 @@
     },
     {
         "city": "Serenada",
-        "state": "Texas",
+        "state": "TX",
         "lat": "30.69936",
         "lng": "-97.69195",
         "distance": "90.58472",
@@ -3913,7 +3913,7 @@
     },
     {
         "city": "New Hope",
-        "state": "Texas",
+        "state": "TX",
         "lat": "31.41129",
         "lng": "-96.28136",
         "distance": "90.64283",
@@ -3921,7 +3921,7 @@
     },
     {
         "city": "Tatsie Crossing",
-        "state": "Texas",
+        "state": "TX",
         "lat": "30.80103",
         "lng": "-96.60664",
         "distance": "90.69757",
@@ -3929,7 +3929,7 @@
     },
     {
         "city": "Files Valley",
-        "state": "Texas",
+        "state": "TX",
         "lat": "32.22265",
         "lng": "-97.07695",
         "distance": "90.76202",
@@ -3937,7 +3937,7 @@
     },
     {
         "city": "Farrar",
-        "state": "Texas",
+        "state": "TX",
         "lat": "31.45684",
         "lng": "-96.2808",
         "distance": "90.78974",
@@ -3945,7 +3945,7 @@
     },
     {
         "city": "Faubion Crossing",
-        "state": "Texas",
+        "state": "TX",
         "lat": "31.39072",
         "lng": "-98.19003",
         "distance": "90.90398",
@@ -3953,7 +3953,7 @@
     },
     {
         "city": "Jonah",
-        "state": "Texas",
+        "state": "TX",
         "lat": "30.63797",
         "lng": "-97.54084",
         "distance": "91.00275",
@@ -3961,7 +3961,7 @@
     },
     {
         "city": "Italy",
-        "state": "Texas",
+        "state": "TX",
         "lat": "32.18404",
         "lng": "-96.88472",
         "distance": "91.45701",
@@ -3969,7 +3969,7 @@
     },
     {
         "city": "Watson",
-        "state": "Texas",
+        "state": "TX",
         "lat": "30.93435",
         "lng": "-98.01447",
         "distance": "91.48902",
@@ -3977,7 +3977,7 @@
     },
     {
         "city": "Tatsie",
-        "state": "Texas",
+        "state": "TX",
         "lat": "30.79353",
         "lng": "-96.60219",
         "distance": "91.60377",
@@ -3985,7 +3985,7 @@
     },
     {
         "city": "Salty",
-        "state": "Texas",
+        "state": "TX",
         "lat": "30.59353",
         "lng": "-97.13277",
         "distance": "91.62136",
@@ -3993,7 +3993,7 @@
     },
     {
         "city": "Thrall",
-        "state": "Texas",
+        "state": "TX",
         "lat": "30.59048",
         "lng": "-97.29694",
         "distance": "91.63652",

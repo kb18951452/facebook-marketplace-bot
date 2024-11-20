@@ -1,7 +1,8 @@
 # Remove and then publish each listing
+import json
 import os
 from selenium.webdriver.common.by import By
-from dataclasses import dataclass
+from dataclasses import dataclass, asdict
 from typing import List, Optional
 
 
@@ -12,21 +13,35 @@ class ListingData:
     Price: str
     Description: str
     Location: str
-    Groups: str  # Assuming groups are separated by ';'
-
-    # Specific to vehicles
-    Vehicle_Type: Optional[str] = None
-    Year: Optional[str] = None
-    Make: Optional[str] = None
-    Model: Optional[str] = None
-    Mileage: Optional[str] = None
-    Fuel_Type: Optional[str] = None
+    Delivery: float
+    Groups: Optional[str] = None
 
     # Specific to items
     Title: Optional[str] = None
     Category: Optional[str] = None
     Condition: Optional[str] = None
-    Brand: Optional[str] = None
+    Vehicle_Type: Optional[str] = None
+    Make: Optional[str] = None
+    Model: Optional[str] = None
+
+    # For equipment listings
+    Equipment: Optional[List[str]] = None
+
+
+def transform_item(item):
+    transformed = {
+        'Photos_Folder': item.get('photos_folder', ''),
+        'Photos_Names': item.get('photos_names', []),
+        'Price': str(item.get('price', '')),
+        'Description': item.get('description', ''),
+        'Location': item.get('location', ''),
+        'Groups': ';'.join(item.get('groups', [])),
+    }
+    return ListingData(**transformed)
+
+
+def create_listing_data_from_iterable(iterable):
+    return [transform_item(item) for item in iterable]
 
 
 class Listing:
@@ -85,51 +100,58 @@ class Listing:
         # Add specific fields based on the listing_type
         function_name = f'add_fields_for_{listing_type}'
         # Call functions by name dynamically
-        globals()[function_name](data)
+        getattr(self, function_name)(data)
 
         self.scraper.element_send_keys('label[aria-label="Price"] input', data.Price)
         self.scraper.element_send_keys('label[aria-label="Description"] textarea', data.Description)
-        self.scraper.element_send_keys('label[aria-label="Location"] input', data.Location)
-        self.scraper.element_click('ul[role="listbox"] li:first-child > div')
 
-        next_button_selector = 'div [aria-label="Next"] > div'
-        next_button = self.scraper.find_element(next_button_selector, False, 3)
+        next_button = self.find_and_click_next()
         if next_button:
-            # Go to the next step
-            self.scraper.element_click(next_button_selector)
-            # Add listing to multiple groups
-            self.add_listing_to_multiple_groups(data)
-
-        # Publish the listing
-        self.scraper.element_click('div[aria-label="Publish"]:not([aria-disabled])')
+            self.scraper.element_send_keys('label[aria-label="Location"] input', data.Location)
+            self.scraper.element_click('ul[role="listbox"] li:first-child > div')
+            # # Add listing to multiple groups
+            # self.add_listing_to_multiple_groups(data)
+            self.find_and_click_next()
+            # Publish the listing
+            self.scraper.element_click('div[aria-label="Publish"]:not([aria-disabled])')
 
         if not next_button:
             self.post_listing_to_multiple_groups(data, listing_type)
 
+    def find_and_click_next(self):
+        next_button_selector = 'div [aria-label="Next"] > div'
+        next_button = self.scraper.find_element(next_button_selector, False, 3)
+        if next_button:
+            self.scraper.element_click(next_button_selector)
+            return True
+        else:
+            return False
+
     @staticmethod
-    def generate_multiple_images_path(path, image_names):
-        # Last character must be '/' because after that we are adding the name of the image
-        if path[-1] != os.path.sep:
-            path += os.path.sep
+    def generate_multiple_images_path(folder_path, image_names):
+        # Convert folder_path to an absolute path if it's not already
+        absolute_folder_path = os.path.abspath(folder_path)
 
-        images_path = ''
+        # Ensure the folder path ends with the correct separator
+        if not absolute_folder_path.endswith(os.sep):
+            absolute_folder_path += os.sep
 
-        # Create string that contains all the image paths separated by \n
+        images_paths = []
+
+        # If image_names is provided, process each name
         if image_names:
             for image_name in image_names:
-                # Remove whitespace before and after the string
+                # Strip any leading or trailing whitespace from the image name
                 image_name = image_name.strip()
+                # Use os.path.join for cross-platform compatibility
+                full_path = os.path.join(absolute_folder_path, image_name)
+                images_paths.append(full_path)
 
-                # Add "\n" for indicating new file
-                if images_path != '':
-                    images_path += '\n'
-
-                images_path += f'{path}{image_name}'
-
-        return images_path
+        # Join all paths with newline for return
+        return '\n'.join(images_paths)
 
     # Add specific fields for listing from type vehicle
-    def add_fields_for_vehicle(self, data: ListingData, ):
+    def add_fields_for_vehicle(self, data: ListingData):
         # Expand vehicle type select
         self.scraper.element_click('label[aria-label="Vehicle type"]')
         # Select vehicle type
@@ -270,6 +292,8 @@ class Listing:
         # Enter the title of the listing in the input for search
         self.scraper.element_send_keys(locator, title)
 
+        return self.scraper.find_element_by_xpath(f'//span[text()="{title}"]', False, 10)
+
     def report_listing(self, url: str):
         self.scraper.go_to_page(url)
         more_options_locator = '[aria-label="More Item Options"]'
@@ -290,5 +314,42 @@ class Listing:
         self.scraper.element_wait_to_be_present(done_button_locator)
         self.scraper.find_element(done_button_locator).click()
 
+    @classmethod
+    def load_listings_from_json(cls, file_path: str, equipment_filter: Optional[List[str]] = None) -> List[ListingData]:
+        with open(file_path, 'r') as file:
+            data = json.load(file)
 
+        listings = []
+        for listing in data.get('listings', []):
+            # Convert JSON dictionary to ListingData object
+            listing_data = ListingData(**listing)
 
+            # Filter based on equipment if the filter is provided
+            if equipment_filter:
+                # Check if any of the equipment in the filter matches any of the listing's equipment
+                if listing_data.Equipment and any(eq in listing_data.Equipment for eq in equipment_filter):
+                    listings.append(listing_data)
+            else:
+                # If no filter, add all listings
+                listings.append(listing_data)
+
+        return listings
+
+    @classmethod
+    def load_and_templatize_listings(cls, file_path: str) -> List[ListingData]:
+        with open(file_path, 'r') as file:
+            data = json.load(file)
+
+        listings = []
+        for listing in data.get('listings', []):
+            # Create ListingData object
+            listing_data = ListingData(**listing)
+
+            # Convert the ListingData object to a dictionary for string formatting
+            listing_dict = asdict(listing_data)
+
+            # Replace placeholders in Description with actual values
+            listing_data.Description = listing_data.Description.format(**listing_dict)
+            listings.append(listing_data)
+
+        return listings

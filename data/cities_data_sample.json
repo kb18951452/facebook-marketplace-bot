@@ -1,0 +1,18 @@
+[
+    {
+        "city": "Lorena",
+        "state": "TX",
+        "lat": "31.38656",
+        "lng": "-97.21556",
+        "distance": "3.66019",
+        "estimated_cost": 169.82
+    },
+    {
+        "city": "Spring Valley",
+        "state": "TX",
+        "lat": "31.39989",
+        "lng": "-97.29001",
+        "distance": "5.53907",
+        "estimated_cost": 173.58
+    }
+]

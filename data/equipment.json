@@ -1,0 +1,32 @@
+[
+    {
+      "make": "Kubota",
+      "model": "KX71-3",
+      "daily_cost": 200,
+      "weekly_cost": 750,
+      "monthly_cost": 2250,
+      "title": "Mini-Excavator",
+      "Photos_Folder": "./photos",
+      "Photos_Names": ["photo1.png"]
+    },
+    {
+      "make": "Kubota",
+      "model": "SVL75-2",
+      "daily_cost": 280,
+      "weekly_cost": 1000,
+      "monthly_cost": 3000,
+      "title": "Skidsteer",
+      "Photos_Folder": "./photos",
+      "Photos_Names": ["photo1.png"]
+    },
+    {
+      "make": "Canycom",
+      "model": "SC75",
+      "daily_cost": 150,
+      "weekly_cost": 450,
+      "monthly_cost": 1350,
+      "title": "Concrete Buggie",
+      "Photos_Folder": "./photos",
+      "Photos_Names": ["photo1.png"]
+    }
+  ]
