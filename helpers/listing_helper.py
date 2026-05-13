@@ -312,21 +312,16 @@ class Listing:
                     break
 
         if not category_el:
-            screenshot_path = f"screenshot_category_missing_{int(time.time())}.png"
-            self.scraper.driver.save_screenshot(screenshot_path)
-            raise RuntimeError(
-                f"Could not find Category field. Screenshot saved to {screenshot_path}. "
-                "Inspect the screenshot to find the correct selector."
-            )
-
-        if category_el[0] == 'css':
-            self.scraper.scroll_to_element(category_el[1])
-            self.scraper.element_click(category_el[1])
+            logger.warning("Category field not found — Facebook may have removed it. Skipping.")
         else:
-            self.scraper.scroll_to_element_by_xpath(category_el[1])
-            self.scraper.element_click_by_xpath(category_el[1])
+            if category_el[0] == 'css':
+                self.scraper.scroll_to_element(category_el[1])
+                self.scraper.element_click(category_el[1])
+            else:
+                self.scraper.scroll_to_element_by_xpath(category_el[1])
+                self.scraper.element_click_by_xpath(category_el[1])
 
-        self.scraper.element_click_by_xpath(f'//span[text()="{data.category}"]')
+            self.scraper.element_click_by_xpath(f'//span[text()="{data.category}"]')
 
 
         # --- Condition selection (updated for robustness) ---
