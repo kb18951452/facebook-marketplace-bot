@@ -235,31 +235,34 @@ class Listing:
         self.scraper.element_send_keys_by_xpath("//label[.//span[normalize-space(text())='Description']]//textarea",
                                                 data.description)
 
-        next_button = self.find_and_click_next()
-
-        # Try known Location field selectors
+        # Fill Location on page 1 if it's there (FB moved it from page 2 to page 1)
         location_xpaths = [
             '//input[@aria-label="Location"]',
             '//input[@placeholder="Location"]',
             '//input[@aria-label="Neighborhood"]',
             '//input[contains(@aria-label,"ocation")]',
         ]
+        for xp in location_xpaths:
+            el = self.scraper.find_element_by_xpath(xp, exit_on_missing_element=False, wait_element_time=5)
+            if el:
+                self.scraper.element_send_keys_by_xpath(xp, data.location)
+                self.scraper.element_click('ul[role="listbox"] li:first-child > div')
+                logger.info("Location filled on page 1.")
+                break
+
+        self.find_and_click_next()
+
+        # If FB still shows a location page (old flow), fill it there too
         location_el = None
         for xp in location_xpaths:
-            el = self.scraper.find_element_by_xpath(xp, exit_on_missing_element=False, wait_element_time=8)
+            el = self.scraper.find_element_by_xpath(xp, exit_on_missing_element=False, wait_element_time=5)
             if el:
                 location_el = xp
                 break
-
-        if not location_el:
-            screenshot_path = f"screenshot_after_next_{int(time.time())}.png"
-            self.scraper.driver.save_screenshot(screenshot_path)
-            logger.warning(f"Location field not found — screenshot saved to {screenshot_path}. Attempting to publish without setting location.")
-            new_next_button = self.find_and_click_next()
-        else:
+        if location_el:
             self.scraper.element_send_keys_by_xpath(location_el, data.location)
             self.scraper.element_click('ul[role="listbox"] li:first-child > div')
-            new_next_button = self.find_and_click_next()
+            self.find_and_click_next()
 
         # Try to click Publish — works whether we went through 1 or 2 Next steps
         publish_candidates = [
