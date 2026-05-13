@@ -90,9 +90,21 @@ def main():
     )
     scraper.go_to_page("https://www.facebook.com/marketplace/you/selling/")
 
-    # Wait for listings to render
+    # Scroll until no new listings load
     scraper.wait_random_time()
     scraper.wait_random_time()
+    last_count = 0
+    while True:
+        scraper.driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
+        scraper.wait_random_time()
+        current = scraper.driver.find_elements(
+            By.XPATH,
+            '//div[starts-with(@aria-label, "More options for ") and @role="button"]',
+        )
+        if len(current) == last_count:
+            break
+        last_count = len(current)
+        print(f"  Scrolled — {last_count} listings loaded so far...")
 
     buttons = scraper.driver.find_elements(
         By.XPATH,
@@ -103,16 +115,21 @@ def main():
         print("No listing buttons found — page may not have loaded or no active listings.")
         return
 
-    print(f"\nFound {len(buttons)} listing(s) on the selling page.\n")
+    print(f"\nFound {len(buttons)} button(s) on the selling page.\n")
     print(f"{'STATUS':<8} {'EQUIP':<14} {'CITY':<26} {'CLICKS':>6}  TITLE")
     print("-" * 100)
 
     ts   = datetime.now(timezone.utc).isoformat()
     sent = skipped = errors = 0
+    seen_titles = set()
 
     for btn in buttons:
         aria  = btn.get_attribute("aria-label") or ""
         title = aria.removeprefix("More options for ").strip()
+
+        if title in seen_titles:
+            continue
+        seen_titles.add(title)
 
         slot = title_to_slot.get(title)
         if not slot:
