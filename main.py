@@ -67,13 +67,6 @@ with open(state_file, 'w') as f:
     json.dump(state, f)
 logger.info("State cleared — all slots will be re-published.")
 
-# Navigate to Marketplace → Create
-marketplace_xpath = "//a[@href='https://www.facebook.com/marketplace/?ref=bookmark']"
-scraper.element_click_by_xpath(marketplace_xpath)
-
-selling_xpath = "//a[@href='/marketplace/create/']"
-scraper.element_click_by_xpath(selling_xpath)
-
 # Output directory for generated images
 output_directory: str = "./images/output/"
 if os.path.exists(output_directory):
