@@ -252,34 +252,62 @@ class Listing:
                 break
 
         if not location_el:
-            screenshot_path = f"screenshot_location_missing_{int(time.time())}.png"
+            screenshot_path = f"screenshot_after_next_{int(time.time())}.png"
             self.scraper.driver.save_screenshot(screenshot_path)
-            raise RuntimeError(
-                f"Could not find Location field. Screenshot saved to {screenshot_path}."
-            )
+            logger.warning(f"Location field not found — screenshot saved to {screenshot_path}. Attempting to publish without setting location.")
+            new_next_button = self.find_and_click_next()
+        else:
+            self.scraper.element_send_keys_by_xpath(location_el, data.location)
+            self.scraper.element_click('ul[role="listbox"] li:first-child > div')
+            new_next_button = self.find_and_click_next()
 
-        self.scraper.element_send_keys_by_xpath(location_el, data.location)
-        self.scraper.element_click('ul[role="listbox"] li:first-child > div')
-        new_next_button = self.find_and_click_next()
+        # Try to click Publish — works whether we went through 1 or 2 Next steps
+        publish_candidates = [
+            ('css',   'div[aria-label="Publish"]:not([aria-disabled])'),
+            ('xpath', '//div[@aria-label="Publish" and @role="button" and not(@aria-disabled)]'),
+            ('xpath', '//span[normalize-space(text())="Publish"]/ancestor::div[@role="button"][1]'),
+        ]
+        published = False
+        for kind, sel in publish_candidates:
+            if kind == 'css':
+                el = self.scraper.find_element(sel, exit_on_missing_element=False, wait_element_time=8)
+            else:
+                el = self.scraper.find_element_by_xpath(sel, exit_on_missing_element=False, wait_element_time=8)
+            if el:
+                if kind == 'css':
+                    self.scraper.element_click(sel)
+                else:
+                    self.scraper.element_click_by_xpath(sel)
+                published = True
+                break
 
-        if new_next_button:
-            # # Add listing to multiple groups
-            # self.add_listing_to_multiple_groups(data)
-            # self.find_and_click_next()
-            # Publish the listing
-            self.scraper.element_click('div[aria-label="Publish"]:not([aria-disabled])')
+        if not published:
+            screenshot_path = f"screenshot_publish_missing_{int(time.time())}.png"
+            self.scraper.driver.save_screenshot(screenshot_path)
+            logger.error(f"Could not find Publish button. Screenshot saved to {screenshot_path}.")
 
         if not next_button:
             self.post_listing_to_multiple_groups(data, listing_type)
 
     def find_and_click_next(self):
-        next_button_selector = 'div [aria-label="Next"] > div'
-        next_button = self.scraper.find_element(next_button_selector, False)
-        if next_button:
-            self.scraper.element_click(next_button_selector)
-            return True
-        else:
-            return False
+        candidates = [
+            ('css',   'div[aria-label="Next"][role="button"]'),
+            ('css',   'div [aria-label="Next"] > div'),
+            ('xpath', '//div[@aria-label="Next" and @role="button"]'),
+            ('xpath', '//span[normalize-space(text())="Next"]/ancestor::div[@role="button"][1]'),
+        ]
+        for kind, sel in candidates:
+            if kind == 'css':
+                el = self.scraper.find_element(sel, exit_on_missing_element=False, wait_element_time=5)
+            else:
+                el = self.scraper.find_element_by_xpath(sel, exit_on_missing_element=False, wait_element_time=5)
+            if el:
+                if kind == 'css':
+                    self.scraper.element_click(sel)
+                else:
+                    self.scraper.element_click_by_xpath(sel)
+                return True
+        return False
 
     @staticmethod
     def generate_multiple_images_path(folder_path, image_names):
