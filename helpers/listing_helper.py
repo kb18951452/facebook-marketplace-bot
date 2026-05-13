@@ -236,7 +236,29 @@ class Listing:
                                                 data.description)
 
         next_button = self.find_and_click_next()
-        self.scraper.element_send_keys_by_xpath('//input[@aria-label="Location"]', data.location)
+
+        # Try known Location field selectors
+        location_xpaths = [
+            '//input[@aria-label="Location"]',
+            '//input[@placeholder="Location"]',
+            '//input[@aria-label="Neighborhood"]',
+            '//input[contains(@aria-label,"ocation")]',
+        ]
+        location_el = None
+        for xp in location_xpaths:
+            el = self.scraper.find_element_by_xpath(xp, exit_on_missing_element=False, wait_element_time=8)
+            if el:
+                location_el = xp
+                break
+
+        if not location_el:
+            screenshot_path = f"screenshot_location_missing_{int(time.time())}.png"
+            self.scraper.driver.save_screenshot(screenshot_path)
+            raise RuntimeError(
+                f"Could not find Location field. Screenshot saved to {screenshot_path}."
+            )
+
+        self.scraper.element_send_keys_by_xpath(location_el, data.location)
         self.scraper.element_click('ul[role="listbox"] li:first-child > div')
         new_next_button = self.find_and_click_next()
 
