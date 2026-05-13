@@ -17,9 +17,16 @@ SUMO_ENDPOINT = (
 with open("data/cities_data.json") as _f:
     _CITY_LOOKUP = {c["city"]: c for c in json.load(_f)}
 
-def _log_to_sumo(listable, city):
+def _sumo_post(payload):
+    try:
+        requests.post(SUMO_ENDPOINT, json=payload,
+                      headers={"Content-Type": "application/json"}, timeout=5)
+    except Exception as e:
+        logger.warning(f"Sumo Logic send failed: {e}")
+
+def _log_published(listable, city):
     city_data = _CITY_LOOKUP.get(city, {})
-    payload = {
+    _sumo_post({
         "timestamp":      datetime.now(timezone.utc).isoformat(),
         "event":          "published",
         "title":          listable.title,
@@ -28,12 +35,27 @@ def _log_to_sumo(listable, city):
         "lat":            float(city_data["lat"]) if city_data.get("lat") else None,
         "lng":            float(city_data["lng"]) if city_data.get("lng") else None,
         "equipment_type": listable.equipment_type,
-    }
-    try:
-        requests.post(SUMO_ENDPOINT, json=payload,
-                      headers={"Content-Type": "application/json"}, timeout=5)
-    except Exception as e:
-        logger.warning(f"Sumo Logic send failed: {e}")
+    })
+
+def _log_click_snapshot(title, clicks, title_to_slot):
+    slot = title_to_slot.get(title)
+    if not slot:
+        return
+    parts = slot.split("_")
+    city  = " ".join(parts[1:-1])
+    equip = parts[0]
+    city_data = _CITY_LOOKUP.get(city, {})
+    _sumo_post({
+        "timestamp":      datetime.now(timezone.utc).isoformat(),
+        "event":          "click_snapshot",
+        "title":          title,
+        "city":           city,
+        "state":          city_data.get("state", "TX"),
+        "lat":            float(city_data["lat"]) if city_data.get("lat") else None,
+        "lng":            float(city_data["lng"]) if city_data.get("lng") else None,
+        "equipment_type": equip,
+        "clicks":         clicks,
+    })
 
 # Configure logging
 LOG_FILE = "listing_progress.log"
@@ -56,10 +78,19 @@ l = Listing(scraper)
 # State file
 state_file = 'state.json'
 
-# Delete all existing listings and reset state so every slot gets re-published fresh
+# Load existing state before clearing so we can snapshot clicks on deletion
+existing_state = {}
+if os.path.exists(state_file):
+    with open(state_file) as f:
+        existing_state = json.load(f)
+title_to_slot = {title: slot for slot, title in existing_state.items()}
+
+# Delete all existing listings, capturing click counts before each removal
 logger.info("Deleting all existing listings before re-publishing...")
 scraper.go_to_page('https://www.facebook.com/marketplace/you/selling/')
-l.remove_all_listings()
+l.remove_all_listings(
+    before_delete=lambda title, clicks: _log_click_snapshot(title, clicks, title_to_slot)
+)
 logger.info("All existing listings deleted.")
 
 state = {}
@@ -96,7 +127,7 @@ for listable in get_listings(output_directory=output_directory):
     logger.info(f"Publishing listing for slot '{slot}' with title: {listable.title}")
     l.update_listings(listings=[listable], listing_type="item")
 
-    _log_to_sumo(listable, city)
+    _log_published(listable, city)
 
     # Update state with the new title
     state[slot] = listable.title

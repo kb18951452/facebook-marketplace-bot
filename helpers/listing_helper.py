@@ -1,6 +1,7 @@
 # Remove and then publish each listing
 import os
 import random
+import re
 
 from selenium.webdriver.common.by import By
 from dataclasses import dataclass
@@ -80,6 +81,19 @@ class Listing:
         # Wait until the popup is closed
         self.scraper.element_wait_to_be_invisible('div[aria-label="Your Listing"]')
 
+    def _extract_clicks_from_card(self, button_element):
+        """Walk up the DOM from the 'More options' button to find 'N clicks on listing'."""
+        node = button_element
+        for _ in range(8):
+            try:
+                node = node.find_element(By.XPATH, "..")
+                m = re.search(r'(\d[\d,]*)\s*clicks?\s+on\s+listing', node.text, re.IGNORECASE)
+                if m:
+                    return int(m.group(1).replace(",", ""))
+            except Exception:
+                break
+        return None
+
     def _safe_click(self, element):
         """Click an element, retrying once on StaleElementReferenceException."""
         try:
@@ -90,7 +104,7 @@ class Listing:
             self.scraper.driver.execute_script("arguments[0].click();", element)
         return True
 
-    def remove_all_listings(self):
+    def remove_all_listings(self, before_delete=None):
         print("Starting to delete all Marketplace listings...")
 
         while True:
@@ -108,6 +122,16 @@ class Listing:
                 self.scraper.driver.execute_script("arguments[0].scrollIntoView({block: 'center'});", more_options)
             except StaleElementReferenceException:
                 continue
+
+            # Snapshot clicks and title before deleting
+            if before_delete:
+                try:
+                    aria  = more_options.get_attribute("aria-label") or ""
+                    title = aria.replace("More options for ", "", 1).strip()
+                    clicks = self._extract_clicks_from_card(more_options)
+                    before_delete(title, clicks)
+                except Exception:
+                    pass
 
             self.scraper.wait_random_time()
             if not self._safe_click(more_options):
