@@ -2,7 +2,8 @@ import os
 import json
 import hashlib
 import random
-from PIL import Image, ImageDraw, ImageFont
+import numpy as np
+from PIL import Image, ImageDraw, ImageFont, ImageEnhance
 from helpers.listing_helper import ListingData
 from typing import Generator, Optional, Tuple
 
@@ -361,88 +362,83 @@ def generate_random_controlled_image(input_image: str = "images/basic.jpeg",
     if not os.path.exists(output_directory):
         os.makedirs(output_directory)
 
-    if os.name == 'posix':  # macOS/Linux
-        font_dir = '/Library/Fonts/'
-        font_file = 'Arial Bold.ttf'
-    else:  # Windows
-        font_dir = 'C:\\Windows\\Fonts\\'
-        font_file = 'arialbd.ttf'
+    if os.name == 'posix':
+        font_path = '/Library/Fonts/Arial Bold.ttf'
+    else:
+        font_path = 'C:\\Windows\\Fonts\\arialbd.ttf'
 
-    font_path = os.path.join(font_dir, font_file)
+    photo = Image.open(input_image).convert('RGB')
 
-    # Load the photo
-    photo = Image.open(input_image)
-
-    # Add uniqueness: Slight random rotation (1-5 degrees)
-    rotation_angle = random.uniform(1, 5) if random.choice([True, False]) else -random.uniform(1, 5)
+    # --- Distortion 1: slight random rotation ---
+    rotation_angle = random.uniform(1, 5) * random.choice([-1, 1])
     photo = photo.rotate(rotation_angle, expand=True, fillcolor='white')
 
-    # Add uniqueness: Random crop (5-10% from edges)
+    # --- Distortion 2: random crop (5-10% from edges) ---
     width, height = photo.size
     crop_pct = random.uniform(0.05, 0.10)
-    left = int(width * crop_pct)
-    top = int(height * crop_pct)
-    right = width - left
-    bottom = height - top
-    photo = photo.crop((left, top, right, bottom))
+    lc = int(width * crop_pct)
+    tc = int(height * crop_pct)
+    photo = photo.crop((lc, tc, width - lc, height - tc))
 
-    # Resize back to original for consistency if needed (optional)
-    # photo = photo.resize((original_width, original_height))
+    # --- Distortion 3: brightness + contrast variation ---
+    photo = ImageEnhance.Brightness(photo).enhance(random.uniform(0.85, 1.15))
+    photo = ImageEnhance.Contrast(photo).enhance(random.uniform(0.85, 1.15))
+    photo = ImageEnhance.Color(photo).enhance(random.uniform(0.85, 1.15))
 
-    # Create blank image with white background
+    # --- Distortion 4: subtle pixel noise ---
+    arr = np.array(photo, dtype=np.int16)
+    noise = np.random.randint(-12, 13, arr.shape, dtype=np.int16)
+    arr = np.clip(arr + noise, 0, 255).astype(np.uint8)
+    photo = Image.fromarray(arr)
+
     width, height = photo.size
     background = Image.new('RGB', (width, height), 'white')
     background.paste(photo, (0, 0))
 
-    # Phone number setup
+    # --- Phone number overlay ---
     phone_number = "254.655.3339"
     font_size = random.randint(40, 50)
     font = ImageFont.truetype(font_path, font_size)
 
-    # Text size
-    left, top_bbox, right, bottom = font.getbbox(phone_number)
-    text_width, text_height = right - left, bottom - top_bbox
+    bbox = font.getbbox(phone_number)
+    text_width  = bbox[2] - bbox[0]
+    text_height = bbox[3] - bbox[1]
 
-    # Random size variation
-    min_width, max_width = text_width, int(text_width * 1.25)
-    min_height, max_height = text_height, int(text_height * 1.25)
-    visual_width = random.randint(min_width, max_width)
-    visual_height = random.randint(min_height, max_height)
+    # Pad the banner slightly larger than the text
+    pad_x, pad_y = 12, 8
+    banner_w = text_width  + pad_x * 2
+    banner_h = text_height + pad_y * 2
 
-    # Offset range (small for centering)
-    offset_range = int(min(width, height) * 0.05)  # 5% of min dimension
-    offset_x = random.randint(-offset_range, offset_range)  # Slight horizontal jitter
-    offset_y = random.randint(0, offset_range)  # Vertical offset
+    # Horizontal: centered with ±2% random jitter
+    jitter_x = int(width * 0.02)
+    banner_x = (width - banner_w) // 2 + random.randint(-jitter_x, jitter_x)
 
     draw = ImageDraw.Draw(background)
 
-    # Place at top-center and bottom-center
     for position in ['top', 'bottom']:
-        visual_x = (width // 2) - (visual_width // 2) + offset_x  # Horizontal center
-
+        # Vertical: hug the edge with 8-18 px margin
+        edge_margin = random.randint(8, 18)
         if position == 'top':
-            visual_y = offset_y + 50  # Top with padding
-        else:  # bottom
-            visual_y = height - visual_height - offset_y - 50  # Bottom with padding
+            banner_y = edge_margin
+        else:
+            banner_y = height - banner_h - edge_margin
 
-        # Random orange-like color with alpha for semi-transparency
-        red = 255
-        green = random.randint(100, 255)
-        blue = random.randint(0, 50)
-        alpha = random.randint(150, 255)  # Semi-transparent
-        overlay_color = (red, green, blue, alpha)
+        # Semi-transparent orange banner
+        red   = 255
+        green = random.randint(100, 200)
+        blue  = random.randint(0, 40)
+        alpha = random.randint(200, 245)
+        overlay = Image.new('RGBA', (banner_w, banner_h), (red, green, blue, alpha))
+        background.paste(overlay, (banner_x, banner_y), overlay)
 
-        # Draw semi-transparent rectangle
-        overlay = Image.new('RGBA', (visual_width + 10, visual_height + 10), overlay_color)
-        background.paste(overlay, (visual_x - 5, visual_y - 5), overlay)
+        # Text inside banner
+        text_x = banner_x + pad_x
+        text_y = banner_y + pad_y
+        draw.text((text_x, text_y), phone_number, fill='black', font=font)
 
-        # Draw text
-        draw.text((visual_x, visual_y), phone_number, fill='black', font=font)
-
-    # Save with hash for uniqueness
     hash_name = hash_image(background)
     image_path = os.path.join(os.path.abspath(output_directory), f"{hash_name}.jpeg")
-    background.save(image_path)
+    background.save(image_path, quality=random.randint(82, 95))
     return image_path
 
 def random_images_from_directory(path, number=9):

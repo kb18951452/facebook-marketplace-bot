@@ -7,7 +7,7 @@ from dataclasses import dataclass
 from typing import List, Optional
 import logging
 import time
-from selenium.common.exceptions import TimeoutException, ElementClickInterceptedException
+from selenium.common.exceptions import TimeoutException, ElementClickInterceptedException, StaleElementReferenceException
 
 
 logger = logging.getLogger(__name__)
@@ -80,6 +80,16 @@ class Listing:
         # Wait until the popup is closed
         self.scraper.element_wait_to_be_invisible('div[aria-label="Your Listing"]')
 
+    def _safe_click(self, element):
+        """Click an element, retrying once on StaleElementReferenceException."""
+        try:
+            element.click()
+        except StaleElementReferenceException:
+            return False
+        except ElementClickInterceptedException:
+            self.scraper.driver.execute_script("arguments[0].click();", element)
+        return True
+
     def remove_all_listings(self):
         print("Starting to delete all Marketplace listings...")
 
@@ -94,76 +104,49 @@ class Listing:
                 print("No more listings found — all deleted!")
                 return
 
-            self.scraper.driver.execute_script("arguments[0].scrollIntoView({block: 'center'});", more_options)
-
             try:
-                more_options.click()
-            except ElementClickInterceptedException:
-                self.scraper.driver.execute_script("""
-                    const el = arguments[0];
+                self.scraper.driver.execute_script("arguments[0].scrollIntoView({block: 'center'});", more_options)
+            except StaleElementReferenceException:
+                continue
 
-                    // Mousedown
-                    let downEvent = new MouseEvent('mousedown', {
-                        bubbles: true,
-                        cancelable: true,
-                        view: window,
-                        button: 0
-                    });
-                    el.dispatchEvent(downEvent);
-
-                    // Small delay
-                    setTimeout(() => {
-                        // Mouseup
-                        let upEvent = new MouseEvent('mouseup', {
-                            bubbles: true,
-                            cancelable: true,
-                            view: window,
-                            button: 0
-                        });
-                        el.dispatchEvent(upEvent);
-
-                        // Click (as fallback)
-                        let clickEvent = new MouseEvent('click', {
-                            bubbles: true,
-                            cancelable: true,
-                            view: window,
-                            button: 0
-                        });
-                        el.dispatchEvent(clickEvent);
-                    }, 50);
-                """, more_options)
+            self.scraper.wait_random_time()
+            if not self._safe_click(more_options):
+                continue  # stale — re-find on next iteration
 
             # Click "Delete listing"
+            self.scraper.wait_random_time()
             delete_btn = self.scraper.find_element_by_xpath(
                 '//span[normalize-space(text())="Delete listing"]',
+                exit_on_missing_element=False,
                 wait_element_time=10
             )
-            if delete_btn:
-                try:
-                    delete_btn.click()
-                except ElementClickInterceptedException:
-                    self.scraper.driver.execute_script("arguments[0].click();", delete_btn)
+            if not delete_btn:
+                continue
+            if not self._safe_click(delete_btn):
+                continue
 
             # Confirm deletion
+            self.scraper.wait_random_time()
             confirm_xpath = (
                 '//div[@aria-label="Delete" and @role="button" and @tabindex="0" '
                 'and descendant::span[normalize-space(text())="Delete"]]'
             )
             confirm_btn = self.scraper.find_element_by_xpath(
-                confirm_xpath, wait_element_time=10
+                confirm_xpath, exit_on_missing_element=False, wait_element_time=10
             )
-            if confirm_btn:
-                try:
-                    confirm_btn.click()
-                except ElementClickInterceptedException:
-                    self.scraper.driver.execute_script("arguments[0].click();", confirm_btn)
+            if not confirm_btn:
+                continue
+            if not self._safe_click(confirm_btn):
+                continue
 
             print("Confirmed deletion...")
 
-            # Handle the new survey dialog ("I'd rather not answer" → Next)
+            # Handle the survey dialog ("I'd rather not answer" → Next)
+            self.scraper.wait_random_time()
             self.handle_delete_confirmation_dialog()
 
             print("Deleted one listing.")
+            self.scraper.wait_random_time()
 
 
     def remove_duplicate_listings(self):
