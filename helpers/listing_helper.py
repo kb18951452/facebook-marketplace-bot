@@ -290,12 +290,11 @@ class Listing:
             self.post_listing_to_multiple_groups(data, listing_type)
 
     def find_and_click_next(self):
-        # Only match the wizard's Next button — must have role="button" AND tabindex="0"
-        # to avoid accidentally hitting image carousel arrows
         candidates = [
             ('xpath', '//div[@aria-label="Next" and @role="button" and @tabindex="0"]'),
             ('css',   'div[aria-label="Next"][role="button"][tabindex="0"]'),
             ('xpath', '//div[@aria-label="Next" and @role="button"]'),
+            ('xpath', '//div[@role="button" and .//span[normalize-space(text())="Next"] and not(ancestor::*[@aria-label="Image"])]'),
         ]
         for kind, sel in candidates:
             if kind == 'css':
@@ -308,6 +307,23 @@ class Listing:
                 el.click()
                 self.scraper.wait_random_time()
                 return True
+
+        # JS fallback: find first role=button whose visible text is exactly "Next"
+        clicked = self.scraper.driver.execute_script("""
+            var btns = Array.from(document.querySelectorAll('[role="button"]'));
+            var btn = btns.find(function(el) {
+                return el.innerText && el.innerText.trim() === 'Next';
+            });
+            if (btn) { btn.click(); return true; }
+            // Log what buttons exist for debugging
+            return btns.map(function(el) {
+                return (el.getAttribute('aria-label') || el.innerText || '').trim().substring(0,40);
+            }).join(' | ');
+        """)
+        if clicked is True:
+            self.scraper.wait_random_time()
+            return True
+        logger.warning(f"find_and_click_next: no Next button found. Buttons on page: {clicked}")
         return False
 
     @staticmethod
