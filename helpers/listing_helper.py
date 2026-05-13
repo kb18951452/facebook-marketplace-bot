@@ -216,24 +216,43 @@ class Listing:
         logger.info(f"Creating \"{data.title}\"")
         self.scraper.go_to_page('https://facebook.com/marketplace/create/' + listing_type)
 
-        # Add a delay before starting form filling
+        # Log all inputs/textareas visible on the page so we can identify changed selectors
+        fields_info = self.scraper.driver.execute_script("""
+            return Array.from(document.querySelectorAll('input:not([type="file"]), textarea'))
+                .map(function(el) {
+                    return '[' + (el.getAttribute('aria-label') || el.getAttribute('placeholder') || el.tagName) + ']';
+                }).join(', ');
+        """)
+        logger.info(f"Form fields on create page: {fields_info}")
 
         images_path = data.images
-        # Add images to the listing
         self.scraper.input_file_add_files('input[accept="image/*,image/heif,image/heic"]', images_path)
-
 
         # Add specific fields based on the listing_type
         function_name = f'add_fields_for_{listing_type}'
-        # Call functions by name dynamically
         getattr(self, function_name)(data)
-
 
         self.scraper.element_send_keys_by_xpath("//span[normalize-space(text())='Price']/following-sibling::input[1]",
                                                 data.price)
 
-        self.scraper.element_send_keys_by_xpath("//label[.//span[normalize-space(text())='Description']]//textarea",
-                                                data.description)
+        # Try multiple selectors for Description
+        desc_filled = False
+        desc_xpaths = [
+            "//label[.//span[normalize-space(text())='Description']]//textarea",
+            "//textarea[@aria-label='Description']",
+            "//textarea[contains(@aria-label,'escription')]",
+            "//textarea[contains(@placeholder,'escription') or contains(@placeholder,'escription')]",
+            "//textarea[1]",
+        ]
+        for xp in desc_xpaths:
+            el = self.scraper.find_element_by_xpath(xp, exit_on_missing_element=False, wait_element_time=5)
+            if el:
+                self.scraper.element_send_keys_by_xpath(xp, data.description)
+                logger.info(f"Description filled via: {xp}")
+                desc_filled = True
+                break
+        if not desc_filled:
+            logger.error("Could not find Description textarea — listing will be incomplete.")
 
         # Fill Location on page 1 if it's there (FB moved it from page 2 to page 1)
         location_xpaths = [
