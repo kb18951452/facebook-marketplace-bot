@@ -2,10 +2,38 @@ import logging
 import os
 import shutil
 import json
+import requests
+from datetime import datetime, timezone
 
 from helpers.ads import get_listings
 from helpers.scraper import Scraper
 from helpers.listing_helper import Listing
+
+SUMO_ENDPOINT = (
+    "https://endpoint4.collection.sumologic.com/receiver/v1/http/"
+    "ZaVnC4dhaV1WAXKlyVji5qYz_JFGGVzGAmMiumPVN4oprAXf1_b8seo08i1q9WXgAGF5GcYAxtgdmv9q-g54LzeLLW5JtGwEXJD3hTt-WQvT2cqJLTiUuA=="
+)
+
+with open("data/cities_data.json") as _f:
+    _CITY_LOOKUP = {c["city"]: c for c in json.load(_f)}
+
+def _log_to_sumo(listable, city):
+    city_data = _CITY_LOOKUP.get(city, {})
+    payload = {
+        "timestamp":      datetime.now(timezone.utc).isoformat(),
+        "event":          "published",
+        "title":          listable.title,
+        "city":           city,
+        "state":          city_data.get("state", "TX"),
+        "lat":            float(city_data["lat"]) if city_data.get("lat") else None,
+        "lng":            float(city_data["lng"]) if city_data.get("lng") else None,
+        "equipment_type": listable.equipment_type,
+    }
+    try:
+        requests.post(SUMO_ENDPOINT, json=payload,
+                      headers={"Content-Type": "application/json"}, timeout=5)
+    except Exception as e:
+        logger.warning(f"Sumo Logic send failed: {e}")
 
 # Configure logging
 LOG_FILE = "listing_progress.log"
@@ -74,6 +102,8 @@ for listable in get_listings(output_directory=output_directory):
     # Publish the listing
     logger.info(f"Publishing listing for slot '{slot}' with title: {listable.title}")
     l.update_listings(listings=[listable], listing_type="item")
+
+    _log_to_sumo(listable, city)
 
     # Update state with the new title
     state[slot] = listable.title
