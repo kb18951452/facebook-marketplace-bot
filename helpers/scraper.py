@@ -2,7 +2,6 @@ import os
 import pickle
 import time
 import random
-from webdriver_manager.chrome import ChromeDriverManager
 from selenium import webdriver
 from selenium.webdriver.chrome.service import Service as ChromeService
 from selenium.webdriver.chrome.options import Options
@@ -12,6 +11,8 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.common.exceptions import InvalidArgumentException, TimeoutException
 from selenium.common.exceptions import ElementClickInterceptedException
+from webdriver_manager.chrome import ChromeDriverManager
+from webdriver_manager.core.os_manager import ChromeType
 
 
 class Scraper:
@@ -54,8 +55,12 @@ class Scraper:
 
 	# Setup chrome driver with predefined options
 	def setup_driver(self):
-		# chrome_driver_path = ChromeDriverManager().install()
-		chrome_driver_path = './chromedriver/chromedriver.exe'
+		# Force Google Chrome (not Chromium) and win64 to get the correct exe
+		chrome_driver_path = ChromeDriverManager(chrome_type=ChromeType.GOOGLE).install()
+
+		# Optional: print to verify it's ending with chromedriver.exe (not THIRD_PARTY_NOTICES...)
+		print(f"ChromeDriver path: {chrome_driver_path}")
+
 		self.driver = webdriver.Chrome(service=ChromeService(chrome_driver_path), options=self.driver_options)
 		self.driver.get(self.url)
 		self.driver.maximize_window()
@@ -135,7 +140,7 @@ class Scraper:
 
 	# Wait random amount of seconds before taking some action so the server won't be able to tell if you are a bot
 	def wait_random_time(self):
-		random_sleep_seconds = round(random.uniform(0.20, 1.20), 2)
+		random_sleep_seconds = round(random.uniform(1.20, 2.20), 2)
 
 		time.sleep(random_sleep_seconds)
 
@@ -147,7 +152,7 @@ class Scraper:
 		# Refresh the site url with the loaded cookies so the user will be logged in
 		self.driver.get(page)
 
-	def find_element(self, selector, exit_on_missing_element = True, wait_element_time = None):
+	def find_element(self, selector, exit_on_missing_element=True, wait_element_time=None):
 		if wait_element_time is None:
 			wait_element_time = self.wait_element_time
 
@@ -167,7 +172,7 @@ class Scraper:
 
 		return element
 
-	def find_element_by_xpath(self, xpath, exit_on_missing_element = True, wait_element_time = None):
+	def find_element_by_xpath(self, xpath, exit_on_missing_element = True, wait_element_time=None):
 		if wait_element_time is None:
 			wait_element_time = self.wait_element_time
 
@@ -188,7 +193,7 @@ class Scraper:
 		return element
 
 	# Wait random time before clicking on the element
-	def element_click(self, selector, delay = True):
+	def element_click(self, selector, delay=True):
 		if delay:
 			self.wait_random_time()
 
