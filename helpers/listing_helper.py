@@ -287,10 +287,45 @@ class Listing:
                                                 data.title)
 
         # Scroll to "Category" select field
-        self.scraper.scroll_to_element("input[aria-label='Category']")
-        # Expand category select
-        self.scraper.element_click("input[aria-label='Category']")
-        # Select category
+        # Try known selectors for the Category field (FB changes these periodically)
+        category_selectors = [
+            "input[aria-label='Category']",
+            "input[placeholder='Category']",
+            "input[aria-label='category']",
+        ]
+        category_xpaths = [
+            "//label[.//span[normalize-space(text())='Category']]//input",
+            "//div[@aria-label='Category' and @role='combobox']",
+            "//span[normalize-space(text())='Category']/ancestor::div[@role='button'][1]",
+        ]
+        category_el = None
+        for sel in category_selectors:
+            el = self.scraper.find_element(sel, exit_on_missing_element=False, wait_element_time=5)
+            if el:
+                category_el = ('css', sel)
+                break
+        if not category_el:
+            for xp in category_xpaths:
+                el = self.scraper.find_element_by_xpath(xp, exit_on_missing_element=False, wait_element_time=5)
+                if el:
+                    category_el = ('xpath', xp)
+                    break
+
+        if not category_el:
+            screenshot_path = f"screenshot_category_missing_{int(time.time())}.png"
+            self.scraper.driver.save_screenshot(screenshot_path)
+            raise RuntimeError(
+                f"Could not find Category field. Screenshot saved to {screenshot_path}. "
+                "Inspect the screenshot to find the correct selector."
+            )
+
+        if category_el[0] == 'css':
+            self.scraper.scroll_to_element(category_el[1])
+            self.scraper.element_click(category_el[1])
+        else:
+            self.scraper.scroll_to_element_by_xpath(category_el[1])
+            self.scraper.element_click_by_xpath(category_el[1])
+
         self.scraper.element_click_by_xpath(f'//span[text()="{data.category}"]')
 
 
