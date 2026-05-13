@@ -290,11 +290,19 @@ class Listing:
             self.post_listing_to_multiple_groups(data, listing_type)
 
     def find_and_click_next(self):
+        # Scroll to bottom so the Next button is in view
+        self.scraper.driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
+        time.sleep(0.5)
+
         candidates = [
             ('css',   'div[aria-label="Next"][role="button"]'),
+            ('css',   'div[aria-label="Next"]'),
             ('css',   'div [aria-label="Next"] > div'),
             ('xpath', '//div[@aria-label="Next" and @role="button"]'),
+            ('xpath', '//div[@aria-label="Next"]'),
+            ('xpath', '//*[@role="button" and normalize-space(.)="Next"]'),
             ('xpath', '//span[normalize-space(text())="Next"]/ancestor::div[@role="button"][1]'),
+            ('xpath', '//span[normalize-space(text())="Next"]/ancestor::*[@role="button"][1]'),
         ]
         for kind, sel in candidates:
             if kind == 'css':
@@ -302,10 +310,13 @@ class Listing:
             else:
                 el = self.scraper.find_element_by_xpath(sel, exit_on_missing_element=False, wait_element_time=5)
             if el:
-                if kind == 'css':
-                    self.scraper.element_click(sel)
-                else:
-                    self.scraper.element_click_by_xpath(sel)
+                try:
+                    self.scraper.driver.execute_script("arguments[0].scrollIntoView({block:'center'});", el)
+                    time.sleep(0.3)
+                    self.scraper.driver.execute_script("arguments[0].click();", el)
+                except Exception:
+                    pass
+                self.scraper.wait_random_time()
                 return True
         return False
 
