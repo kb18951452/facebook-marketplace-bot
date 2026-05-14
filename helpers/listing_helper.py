@@ -4,6 +4,7 @@ import random
 import re
 
 from selenium.webdriver.common.by import By
+from selenium.webdriver.common.action_chains import ActionChains
 from dataclasses import dataclass
 from typing import List, Optional
 import logging
@@ -235,17 +236,16 @@ class Listing:
         self.scraper.element_send_keys_by_xpath("//span[normalize-space(text())='Price']/following-sibling::input[1]",
                                                 data.price)
 
-        # Try multiple selectors for Description
+        # Try multiple selectors for Description (2s timeout each — fail fast)
         desc_filled = False
         desc_xpaths = [
             "//label[.//span[normalize-space(text())='Description']]//textarea",
             "//textarea[@aria-label='Description']",
             "//textarea[contains(@aria-label,'escription')]",
-            "//textarea[contains(@placeholder,'escription') or contains(@placeholder,'escription')]",
             "//textarea[1]",
         ]
         for xp in desc_xpaths:
-            el = self.scraper.find_element_by_xpath(xp, exit_on_missing_element=False, wait_element_time=5)
+            el = self.scraper.find_element_by_xpath(xp, exit_on_missing_element=False, wait_element_time=3)
             if el:
                 self.scraper.element_send_keys_by_xpath(xp, data.description)
                 logger.info(f"Description filled via: {xp}")
@@ -254,62 +254,233 @@ class Listing:
         if not desc_filled:
             logger.error("Could not find Description textarea — listing will be incomplete.")
 
-        # Fill Location on page 1 if it's there (FB moved it from page 2 to page 1)
-        location_xpaths = [
-            '//input[@aria-label="Location"]',
-            '//input[@placeholder="Location"]',
-            '//input[@aria-label="Neighborhood"]',
-            '//input[contains(@aria-label,"ocation")]',
-        ]
-        for xp in location_xpaths:
-            el = self.scraper.find_element_by_xpath(xp, exit_on_missing_element=False, wait_element_time=5)
-            if el:
-                self.scraper.element_send_keys_by_xpath(xp, data.location)
-                self.scraper.element_click('ul[role="listbox"] li:first-child > div')
-                logger.info("Location filled on page 1.")
-                break
+        # Scroll the form to the bottom so location (pushed down by images) becomes accessible
+        self.scraper.driver.execute_script("""
+            Array.from(document.querySelectorAll('[role="dialog"], form, [data-pagelet]'))
+                .forEach(function(el) {
+                    if (el.scrollHeight > el.clientHeight + 20) el.scrollTop = el.scrollHeight;
+                });
+            window.scrollTo(0, document.body.scrollHeight);
+        """)
+        time.sleep(0.3)
+
+        # Log fields again after scroll to see if location appeared
+        fields_after_scroll = self.scraper.driver.execute_script("""
+            return Array.from(document.querySelectorAll('input:not([type="file"]):not([type="hidden"]), [role="combobox"], [aria-required="true"]'))
+                .filter(function(el) { return el.offsetParent !== null; })
+                .map(function(el) {
+                    return '[' + (el.getAttribute('aria-label') || el.getAttribute('placeholder') || el.id || el.tagName + '/' + el.getAttribute('role') || '?') + ']';
+                }).join(', ');
+        """)
+        logger.info(f"Fields after scroll: {fields_after_scroll}")
+
+        # Try location on page 1 (2s timeout — it may be here, just pushed below fold by images)
+        location_filled = self._fill_location(data.location, wait=2)
+        if location_filled:
+            logger.info("Location filled on page 1.")
 
         self.find_and_click_next()
 
-        # If FB still shows a location page (old flow), fill it there too
-        location_el = None
-        for xp in location_xpaths:
-            el = self.scraper.find_element_by_xpath(xp, exit_on_missing_element=False, wait_element_time=5)
-            if el:
-                location_el = xp
-                break
-        if location_el:
-            self.scraper.element_send_keys_by_xpath(location_el, data.location)
-            self.scraper.element_click('ul[role="listbox"] li:first-child > div')
-            self.find_and_click_next()
+        # Log what inputs exist on page 2 so we can diagnose selector mismatches
+        p2_fields = self.scraper.driver.execute_script("""
+            return Array.from(document.querySelectorAll('input:not([type="file"]):not([type="hidden"])'))
+                .filter(function(el) { return el.offsetParent !== null; })
+                .map(function(el) {
+                    return '[' + (el.getAttribute('aria-label') || el.getAttribute('placeholder') || el.id || '?') + ']';
+                }).join(', ');
+        """)
+        logger.info(f"Page 2 visible inputs: {p2_fields}")
 
-        # Try to click Publish — works whether we went through 1 or 2 Next steps
-        publish_candidates = [
-            ('css',   'div[aria-label="Publish"]:not([aria-disabled])'),
-            ('xpath', '//div[@aria-label="Publish" and @role="button" and not(@aria-disabled)]'),
-            ('xpath', '//span[normalize-space(text())="Publish"]/ancestor::div[@role="button"][1]'),
-        ]
-        published = False
-        for kind, sel in publish_candidates:
-            if kind == 'css':
-                el = self.scraper.find_element(sel, exit_on_missing_element=False, wait_element_time=8)
+        # Always attempt to fill the page-2 location input (aria-label="Location") —
+        # this is the authoritative field that sets the listing's target city.
+        p2_location = self._fill_location(data.location, wait=3)
+        if p2_location:
+            logger.info("Location confirmed on page 2.")
+            location_filled = True
+        elif not location_filled:
+            # Page 2 had no matching input — try the broader JS fallback
+            p2_location = self._fill_location(data.location, wait=2, use_js_fallback=True)
+            if p2_location:
+                logger.info("Location filled on page 2 via fallback.")
+                location_filled = True
             else:
-                el = self.scraper.find_element_by_xpath(sel, exit_on_missing_element=False, wait_element_time=8)
-            if el:
-                if kind == 'css':
-                    self.scraper.element_click(sel)
-                else:
-                    self.scraper.element_click_by_xpath(sel)
-                published = True
-                break
+                logger.warning("Location not filled on either page — trying Next anyway.")
+
+        self.find_and_click_next()
+
+        # Try to click Publish — if not found, click Next one more time (FB sometimes has 3 steps)
+        published = self._try_click_publish()
+        if not published:
+            logger.info("Publish not found after step 2 — trying one more Next (step 3).")
+            self.find_and_click_next()
+            published = self._try_click_publish()
 
         if not published:
             screenshot_path = f"screenshot_publish_missing_{int(time.time())}.png"
             self.scraper.driver.save_screenshot(screenshot_path)
             logger.error(f"Could not find Publish button. Screenshot saved to {screenshot_path}.")
 
-        if not next_button:
-            self.post_listing_to_multiple_groups(data, listing_type)
+        # Dismiss any post-publish boost/promote dialog — never boost
+        self._dismiss_boost_dialog()
+
+    def _click_and_type_location(self, el, location: str) -> bool:
+        """Click a location field element (input OR label[combobox]) and type the location, then pick from dropdown."""
+        from selenium.webdriver.common.keys import Keys
+        self.scraper.driver.execute_script("arguments[0].scrollIntoView({block:'center'});", el)
+        time.sleep(0.3)
+
+        # For label[role="combobox"], click to open then grab the active input
+        tag = (el.tag_name or '').lower()
+        if tag != 'input':
+            self.scraper.driver.execute_script("arguments[0].click();", el)
+            time.sleep(0.5)
+            active = self.scraper.driver.execute_script("return document.activeElement;")
+            if active and (active.tag_name or '').lower() == 'input':
+                input_el = active
+            else:
+                try:
+                    input_el = el.find_element(By.CSS_SELECTOR, 'input')
+                except Exception:
+                    input_el = el
+        else:
+            input_el = el
+            self.scraper.driver.execute_script("arguments[0].click();", input_el)
+            time.sleep(0.3)
+
+        # Clear and type directly on the input element (not via ActionChains which targets active focus)
+        try:
+            input_el.clear()
+        except Exception:
+            pass
+        input_el.send_keys(Keys.CONTROL + 'a')
+        input_el.send_keys(Keys.DELETE)
+        time.sleep(0.2)
+
+        # Type just the city name — commas/state suffixes suppress FB's autocomplete
+        city_only = location.split(',')[0].strip()
+        input_el.send_keys(city_only)
+        logger.info(f"Typed '{city_only}' into location field.")
+
+        # Wait for autocomplete to populate (FB location search has ~500ms debounce)
+        time.sleep(2.0)
+
+        # Prefer a dropdown item that mentions Texas/TX to disambiguate same-named cities
+        texas_item = self.scraper.driver.execute_script("""
+            var items = Array.from(document.querySelectorAll('ul[role="listbox"] li > div, ul[role="listbox"] li'));
+            if (!items.length) return null;
+            var tx = items.find(function(el) {
+                var t = el.textContent || '';
+                return (t.includes('Texas') || t.includes(', TX')) && el.offsetParent !== null;
+            });
+            return tx || items.find(function(el) { return el.offsetParent !== null; }) || null;
+        """)
+
+        if texas_item:
+            selected_text = (texas_item.text or '').strip().replace('\n', ' ')
+            texas_item.click()
+            time.sleep(0.5)
+            logger.info(f"Location autocomplete selected: '{selected_text}'")
+        else:
+            logger.warning(f"No autocomplete dropdown appeared for '{city_only}' — location may not be set correctly.")
+        return True
+
+    def _fill_location(self, location: str, wait: int = 3, use_js_fallback: bool = False) -> bool:
+        """Try known location-field selectors; on page 2 also fall back to element near 'Required' label."""
+        location_xpaths = [
+            '//input[@aria-label="Location"]',
+            '//input[@placeholder="Location"]',
+            '//input[@aria-label="Neighborhood"]',
+            '//input[contains(@aria-label,"ocation")]',
+            '//input[contains(@aria-label,"City")]',
+            '//input[contains(@placeholder,"specific")]',
+            '//input[contains(@placeholder,"City")]',
+            '//*[@aria-required="true" and (@role="combobox" or @role="textbox" or self::input)]',
+            # Location combobox — must contain "Location" text to avoid matching Category/Condition labels
+            '//label[@role="combobox" and (.//span[contains(normalize-space(text()),"ocation")] or .//span[contains(normalize-space(text()),"City")])]',
+        ]
+        for xp in location_xpaths:
+            el = self.scraper.find_element_by_xpath(xp, exit_on_missing_element=False, wait_element_time=wait)
+            if el:
+                logger.info(f"Location field found via: {xp}")
+                return self._click_and_type_location(el, location)
+
+        if not use_js_fallback:
+            return False
+
+        # JS fallback: find element near "Required" annotation or with aria-required
+        loc_el = self.scraper.driver.execute_script("""
+            // Strategy 1: aria-required=true element (visible, interactive)
+            var candidates = Array.from(document.querySelectorAll(
+                'input[aria-required="true"], [role="combobox"][aria-required="true"], ' +
+                'label[role="combobox"][aria-required="true"], [role="textbox"][aria-required="true"]'
+            )).filter(function(el) { return el.offsetParent !== null; });
+            if (candidates.length > 0) return candidates[0];
+
+            // Strategy 2: find "Required" text node and locate a nearby interactive element
+            var walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT);
+            var textNode;
+            while ((textNode = walker.nextNode())) {
+                if (textNode.textContent.trim() === 'Required') {
+                    var parent = textNode.parentElement;
+                    for (var i = 0; i < 8; i++) {
+                        if (!parent) break;
+                        var el = parent.querySelector(
+                            'input:not([type="hidden"]):not([aria-label="Search Facebook"]),' +
+                            'label[role="combobox"],[contenteditable="true"],[role="textbox"]'
+                        );
+                        if (el && el.offsetParent !== null) return el;
+                        parent = parent.parentElement;
+                    }
+                }
+            }
+            return null;
+        """)
+        if loc_el:
+            logger.info("Location found via JS 'Required'-proximity fallback.")
+            return self._click_and_type_location(loc_el, location)
+        logger.warning("Location element not found via any strategy.")
+        return False
+
+    def _dismiss_boost_dialog(self):
+        """Close any post-publish boost/promote dialog without spending money."""
+        dismiss_xpaths = [
+            '//div[@aria-label="Not Now" and @role="button"]',
+            '//span[normalize-space(text())="Not Now"]/ancestor::div[@role="button"][1]',
+            '//div[@aria-label="Skip" and @role="button"]',
+            '//span[normalize-space(text())="Skip"]/ancestor::div[@role="button"][1]',
+            '//div[@aria-label="Close" and @role="button"]',
+        ]
+        for xp in dismiss_xpaths:
+            el = self.scraper.find_element_by_xpath(xp, exit_on_missing_element=False, wait_element_time=3)
+            if el:
+                self.scraper.driver.execute_script("arguments[0].click();", el)
+                logger.info("Boost/promote dialog dismissed.")
+                return
+        # No boost dialog — that's fine
+
+    def _try_click_publish(self) -> bool:
+        """Try all known Publish button selectors; return True if clicked."""
+        publish_candidates = [
+            ('css',   'div[aria-label="Publish"]:not([aria-disabled])'),
+            ('xpath', '//div[@aria-label="Publish" and @role="button" and not(@aria-disabled)]'),
+            ('xpath', '//span[normalize-space(text())="Publish"]/ancestor::div[@role="button"][1]'),
+            # Also try aria-disabled absent entirely (some FB builds omit it)
+            ('xpath', '//div[@aria-label="Publish" and @role="button"]'),
+        ]
+        for kind, sel in publish_candidates:
+            if kind == 'css':
+                el = self.scraper.find_element(sel, exit_on_missing_element=False, wait_element_time=5)
+            else:
+                el = self.scraper.find_element_by_xpath(sel, exit_on_missing_element=False, wait_element_time=5)
+            if el:
+                try:
+                    self.scraper.driver.execute_script("arguments[0].click();", el)
+                except Exception:
+                    pass
+                logger.info(f"Publish button clicked via: {sel}")
+                self.scraper.wait_random_time()
+                return True
+        return False
 
     def find_and_click_next(self):
         candidates = [
@@ -371,46 +542,102 @@ class Listing:
         # Join all paths with newline for return
         return '\n'.join(images_paths)
 
+    def _ensure_boost_off(self):
+        """Turn off 'Boost listing after publish' toggle if it is on. Never boost."""
+        boost_xpaths = [
+            '//div[@role="switch" and contains(@aria-label,"Boost")]',
+            '//div[@role="switch" and contains(@aria-label,"boost")]',
+            '//span[contains(normalize-space(text()),"Boost listing")]/ancestor::div[@role="switch"][1]',
+        ]
+        for xp in boost_xpaths:
+            el = self.scraper.find_element_by_xpath(xp, exit_on_missing_element=False, wait_element_time=2)
+            if el:
+                if el.get_attribute("aria-checked") == "true":
+                    self.scraper.driver.execute_script("arguments[0].click();", el)
+                    logger.info("Boost toggle was ON — turned it off.")
+                else:
+                    logger.info("Boost toggle already off.")
+                return
+
     def add_fields_for_item(self, data: ListingData):
         self.scraper.element_send_keys_by_xpath("//span[normalize-space(text())='Title']/following-sibling::input[1]",
                                                 data.title)
 
-        # Scroll to "Category" select field
-        # Try known selectors for the Category field (FB changes these periodically)
-        category_selectors = [
-            "input[aria-label='Category']",
-            "input[placeholder='Category']",
-            "input[aria-label='category']",
-        ]
+        # Disable boost immediately — it appears near the category field and can be accidentally activated
+        self._ensure_boost_off()
+
+        # Category: click the visible dropdown label/button (NOT a hidden input), wait for picker, click option
+        # The category field is a styled label/div that opens a picker modal when clicked.
         category_xpaths = [
-            "//label[.//span[normalize-space(text())='Category']]//input",
+            "//label[.//span[normalize-space(text())='Category'] and @role='button']",
             "//div[@aria-label='Category' and @role='combobox']",
+            "//div[@aria-label='Category' and @role='button']",
+            "//span[normalize-space(text())='Category']/ancestor::label[@role='button'][1]",
+            "//span[normalize-space(text())='Category']/ancestor::div[@role='combobox'][1]",
             "//span[normalize-space(text())='Category']/ancestor::div[@role='button'][1]",
         ]
         category_el = None
-        for sel in category_selectors:
-            el = self.scraper.find_element(sel, exit_on_missing_element=False, wait_element_time=5)
+        for xp in category_xpaths:
+            el = self.scraper.find_element_by_xpath(xp, exit_on_missing_element=False, wait_element_time=3)
             if el:
-                category_el = ('css', sel)
+                category_el = el
+                logger.info(f"Category field found via: {xp}")
                 break
+
         if not category_el:
-            for xp in category_xpaths:
-                el = self.scraper.find_element_by_xpath(xp, exit_on_missing_element=False, wait_element_time=5)
-                if el:
-                    category_el = ('xpath', xp)
+            # JS: find the clickable parent of the "Category" span
+            category_el = self.scraper.driver.execute_script("""
+                var spans = Array.from(document.querySelectorAll('span'));
+                var catSpan = spans.find(function(s) {
+                    return s.innerText && s.innerText.trim() === 'Category';
+                });
+                if (!catSpan) return null;
+                var el = catSpan.parentElement;
+                for (var i = 0; i < 8; i++) {
+                    if (!el) break;
+                    var role = el.getAttribute('role');
+                    if (role === 'combobox' || role === 'button' || el.tagName === 'LABEL') return el;
+                    el = el.parentElement;
+                }
+                return null;
+            """)
+            if category_el:
+                logger.info("Category field found via JS parent walk.")
+
+        if not category_el:
+            logger.warning("Category field not found — skipping.")
+        else:
+            self.scraper.driver.execute_script("arguments[0].scrollIntoView({block:'center'});", category_el)
+            time.sleep(0.3)
+            self.scraper.driver.execute_script("arguments[0].click();", category_el)
+            time.sleep(1.5)  # Wait for picker modal to open
+
+            # Look for the option in the picker (no typing — picker shows a scrollable list)
+            misc_el = None
+            for xp in [
+                f'//span[text()="{data.category}"]',
+                f'//div[text()="{data.category}"]',
+                f'//span[contains(text(),"{data.category}")]',
+            ]:
+                misc_el = self.scraper.find_element_by_xpath(xp, exit_on_missing_element=False, wait_element_time=3)
+                if misc_el:
                     break
 
-        if not category_el:
-            logger.warning("Category field not found — Facebook may have removed it. Skipping.")
-        else:
-            if category_el[0] == 'css':
-                self.scraper.scroll_to_element(category_el[1])
-                self.scraper.element_click(category_el[1])
+            if misc_el:
+                self.scraper.driver.execute_script("arguments[0].click();", misc_el)
+                logger.info(f"Category '{data.category}' selected.")
             else:
-                self.scraper.scroll_to_element_by_xpath(category_el[1])
-                self.scraper.element_click_by_xpath(category_el[1])
-
-            self.scraper.element_click_by_xpath(f'//span[text()="{data.category}"]')
+                screenshot_path = f"screenshot_category_debug_{int(time.time())}.png"
+                self.scraper.driver.save_screenshot(screenshot_path)
+                options = self.scraper.driver.execute_script("""
+                    return Array.from(document.querySelectorAll(
+                        '[role="option"],[role="menuitem"],[role="listitem"],li,[role="listbox"] *,dialog *'
+                    )).filter(function(el) { return el.offsetParent !== null; })
+                      .map(function(el) { return el.textContent.trim(); })
+                      .filter(function(t) { return t.length > 0 && t.length < 60; })
+                      .slice(0, 30).join(' | ');
+                """)
+                logger.warning(f"Category '{data.category}' not found. Screenshot: {screenshot_path}. Options: {options}")
 
 
         # --- Condition selection (updated for robustness) ---
