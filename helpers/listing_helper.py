@@ -105,6 +105,31 @@ class Listing:
             self.scraper.driver.execute_script("arguments[0].click();", element)
         return True
 
+    def collect_click_snapshots(self) -> dict:
+        """Scan the selling page and return {title: clicks_or_None} without deleting anything."""
+        result = {}
+        last_height = -1
+        while True:
+            buttons = self.scraper.driver.find_elements(
+                By.XPATH,
+                '//div[starts-with(@aria-label, "More options for ") and @role="button" and @tabindex="0"]'
+            )
+            for btn in buttons:
+                try:
+                    aria = btn.get_attribute("aria-label") or ""
+                    title = aria.replace("More options for ", "", 1).strip()
+                    if title and title not in result:
+                        result[title] = self._extract_clicks_from_card(btn)
+                except Exception:
+                    pass
+            new_height = self.scraper.driver.execute_script("return document.body.scrollHeight")
+            if new_height == last_height:
+                break
+            self.scraper.driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
+            time.sleep(1)
+            last_height = new_height
+        return result
+
     def remove_all_listings(self, before_delete=None):
         print("Starting to delete all Marketplace listings...")
 
@@ -291,20 +316,18 @@ class Listing:
         """)
         logger.info(f"Page 2 visible inputs: {p2_fields}")
 
-        # Always attempt to fill the page-2 location input (aria-label="Location") —
-        # this is the authoritative field that sets the listing's target city.
-        p2_location = self._fill_location(data.location, wait=3)
-        if p2_location:
-            logger.info("Location confirmed on page 2.")
-            location_filled = True
-        elif not location_filled:
-            # Page 2 had no matching input — try the broader JS fallback
-            p2_location = self._fill_location(data.location, wait=2, use_js_fallback=True)
+        if not location_filled:
+            p2_location = self._fill_location(data.location, wait=3)
             if p2_location:
-                logger.info("Location filled on page 2 via fallback.")
+                logger.info("Location filled on page 2.")
                 location_filled = True
             else:
-                logger.warning("Location not filled on either page — trying Next anyway.")
+                p2_location = self._fill_location(data.location, wait=2, use_js_fallback=True)
+                if p2_location:
+                    logger.info("Location filled on page 2 via fallback.")
+                    location_filled = True
+                else:
+                    logger.warning("Location not filled on either page — trying Next anyway.")
 
         self.find_and_click_next()
 
@@ -356,24 +379,42 @@ class Listing:
         input_el.send_keys(Keys.DELETE)
         time.sleep(0.2)
 
-        # Type just the city name — commas/state suffixes suppress FB's autocomplete
         city_only = location.split(',')[0].strip()
-        input_el.send_keys(city_only)
-        logger.info(f"Typed '{city_only}' into location field.")
 
-        # Wait for autocomplete to populate (FB location search has ~500ms debounce)
+        # Type just the city name — "City, TX" format suppresses FB's autocomplete for most towns.
+        # The smart selector below ensures we always pick the correct Texas result.
+        input_el.send_keys(city_only + ", texa")
+        logger.info(f"Typed '{city_only}' into location field.")
         time.sleep(2.0)
 
-        # Prefer a dropdown item that mentions Texas/TX to disambiguate same-named cities
+        # Pick the dropdown option that matches this Texas city.
+        # Priority 1: item whose text starts with the city name and has ", Texas" or ", TX"
+        #             as the state — NOT "Texas City" (a different city in Galveston County).
+        # Priority 2: any visible item that starts with the city name and mentions Texas.
+        # Never fall back to a random first item.
         texas_item = self.scraper.driver.execute_script("""
-            var items = Array.from(document.querySelectorAll('ul[role="listbox"] li > div, ul[role="listbox"] li'));
+            var city = arguments[0].toLowerCase();
+            var items = Array.from(document.querySelectorAll(
+                'ul[role="listbox"] li > div, ul[role="listbox"] li'
+            )).filter(function(el) { return el.offsetParent !== null; });
             if (!items.length) return null;
-            var tx = items.find(function(el) {
+
+            // Best: starts with city name, has Texas/TX as state (not "Texas City")
+            var best = items.find(function(el) {
                 var t = el.textContent || '';
-                return (t.includes('Texas') || t.includes(', TX')) && el.offsetParent !== null;
+                var tl = t.toLowerCase();
+                if (!tl.startsWith(city)) return false;
+                return /, Texas(?! City)/i.test(t) || /, TX\b/i.test(t);
             });
-            return tx || items.find(function(el) { return el.offsetParent !== null; }) || null;
-        """)
+            if (best) return best;
+
+            // Fallback: starts with city name and mentions Texas anywhere
+            return items.find(function(el) {
+                var t = el.textContent || '';
+                var tl = t.toLowerCase();
+                return tl.startsWith(city) && (t.includes('Texas') || t.includes(', TX'));
+            }) || null;
+        """, city_only)
 
         if texas_item:
             selected_text = (texas_item.text or '').strip().replace('\n', ' ')
@@ -381,7 +422,7 @@ class Listing:
             time.sleep(0.5)
             logger.info(f"Location autocomplete selected: '{selected_text}'")
         else:
-            logger.warning(f"No autocomplete dropdown appeared for '{city_only}' — location may not be set correctly.")
+            logger.warning(f"No matching Texas option in dropdown for '{location}' — field left as typed.")
         return True
 
     def _fill_location(self, location: str, wait: int = 3, use_js_fallback: bool = False) -> bool:

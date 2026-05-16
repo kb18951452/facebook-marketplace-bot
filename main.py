@@ -5,6 +5,8 @@ import json
 import requests
 from datetime import datetime, timezone
 
+from selenium.common.exceptions import InvalidSessionIdException, NoSuchWindowException
+
 from helpers.ads import get_listings
 from helpers.scraper import Scraper
 from helpers.listing_helper import Listing
@@ -63,7 +65,7 @@ logging.basicConfig(
     level=logging.INFO,
     format='%(asctime)s - %(levelname)s - %(message)s',
     handlers=[
-        logging.FileHandler(LOG_FILE, mode='a')  # Append mode to keep history
+        logging.FileHandler(LOG_FILE, mode='a')
     ]
 )
 logger = logging.getLogger(__name__)
@@ -78,70 +80,108 @@ l = Listing(scraper)
 # State file
 state_file = 'state.json'
 
-# Load existing state before clearing so we can snapshot clicks on deletion
+# Load existing state (slots published in a prior run)
 existing_state = {}
 if os.path.exists(state_file):
     with open(state_file) as f:
         existing_state = json.load(f)
 title_to_slot = {title: slot for slot, title in existing_state.items()}
 
-# Delete all existing listings, capturing click counts before each removal
-logger.info("Deleting all existing listings before re-publishing...")
-scraper.go_to_page('https://www.facebook.com/marketplace/you/selling/')
-l.remove_all_listings(
-    before_delete=lambda title, clicks: _log_click_snapshot(title, clicks, title_to_slot)
-)
-logger.info("All existing listings deleted.")
-
-state = {}
-with open(state_file, 'w') as f:
-    json.dump(state, f)
-logger.info("State cleared — all slots will be re-published.")
+# Working state — starts as a copy of existing so Phase 1 can add to it
+state = dict(existing_state)
 
 # Output directory for generated images
 output_directory: str = "./images/output/"
-if os.path.exists(output_directory):
-    shutil.rmtree(output_directory)
-os.makedirs(output_directory, exist_ok=True)
 
-# Process each listing from the generator, skipping slots already published in this run
-for listable in get_listings(output_directory=output_directory):
-    # Safety check – ensure the extra fields we added are present
-    if not hasattr(listable, 'equipment_type') or not hasattr(listable, 'lang'):
-        logger.error("ListingData missing equipment_type or lang – skipping")
-        continue
-
-    # Create a unique slot key: e.g., "mini-ex_Austin_eng"
-    city = listable.location.split(', ')[0]  # "Austin, Texas" → "Austin"
-    slot = f"{listable.equipment_type}_{city}_{listable.lang}"
-
-    # Skip if already published in this run (crash-recovery guard)
-    if slot in state:
-        logger.info(f"Skipping already processed slot: {slot} (title: {state[slot]})")
-        if os.path.exists(output_directory):
-            shutil.rmtree(output_directory)
-            os.makedirs(output_directory, exist_ok=True)
-        continue
-
-    # Publish the listing
-    logger.info(f"Publishing listing for slot '{slot}' with title: {listable.title}")
-    l.update_listings(listings=[listable], listing_type="item")
-
-    _log_published(listable, city)
-
-    # Update state with the new title
-    state[slot] = listable.title
-
-    # Persist state immediately – this makes the script resilient to crashes/interruptions
-    with open(state_file, 'w') as f:
-        json.dump(state, f, indent=4)
-
-    # Clean up generated images for this listing
+def _cleanup_images():
     if os.path.exists(output_directory):
         shutil.rmtree(output_directory)
-        os.makedirs(output_directory, exist_ok=True)
+    os.makedirs(output_directory, exist_ok=True)
 
-# Final cleanup: remove any duplicate listings that Facebook might flag
+def _publish(listable) -> bool:
+    """Publish one listing. Returns False on fatal session error, True otherwise."""
+    city = listable.location.split(', ')[0]
+    slot = f"{listable.equipment_type}_{city}_{listable.lang}"
+    logger.info(f"Publishing slot '{slot}': {listable.title}")
+    try:
+        l.update_listings(listings=[listable], listing_type="item")
+    except (InvalidSessionIdException, NoSuchWindowException):
+        logger.error("Chrome session died — stopping. Re-run to resume from state.json.")
+        return False
+    except Exception as e:
+        logger.error(f"Listing '{listable.title}' failed: {e}", exc_info=True)
+        return True  # non-fatal; move on to next listing
+    _log_published(listable, city)
+    state[slot] = listable.title
+    with open(state_file, 'w') as f:
+        json.dump(state, f, indent=4)
+    return True
+
+_cleanup_images()
+
+# ── Phase 1: Publish brand-new slots (no entry in existing_state) ────────────
+logger.info("Phase 1 — publishing new listings (slots not yet in state)...")
+fatal = False
+for listable in get_listings(output_directory=output_directory):
+    if not hasattr(listable, 'equipment_type') or not hasattr(listable, 'lang'):
+        logger.error("ListingData missing equipment_type or lang – skipping")
+        _cleanup_images()
+        continue
+
+    city = listable.location.split(', ')[0]
+    slot = f"{listable.equipment_type}_{city}_{listable.lang}"
+
+    if slot in existing_state:
+        # Already published before this run — Phase 2 will replace it
+        _cleanup_images()
+        continue
+
+    if slot in state:
+        # Already published earlier in Phase 1 (crash-recovery guard)
+        logger.info(f"Slot already published this run, skipping: {slot}")
+        _cleanup_images()
+        continue
+
+    if not _publish(listable):
+        fatal = True
+        break
+    _cleanup_images()
+
+# ── Phase 2: Replace existing slots ─────────────────────────────────────────
+if not fatal:
+    logger.info("Phase 2 — replacing existing listings...")
+
+    # Snapshot click counts for all current listings before any deletions
+    scraper.go_to_page('https://www.facebook.com/marketplace/you/selling/')
+    click_counts = l.collect_click_snapshots()
+    logger.info(f"Click snapshot collected for {len(click_counts)} listings.")
+    for title, clicks in click_counts.items():
+        _log_click_snapshot(title, clicks, title_to_slot)
+
+    _cleanup_images()
+    for listable in get_listings(output_directory=output_directory):
+        if not hasattr(listable, 'equipment_type') or not hasattr(listable, 'lang'):
+            _cleanup_images()
+            continue
+
+        city = listable.location.split(', ')[0]
+        slot = f"{listable.equipment_type}_{city}_{listable.lang}"
+
+        if slot not in existing_state:
+            # New slot — was handled (or failed) in Phase 1
+            _cleanup_images()
+            continue
+
+        old_title = existing_state[slot]
+        logger.info(f"Replacing slot '{slot}': removing '{old_title}'")
+        scraper.go_to_page('https://www.facebook.com/marketplace/you/selling/')
+        l.remove_listing_by_title(old_title)
+
+        if not _publish(listable):
+            break
+        _cleanup_images()
+
+# Final cleanup: remove any duplicate listings Facebook may have flagged
 l.remove_duplicate_listings()
 
 logger.info("All listings processed and state saved.")

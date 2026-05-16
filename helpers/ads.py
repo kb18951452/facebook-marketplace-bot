@@ -56,23 +56,23 @@ def get_equipment() -> dict:
             "prices": {"daily": 200,
                        "weekly": 750,
                        "monthly": 2250},
-            "blurb": {"eng": "KX71-3; 6,300#; 12” and 24” buckets",
-                      "spa": "KX71-3; 6,300#; 12” y 24” cucharas"},
+            "blurb": {"eng": "KX030-4; 7,700#; 12in and 24in buckets",
+                      "spa": "KX030-4; 7,700#; 12in y 24in cucharas"},
         },
         "trackloader": {
-            "model": "svl75",
+            "model": "sc75",
             "names": {
                 "eng": [
                     "Skidsteer",
-                ],
+                    ],
                 "spa": [
                     "Cargadora compacta"]},
             "prices": {"daily": 280,
-                       "weekly": 1000,
-                       "monthly": 3000},
+                            "weekly": 1000,
+                            "monthly": 3000},
             "blurb": {"eng": "SVL75-2; 9,100#, 75 HP; Toothed & Smooth buckets, Standard Flow Attachments",
-                      "spa": "SVL75-2; 9,100#, 75 HP; Cucharas dentadas y lisas, accesorios de flujo estándar"},
-        },
+                           "spa": "SVL75-2; 9,100#, 75 HP; Cucharas dentadas y lisas, accesorios de flujo estándar"},
+            },
     }
     return equipment
 
@@ -103,32 +103,7 @@ TASK_TEMPLATES_MINI_EX = {
     ]
 }
 
-TASK_TEMPLATES_TRACK_LOADER = {
-    "eng": [
-        "Track Loader Rental – Driveway Grading – {city}",           # 49
-        "Muddy Gravel Driveway Fix? Track Loader – {city}",          # 50
-        "Spreading Topsoil/Gravel? Track Loader Rental – {city}",    # 55
-        "Moving Dirt/Debris? Heavy Track Loader – {city}",           # 48
-        "Backfilling Trenches? Track Loader Rental – {city}",        # 51
-        "Loading Pallets w/ Forks? Track Loader – {city}",           # 48
-        "Yard Prep for Sod/Seed? Track Loader – {city}",             # 47
-        "Clearing & Leveling Site? Track Loader – {city}",           # 49
-        "Gravel Driveway Base Work? Track Loader Rental – {city}",   # 56
-        "Material Handling w/ Forks? Track Loader – {city}",         # 50
-    ],
-    "spa": [
-        "Renta Cargadora Orugas – Nivelar Entrada – {city}",         # ~50
-        "¿Entrada Grava Baches? Cargadora Orugas – {city}",          # ~49
-        "Esparcir Tierra/Grava? Renta Cargadora – {city}",           # ~48
-        "Mover Tierra/Escombros? Cargadora Pesada – {city}",         # ~51
-        "Rellenar Zanjas? Renta Cargadora Orugas – {city}",          # ~50
-        "Cargar Palets c/ Horquillas? Cargadora – {city}",           # ~48
-        "Prep Patio para Césped? Cargadora Lista – {city}",          # ~48
-        "Limpiar y Nivelar Terreno? Cargadora – {city}",             # ~46
-        "Base Entrada Grava? Renta Cargadora – {city}",              # ~46
-        "Manejo Materiales c/ Horquillas? Cargadora – {city}",       # ~52
-    ]
-}
+
 
 def get_locations(path='data/cities_data.json'):
     with open(path, 'r') as cities_file:
@@ -143,12 +118,7 @@ def get_listing_title(equipment_type: str, city: str, language: str = "eng") -> 
     """
     # 80% task-based titles
     if random.random() < 0.8:
-        if equipment_type == "mini-ex":
-            templates = TASK_TEMPLATES_MINI_EX[language]
-        elif equipment_type == "trackloader":
-            templates = TASK_TEMPLATES_TRACK_LOADER[language]
-        else:
-            templates = TASK_TEMPLATES_MINI_EX[language]  # fallback
+        templates = TASK_TEMPLATES_MINI_EX[language]
         return random.choice(templates).format(city=city)
 
     # 20% classic varied titles (your original style)
@@ -319,17 +289,17 @@ def get_listing_description(language: str, blurb: str, title: str, daily_price: 
 
 def get_listings(output_directory: str = "./images/output/") -> Generator[ListingData, None, None]:
     equipment = get_equipment()
-    for item in equipment:
-        base_image_dir = f"./images/{equipment[item]['model']}"
-        loc = get_locations()
-        for location in loc:
+    loc = get_locations()
+    for location in loc:
+        for item in equipment:
+            base_image_dir = f"./images/{equipment[item]['model']}"
             for lang in ['eng']:
                 images = []
                 for image in random_images_from_directory(base_image_dir):
                     images.append(generate_random_controlled_image(input_image=image))
                 daily_price = equipment[item]['prices']['daily']
                 city = location.get('city')
-                listed_location = f"{city}, Texas"
+                listed_location = f"{city}, TX"
                 delivery_cost = location.get('estimated_cost')
 
                 title, description = _pick_from_pool(item, city, lang)
