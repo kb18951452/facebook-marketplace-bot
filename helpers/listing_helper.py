@@ -199,19 +199,45 @@ class Listing:
             self.scraper.wait_random_time()
 
 
-    def remove_duplicate_listings(self):
+    def _find_duplicate_with_title(self):
+        """Find one FB-flagged duplicate listing. Returns (element, title) or (None, None)."""
+        dup_el = self.scraper.find_element_by_xpath(
+            '//div[text()="It looks like you created a duplicate listing."]',
+            exit_on_missing_element=False,
+            wait_element_time=5,
+        )
+        if not dup_el:
+            return None, None
+
+        title = None
+        node = dup_el
+        for _ in range(15):
+            try:
+                node = node.find_element(By.XPATH, "..")
+                buttons = node.find_elements(
+                    By.XPATH,
+                    './/div[starts-with(@aria-label, "More options for ") and @role="button"]',
+                )
+                if buttons:
+                    aria = buttons[0].get_attribute("aria-label") or ""
+                    title = aria.replace("More options for ", "", 1).strip() or None
+                    break
+            except StaleElementReferenceException:
+                break
+            except Exception:
+                break
+        return dup_el, title
+
+    def remove_duplicate_listings(self) -> list:
+        """Remove all FB-flagged duplicates on the current page. Returns list of removed titles."""
+        removed_titles = []
         while True:
-            duplicate = self.find_duplicate_listing()
-
-            # Listing not found so stop the function
-            if not duplicate:
-                return False
-
-            duplicate.click()
-
+            dup_el, title = self._find_duplicate_with_title()
+            if dup_el is None:
+                return removed_titles
+            dup_el.click()
             self.delete_open_listing()
-
-            # return True
+            removed_titles.append(title)
 
     def remove_listing(self,data, listing_type):
         title = self.generate_title_for_listing_type(data, listing_type)
