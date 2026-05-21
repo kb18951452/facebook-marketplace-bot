@@ -95,6 +95,53 @@ class Listing:
                 break
         return None
 
+    def _extract_card_stats(self, button_element) -> dict:
+        """
+        Walk up from a 'More options' button and parse everything visible in the card.
+        Returns dict with clicks, price, days_listed_fb, views, is_duplicate.
+        """
+        stats = {
+            "clicks": None,
+            "price": None,
+            "days_listed_fb": None,
+            "views": None,
+            "is_duplicate": False,
+        }
+        node = button_element
+        card_text = ""
+        for _ in range(10):
+            try:
+                node = node.find_element(By.XPATH, "..")
+                card_text = node.text or ""
+                # Stop climbing once we have the key signals
+                if re.search(r'click|Listed|days ago|\$', card_text, re.IGNORECASE):
+                    break
+            except Exception:
+                break
+
+        if not card_text:
+            return stats
+
+        m = re.search(r'(\d[\d,]*)\s*clicks?\s+on\s+listing', card_text, re.IGNORECASE)
+        if m:
+            stats["clicks"] = int(m.group(1).replace(",", ""))
+
+        m = re.search(r'\$\s*([\d,]+)', card_text)
+        if m:
+            stats["price"] = int(m.group(1).replace(",", ""))
+
+        m = re.search(r'Listed\s+(\d+)\s+days?\s+ago', card_text, re.IGNORECASE)
+        if m:
+            stats["days_listed_fb"] = int(m.group(1))
+
+        m = re.search(r'(\d[\d,]*)\s*views?\s+on\s+listing', card_text, re.IGNORECASE)
+        if m:
+            stats["views"] = int(m.group(1).replace(",", ""))
+
+        stats["is_duplicate"] = "duplicate listing" in card_text.lower()
+
+        return stats
+
     def _safe_click(self, element):
         """Click an element, retrying once on StaleElementReferenceException."""
         try:
@@ -120,6 +167,34 @@ class Listing:
                     title = aria.replace("More options for ", "", 1).strip()
                     if title and title not in result:
                         result[title] = self._extract_clicks_from_card(btn)
+                except Exception:
+                    pass
+            new_height = self.scraper.driver.execute_script("return document.body.scrollHeight")
+            if new_height == last_height:
+                break
+            self.scraper.driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
+            time.sleep(1)
+            last_height = new_height
+        return result
+
+    def collect_listing_stats(self) -> dict:
+        """
+        Scroll the selling page and return rich stats per listing title.
+        {title: {clicks, price, days_listed_fb, views, is_duplicate}}
+        """
+        result = {}
+        last_height = -1
+        while True:
+            buttons = self.scraper.driver.find_elements(
+                By.XPATH,
+                '//div[starts-with(@aria-label, "More options for ") and @role="button" and @tabindex="0"]',
+            )
+            for btn in buttons:
+                try:
+                    aria  = btn.get_attribute("aria-label") or ""
+                    title = aria.replace("More options for ", "", 1).strip()
+                    if title and title not in result:
+                        result[title] = self._extract_card_stats(btn)
                 except Exception:
                     pass
             new_height = self.scraper.driver.execute_script("return document.body.scrollHeight")
