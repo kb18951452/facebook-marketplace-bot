@@ -1,26 +1,20 @@
 """
-map_listings.py — Generate listings_map.html, an interactive Leaflet map of all
-FB Marketplace slots (active, duplicate-queued, and uncovered cities).
+map_listings.py — Generate listings_map.html, an interactive Leaflet map.
 
 Usage:
-    python map_listings.py              # writes listings_map.html
-    python map_listings.py --open       # writes and opens in default browser
+    python map_listings.py          # writes listings_map.html
+    python map_listings.py --open   # writes and opens in default browser
 
-Reads:
-    data/cities_data.json       city coordinates
-    state.json                  active slots  {slot: title}
-    data/duplicate_history.json duplicate-removed slots  {slot: iso_timestamp}
-    data/slot_metadata.json     per-slot stats  {slot: {published_at, last_clicks, ...}}
+Click the legend items to toggle layer visibility.
 """
 
 import argparse
 import json
-import math
 import os
 import webbrowser
-from datetime import datetime, timezone
+from datetime import datetime, timedelta, timezone
 
-# ── Load data files ────────────────────────────────────────────────────────────
+# ── Load data ─────────────────────────────────────────────────────────────────
 def _load(path):
     if os.path.exists(path):
         with open(path, encoding="utf-8") as f:
@@ -32,9 +26,9 @@ state        = _load("state.json")
 dupe_history = _load("data/duplicate_history.json")
 metadata     = _load("data/slot_metadata.json")
 
-city_lookup = {c["city"]: c for c in (cities_raw if isinstance(cities_raw, list) else [])}
+city_lookup  = {c["city"]: c for c in (cities_raw if isinstance(cities_raw, list) else [])}
 
-# ── Build marker list ──────────────────────────────────────────────────────────
+# ── Helpers ───────────────────────────────────────────────────────────────────
 def _age_days(iso_str):
     if not iso_str:
         return None
@@ -42,152 +36,182 @@ def _age_days(iso_str):
         dt = datetime.fromisoformat(iso_str)
         if dt.tzinfo is None:
             dt = dt.replace(tzinfo=timezone.utc)
-        delta = datetime.now(timezone.utc) - dt
-        return round(delta.total_seconds() / 86400, 1)
+        return round((datetime.now(timezone.utc) - dt).total_seconds() / 86400, 1)
     except Exception:
         return None
 
-# Collect all known slots across both active and duplicate states
-all_slots = set(state.keys()) | set(dupe_history.keys())
+def _seven_day_clicks(snaps):
+    """Delta clicks within the current listing instance over the last 7 days."""
+    if not snaps:
+        return None
+    cutoff = datetime.now(timezone.utc) - timedelta(days=7)
+    recent = []
+    for s in snaps:
+        try:
+            ts = datetime.fromisoformat(s["ts"])
+            if ts.tzinfo is None:
+                ts = ts.replace(tzinfo=timezone.utc)
+            if ts >= cutoff:
+                recent.append(s)
+        except Exception:
+            pass
+    if not recent:
+        return None
+    # If only one snapshot use its full value (listing is < 1 day old in the window)
+    if len(recent) == 1:
+        return recent[-1]["clicks"]
+    return recent[-1]["clicks"] - recent[0]["clicks"]
 
-markers = []
+# ── Build markers ─────────────────────────────────────────────────────────────
+all_slots = set(state.keys()) | set(dupe_history.keys())
+markers   = []
+
 for slot in all_slots:
     parts = slot.split("_")
     if len(parts) < 3:
         continue
     equip = parts[0]
     city  = "_".join(parts[1:-1])
-    lang  = parts[-1]
 
     geo = city_lookup.get(city)
     if not geo or not geo.get("lat") or not geo.get("lng"):
         continue
 
-    lat = float(geo["lat"])
+    lat = float(geo["lat"]) + (0.004 if equip == "mini-ex" else -0.004)
     lng = float(geo["lng"])
 
-    # Offset so mini-ex and trackloader don't overlap exactly
-    lat += 0.004 if equip == "mini-ex" else -0.004
+    meta   = metadata.get(slot, {})
+    snaps  = meta.get("click_snapshots", [])
+    status = "active" if slot in state else "duplicate"
 
-    is_active = slot in state
-    is_dupe   = slot in dupe_history
-
-    meta = metadata.get(slot, {})
-    published_at   = meta.get("published_at") or (None if is_dupe else None)
-    last_clicks    = meta.get("last_clicks")
-    last_clicks_at = meta.get("last_clicks_at")
-    title          = state.get(slot) or meta.get("title") or ""
-    dupe_since     = dupe_history.get(slot)
-
-    age_days       = _age_days(published_at)
-    clicks_age     = _age_days(last_clicks_at)
-
-    status = "active" if is_active else "duplicate"
+    current_clicks  = snaps[-1]["clicks"] if snaps else None
+    seven_day       = _seven_day_clicks(snaps)
+    lifetime_clicks = meta.get("lifetime_clicks", 0) + (current_clicks or 0)
+    title           = state.get(slot) or meta.get("title") or ""
 
     markers.append({
-        "slot":          slot,
-        "city":          city,
-        "equip":         equip,
-        "lang":          lang,
-        "status":        status,
-        "lat":           lat,
-        "lng":           lng,
-        "title":         title,
-        "published_at":  published_at,
-        "age_days":      age_days,
-        "last_clicks":   last_clicks,
-        "last_clicks_at":last_clicks_at,
-        "clicks_age":    clicks_age,
-        "dupe_since":    dupe_since,
+        "slot":            slot,
+        "city":            city,
+        "equip":           equip,
+        "status":          status,
+        "lat":             lat,
+        "lng":             lng,
+        "title":           title,
+        "published_at":    meta.get("published_at"),
+        "age_days":        _age_days(meta.get("published_at")),
+        "current_clicks":  current_clicks,
+        "seven_day":       seven_day,
+        "lifetime_clicks": lifetime_clicks,
+        "dupe_since":      dupe_history.get(slot),
+        "dupe_age_days":   _age_days(dupe_history.get(slot)),
     })
 
-# ── Uncovered cities (no active or dupe slot) ──────────────────────────────────
-covered_cities = {m["city"] for m in markers}
-uncovered = []
-for c in city_lookup.values():
-    if c["city"] not in covered_cities and c.get("lat") and c.get("lng"):
-        uncovered.append({
-            "city": c["city"],
-            "lat":  float(c["lat"]),
-            "lng":  float(c["lng"]),
-        })
+# ── Uncovered cities ──────────────────────────────────────────────────────────
+covered = {m["city"] for m in markers}
+uncovered = [
+    {"city": c["city"], "lat": float(c["lat"]), "lng": float(c["lng"])}
+    for c in city_lookup.values()
+    if c["city"] not in covered and c.get("lat") and c.get("lng")
+]
 
-# ── Summary stats ──────────────────────────────────────────────────────────────
-active_markers    = [m for m in markers if m["status"] == "active"]
-dupe_markers      = [m for m in markers if m["status"] == "duplicate"]
-active_mini       = [m for m in active_markers if m["equip"] == "mini-ex"]
-active_track      = [m for m in active_markers if m["equip"] == "trackloader"]
-cities_active     = len({m["city"] for m in active_markers})
-clicks_known      = [m["last_clicks"] for m in active_markers if m["last_clicks"] is not None]
-avg_clicks        = round(sum(clicks_known) / len(clicks_known), 1) if clicks_known else None
+# ── Stats ─────────────────────────────────────────────────────────────────────
+active_m  = [m for m in markers if m["status"] == "active"]
+dupe_m    = [m for m in markers if m["status"] == "duplicate"]
+mini_m    = [m for m in active_m if m["equip"] == "mini-ex"]
+track_m   = [m for m in active_m if m["equip"] == "trackloader"]
+cities_active = len({m["city"] for m in active_m})
+
+known_clicks = [m["current_clicks"] for m in active_m if m["current_clicks"] is not None]
+avg_clicks   = round(sum(known_clicks) / len(known_clicks), 1) if known_clicks else None
+
+known_7d     = [m["seven_day"] for m in active_m if m["seven_day"] is not None]
+avg_7d       = round(sum(known_7d) / len(known_7d), 1) if known_7d else None
 
 stats = {
-    "active_total":    len(active_markers),
-    "active_mini_ex":  len(active_mini),
-    "active_track":    len(active_track),
-    "dupe_queue":      len(dupe_markers),
-    "cities_active":   cities_active,
-    "cities_total":    len(city_lookup),
-    "avg_clicks":      avg_clicks,
-    "generated_at":    datetime.now().strftime("%Y-%m-%d %H:%M"),
+    "active_total":   len(active_m),
+    "active_mini_ex": len(mini_m),
+    "active_track":   len(track_m),
+    "dupe_queue":     len(dupe_m),
+    "uncovered":      len(uncovered),
+    "cities_active":  cities_active,
+    "cities_total":   len(city_lookup),
+    "avg_clicks":     avg_clicks,
+    "avg_7d":         avg_7d,
+    "generated_at":   datetime.now().strftime("%Y-%m-%d %H:%M"),
 }
 
-# ── Map center ────────────────────────────────────────────────────────────────
+# ── Center ────────────────────────────────────────────────────────────────────
 if markers:
-    center_lat = sum(m["lat"] for m in markers) / len(markers)
-    center_lng = sum(m["lng"] for m in markers) / len(markers)
+    clat = sum(m["lat"] for m in markers) / len(markers)
+    clng = sum(m["lng"] for m in markers) / len(markers)
 else:
-    center_lat, center_lng = 31.5, -97.1
+    clat, clng = 31.5, -97.1
 
-# ── HTML template ──────────────────────────────────────────────────────────────
-MARKERS_JSON  = json.dumps(markers,   ensure_ascii=False)
-UNCOVERED_JSON = json.dumps(uncovered, ensure_ascii=False)
-STATS_JSON    = json.dumps(stats,     ensure_ascii=False)
+# ── HTML ──────────────────────────────────────────────────────────────────────
+MJ = json.dumps(markers,   ensure_ascii=False)
+UJ = json.dumps(uncovered, ensure_ascii=False)
+SJ = json.dumps(stats,     ensure_ascii=False)
 
 HTML = f"""<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="utf-8"/>
-<title>FB Marketplace Listings Map</title>
+<title>FB Marketplace Listings</title>
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <style>
-  * {{ box-sizing: border-box; margin: 0; padding: 0; }}
-  body {{ font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }}
-  #map {{ height: 100vh; width: 100%; }}
+* {{ box-sizing: border-box; margin: 0; padding: 0; }}
+body {{ font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; background:#f3f4f6; }}
+#map {{ height: 100vh; width: 100%; }}
 
-  #panel {{
-    position: absolute; top: 12px; right: 12px; z-index: 1000;
-    background: white; border-radius: 10px;
-    box-shadow: 0 3px 14px rgba(0,0,0,0.25);
-    padding: 16px 18px; min-width: 230px; max-width: 260px;
-  }}
-  #panel h2 {{ font-size: 14px; font-weight: 700; margin-bottom: 12px; color: #111; }}
-  .section {{ margin-bottom: 12px; }}
-  .section-title {{ font-size: 11px; font-weight: 600; text-transform: uppercase;
-                    letter-spacing: .05em; color: #888; margin-bottom: 6px; }}
-  .row {{ display: flex; justify-content: space-between; align-items: center;
-          font-size: 13px; padding: 2px 0; }}
-  .row .label {{ display: flex; align-items: center; gap: 6px; color: #333; }}
-  .row .val   {{ font-weight: 600; color: #111; }}
-  .dot {{ width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }}
-  .green  {{ background: #22c55e; }}
-  .blue   {{ background: #3b82f6; }}
-  .orange {{ background: #f97316; }}
-  .gray   {{ background: #d1d5db; }}
-  .divider {{ border: none; border-top: 1px solid #f0f0f0; margin: 10px 0; }}
-  #ts {{ font-size: 10px; color: #aaa; margin-top: 10px; }}
+/* ── Panel ── */
+#panel {{
+  position:absolute; top:12px; right:12px; z-index:1000;
+  background:white; border-radius:12px;
+  box-shadow:0 4px 20px rgba(0,0,0,.18);
+  padding:16px 18px; min-width:230px;
+}}
+#panel h2 {{ font-size:14px; font-weight:700; color:#111; margin-bottom:12px; }}
+.section {{ margin-bottom:12px; }}
+.section-title {{ font-size:10px; font-weight:700; text-transform:uppercase;
+                  letter-spacing:.07em; color:#9ca3af; margin-bottom:6px; }}
+.row {{ display:flex; justify-content:space-between; align-items:center;
+        font-size:13px; padding:2px 0; color:#374151; }}
+.row .val {{ font-weight:700; color:#111; }}
+.divider {{ border:none; border-top:1px solid #f3f4f6; margin:10px 0; }}
+#ts {{ font-size:10px; color:#9ca3af; margin-top:8px; }}
 
-  #legend {{
-    position: absolute; bottom: 28px; left: 12px; z-index: 1000;
-    background: white; border-radius: 8px;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.2);
-    padding: 10px 14px; font-size: 12px; line-height: 1.8;
-  }}
-  #legend b {{ display: block; font-size: 11px; font-weight: 700;
-               text-transform: uppercase; letter-spacing:.05em;
-               color: #888; margin-bottom: 4px; }}
-  .leg-row {{ display: flex; align-items: center; gap: 8px; color: #333; }}
+/* ── Legend (toggleable) ── */
+#legend {{
+  position:absolute; bottom:28px; left:12px; z-index:1000;
+  background:white; border-radius:10px;
+  box-shadow:0 2px 10px rgba(0,0,0,.18);
+  padding:10px 14px; user-select:none;
+}}
+#legend b {{ display:block; font-size:10px; font-weight:700; text-transform:uppercase;
+             letter-spacing:.07em; color:#9ca3af; margin-bottom:6px; }}
+.leg-row {{
+  display:flex; align-items:center; gap:8px;
+  font-size:12px; color:#374151; padding:3px 0;
+  cursor:pointer; border-radius:4px; padding:4px 6px; margin:-4px -6px;
+  transition:background .15s;
+}}
+.leg-row:hover {{ background:#f9fafb; }}
+.leg-row.off {{ opacity:.35; }}
+.dot {{ width:12px; height:12px; border-radius:50%; flex-shrink:0;
+        border:1.5px solid rgba(0,0,0,.15); }}
+.green  {{ background:#22c55e; }}
+.blue   {{ background:#3b82f6; }}
+.orange {{ background:#f97316; }}
+.gray   {{ background:#d1d5db; }}
+
+/* ── Popup ── */
+.lf-popup {{ font-size:13px; line-height:1.65; min-width:190px; }}
+.lf-popup .city {{ font-size:15px; font-weight:700; margin-bottom:2px; }}
+.lf-popup .sub  {{ color:#6b7280; font-size:12px; margin-bottom:6px; }}
+.lf-popup hr    {{ border:none; border-top:1px solid #f3f4f6; margin:6px 0; }}
+.lf-popup .stat-row {{ display:flex; justify-content:space-between; }}
+.lf-popup .stat-row span:last-child {{ font-weight:600; }}
 </style>
 </head>
 <body>
@@ -195,165 +219,165 @@ HTML = f"""<!DOCTYPE html>
 
 <div id="panel">
   <h2>📍 Listings Overview</h2>
-
   <div class="section">
-    <div class="section-title">Active listings</div>
-    <div class="row">
-      <span class="label"><span class="dot green"></span>Mini-Excavator</span>
-      <span class="val" id="s-mini"></span>
-    </div>
-    <div class="row">
-      <span class="label"><span class="dot blue"></span>Track Loader</span>
-      <span class="val" id="s-track"></span>
-    </div>
-    <div class="row">
-      <span class="label" style="padding-left:16px;color:#666">Total active</span>
-      <span class="val" id="s-total"></span>
-    </div>
+    <div class="section-title">Active</div>
+    <div class="row"><span>Mini-Excavator</span><span class="val" id="s-mini"></span></div>
+    <div class="row"><span>Track Loader</span><span class="val" id="s-track"></span></div>
+    <div class="row" style="color:#9ca3af"><span>Total</span><span class="val" id="s-total"></span></div>
   </div>
-
   <hr class="divider"/>
-
   <div class="section">
     <div class="section-title">Coverage</div>
-    <div class="row">
-      <span class="label">Cities active</span>
-      <span class="val" id="s-cities"></span>
-    </div>
-    <div class="row">
-      <span class="label">Cities total</span>
-      <span class="val" id="s-cities-total"></span>
-    </div>
-    <div class="row">
-      <span class="label"><span class="dot orange"></span>Dupe queue</span>
-      <span class="val" id="s-dupe"></span>
-    </div>
-    <div class="row">
-      <span class="label"><span class="dot gray"></span>Uncovered</span>
-      <span class="val" id="s-uncovered"></span>
-    </div>
+    <div class="row"><span>Cities active</span><span class="val" id="s-cities"></span></div>
+    <div class="row"><span>Cities total</span><span class="val" id="s-ctotal"></span></div>
+    <div class="row"><span>Dupe queue</span><span class="val" id="s-dupe"></span></div>
+    <div class="row"><span>Not yet listed</span><span class="val" id="s-unc"></span></div>
   </div>
-
   <hr class="divider"/>
-
   <div class="section">
-    <div class="section-title">Engagement</div>
-    <div class="row">
-      <span class="label">Avg clicks</span>
-      <span class="val" id="s-clicks"></span>
-    </div>
+    <div class="section-title">Clicks</div>
+    <div class="row"><span>Avg current</span><span class="val" id="s-avg"></span></div>
+    <div class="row"><span>Avg 7-day delta</span><span class="val" id="s-7d"></span></div>
   </div>
-
   <div id="ts"></div>
 </div>
 
 <div id="legend">
-  <b>Legend</b>
-  <div class="leg-row"><span class="dot green"></span> Active mini-excavator</div>
-  <div class="leg-row"><span class="dot blue"></span> Active track loader</div>
-  <div class="leg-row"><span class="dot orange"></span> Duplicate-removed (queued)</div>
-  <div class="leg-row"><span class="dot gray"></span> Not yet listed</div>
+  <b>Legend — click to toggle</b>
+  <div class="leg-row" id="leg-mini"  onclick="toggle('mini')">
+    <span class="dot green"></span>Active mini-excavator
+  </div>
+  <div class="leg-row" id="leg-track" onclick="toggle('track')">
+    <span class="dot blue"></span>Active track loader
+  </div>
+  <div class="leg-row" id="leg-dupe"  onclick="toggle('dupe')">
+    <span class="dot orange"></span>Duplicate-removed (queued)
+  </div>
+  <div class="leg-row" id="leg-unc"   onclick="toggle('unc')">
+    <span class="dot gray"></span>Not yet listed
+  </div>
 </div>
 
 <script>
-const MARKERS   = {MARKERS_JSON};
-const UNCOVERED = {UNCOVERED_JSON};
-const STATS     = {STATS_JSON};
+const MARKERS   = {MJ};
+const UNCOVERED = {UJ};
+const STATS     = {SJ};
 
-// ── Panel stats ────────────────────────────────────────────────────────────
-document.getElementById('s-mini').textContent         = STATS.active_mini_ex;
-document.getElementById('s-track').textContent        = STATS.active_track;
-document.getElementById('s-total').textContent        = STATS.active_total;
-document.getElementById('s-cities').textContent       = STATS.cities_active;
-document.getElementById('s-cities-total').textContent = STATS.cities_total;
-document.getElementById('s-dupe').textContent         = STATS.dupe_queue;
-document.getElementById('s-uncovered').textContent    = UNCOVERED.length;
-document.getElementById('s-clicks').textContent       = STATS.avg_clicks != null ? STATS.avg_clicks : '—';
-document.getElementById('ts').textContent             = 'Updated ' + STATS.generated_at;
+// ── Panel ────────────────────────────────────────────────────────────────────
+document.getElementById('s-mini').textContent  = STATS.active_mini_ex;
+document.getElementById('s-track').textContent = STATS.active_track;
+document.getElementById('s-total').textContent = STATS.active_total;
+document.getElementById('s-cities').textContent= STATS.cities_active;
+document.getElementById('s-ctotal').textContent= STATS.cities_total;
+document.getElementById('s-dupe').textContent  = STATS.dupe_queue;
+document.getElementById('s-unc').textContent   = STATS.uncovered;
+document.getElementById('s-avg').textContent   = STATS.avg_clicks != null ? STATS.avg_clicks : '—';
+document.getElementById('s-7d').textContent    = STATS.avg_7d    != null ? STATS.avg_7d     : '—';
+document.getElementById('ts').textContent      = 'Updated ' + STATS.generated_at;
 
-// ── Map ────────────────────────────────────────────────────────────────────
-const map = L.map('map').setView([{center_lat:.5f}, {center_lng:.5f}], 10);
+// ── Map ───────────────────────────────────────────────────────────────────────
+const map = L.map('map').setView([{clat:.5f}, {clng:.5f}], 10);
 L.tileLayer('https://{{s}}.tile.openstreetmap.org/{{z}}/{{x}}/{{y}}.png', {{
-  attribution: '© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
+  attribution: '© <a href="https://openstreetmap.org/copyright">OpenStreetMap</a>',
   maxZoom: 18
 }}).addTo(map);
 
-// ── Uncovered cities (gray, small, behind everything) ─────────────────────
-UNCOVERED.forEach(function(c) {{
-  L.circleMarker([c.lat, c.lng], {{
-    radius: 5, color: '#9ca3af', fillColor: '#d1d5db',
-    fillOpacity: 0.5, weight: 1
-  }}).bindPopup('<b>' + c.city + ', TX</b><br><i style="color:#888">Not yet listed</i>').addTo(map);
-}});
+// ── Layer groups ──────────────────────────────────────────────────────────────
+const layers = {{
+  mini:  L.layerGroup().addTo(map),
+  track: L.layerGroup().addTo(map),
+  dupe:  L.layerGroup().addTo(map),
+  unc:   L.layerGroup().addTo(map),
+}};
+const visible = {{ mini: true, track: true, dupe: true, unc: true }};
 
-// ── Listing markers ────────────────────────────────────────────────────────
-function fmtAge(days) {{
-  if (days === null || days === undefined) return '—';
-  if (days < 1) return 'Today';
-  if (days < 2) return '1 day';
-  return Math.floor(days) + ' days';
+function toggle(key) {{
+  visible[key] = !visible[key];
+  if (visible[key]) {{ layers[key].addTo(map); }}
+  else              {{ map.removeLayer(layers[key]); }}
+  document.getElementById('leg-' + key).classList.toggle('off', !visible[key]);
 }}
 
+// ── Helpers ───────────────────────────────────────────────────────────────────
+function fmtDays(d) {{
+  if (d === null || d === undefined) return '—';
+  if (d < 1) return 'Today';
+  return Math.floor(d) + 'd';
+}}
+function fmtClicks(n) {{
+  return (n !== null && n !== undefined) ? n : '—';
+}}
+
+// ── Uncovered ─────────────────────────────────────────────────────────────────
+UNCOVERED.forEach(function(c) {{
+  L.circleMarker([c.lat, c.lng], {{
+    radius: 5, color: '#9ca3af', fillColor: '#d1d5db', fillOpacity: 0.5, weight: 1
+  }}).bindPopup(
+    '<div class="lf-popup"><div class="city">' + c.city + ', TX</div>' +
+    '<div class="sub">Not yet listed</div></div>'
+  ).addTo(layers.unc);
+}});
+
+// ── Listing markers ───────────────────────────────────────────────────────────
 MARKERS.forEach(function(m) {{
-  var color, fillColor;
+  var layerKey, color, fill;
   if (m.status === 'duplicate') {{
-    color = '#c2410c'; fillColor = '#f97316';
+    layerKey = 'dupe'; color = '#c2410c'; fill = '#f97316';
   }} else if (m.equip === 'mini-ex') {{
-    color = '#15803d'; fillColor = '#22c55e';
+    layerKey = 'mini'; color = '#15803d'; fill = '#22c55e';
   }} else {{
-    color = '#1d4ed8'; fillColor = '#3b82f6';
+    layerKey = 'track'; color = '#1d4ed8'; fill = '#3b82f6';
   }}
 
   var equipLabel = m.equip === 'mini-ex' ? 'Mini-Excavator' : 'Track Loader';
-  var statusLabel = m.status === 'active' ? '✅ Active' : '🟠 Duplicate queue';
+  var statusBadge = m.status === 'active'
+    ? '<span style="color:#15803d;font-weight:600">● Active</span>'
+    : '<span style="color:#c2410c;font-weight:600">● Duplicate queue</span>';
 
-  var popup = '<div style="font-size:13px;line-height:1.6;min-width:180px">';
-  popup += '<b style="font-size:14px">' + m.city + ', TX</b><br>';
-  popup += '<span style="color:#555">' + equipLabel + '</span><br>';
-  popup += '<hr style="margin:4px 0;border:none;border-top:1px solid #eee"/>';
-  popup += statusLabel + '<br>';
-  if (m.title) popup += '<span style="font-size:11px;color:#666">' + m.title + '</span><br>';
-  popup += '<hr style="margin:4px 0;border:none;border-top:1px solid #eee"/>';
-  popup += '📅 Age: <b>' + fmtAge(m.age_days) + '</b><br>';
-  popup += '👆 Clicks: <b>' + (m.last_clicks !== null && m.last_clicks !== undefined ? m.last_clicks : '—') + '</b>';
-  if (m.clicks_age !== null && m.clicks_age !== undefined) {{
-    popup += ' <span style="font-size:11px;color:#888">(' + fmtAge(m.clicks_age) + ' ago)</span>';
+  var popup =
+    '<div class="lf-popup">' +
+    '<div class="city">' + m.city + ', TX</div>' +
+    '<div class="sub">' + equipLabel + ' &nbsp;·&nbsp; ' + statusBadge + '</div>';
+
+  if (m.title) {{
+    popup += '<div style="font-size:11px;color:#6b7280;margin-bottom:4px">' + m.title + '</div>';
   }}
-  if (m.status === 'duplicate' && m.dupe_since) {{
-    popup += '<br>🗑️ Removed: <b>' + fmtAge(m.age_days !== null ? null : null) + '</b>';
-    try {{
-      var ds = new Date(m.dupe_since);
-      var diffDays = Math.floor((Date.now() - ds) / 86400000);
-      popup += '<br>🗑️ In queue: <b>' + (diffDays < 1 ? 'Today' : diffDays + ' days') + '</b>';
-    }} catch(e) {{}}
+  popup += '<hr/>';
+
+  popup +=
+    '<div class="stat-row"><span>📅 Age</span><span>' + fmtDays(m.age_days) + '</span></div>' +
+    '<div class="stat-row"><span>👆 Current clicks</span><span>' + fmtClicks(m.current_clicks) + '</span></div>' +
+    '<div class="stat-row"><span>📈 7-day delta</span><span>' + fmtClicks(m.seven_day) + '</span></div>' +
+    '<div class="stat-row"><span>🏆 Lifetime clicks</span><span>' + (m.lifetime_clicks > 0 ? m.lifetime_clicks : '—') + '</span></div>';
+
+  if (m.status === 'duplicate' && m.dupe_age_days !== null) {{
+    popup += '<div class="stat-row"><span>🗑️ In queue</span><span>' + fmtDays(m.dupe_age_days) + '</span></div>';
   }}
+
   popup += '</div>';
 
   L.circleMarker([m.lat, m.lng], {{
     radius: m.status === 'active' ? 8 : 7,
-    color: color, fillColor: fillColor,
-    fillOpacity: 0.85, weight: 1.5
-  }}).bindPopup(popup).addTo(map);
+    color: color, fillColor: fill, fillOpacity: 0.85, weight: 1.5
+  }}).bindPopup(popup).addTo(layers[layerKey]);
 }});
 </script>
 </body>
 </html>
 """
 
-# ── Write output ───────────────────────────────────────────────────────────────
 OUT = "listings_map.html"
 with open(OUT, "w", encoding="utf-8") as f:
     f.write(HTML)
 
 print(f"Map written to {OUT}")
-print(f"  Active listings : {stats['active_total']}  ({stats['active_mini_ex']} mini-ex, {stats['active_track']} trackloader)")
-print(f"  Duplicate queue : {stats['dupe_queue']}")
-print(f"  Cities covered  : {stats['cities_active']} / {stats['cities_total']}")
-print(f"  Avg clicks      : {stats['avg_clicks'] or '—'}")
+print(f"  Active     : {stats['active_total']}  ({stats['active_mini_ex']} mini-ex, {stats['active_track']} track)")
+print(f"  Dupe queue : {stats['dupe_queue']}")
+print(f"  Uncovered  : {stats['uncovered']} / {stats['cities_total']} cities")
+print(f"  Avg clicks : {stats['avg_clicks'] or 'n/a'}  |  7-day avg delta: {stats['avg_7d'] or 'n/a'}")
 
-if __name__ == "__main__" or True:
-    parser = argparse.ArgumentParser()
-    parser.add_argument("--open", action="store_true", help="Open map in browser after generating")
-    args, _ = parser.parse_known_args()
-    if args.open:
-        webbrowser.open(os.path.abspath(OUT))
+parser = argparse.ArgumentParser()
+parser.add_argument("--open", action="store_true")
+args, _ = parser.parse_known_args()
+if args.open:
+    webbrowser.open(os.path.abspath(OUT))

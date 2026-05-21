@@ -179,6 +179,12 @@ for title in removed_titles:
         continue
     slot = title_to_slot.get(title)
     if slot:
+        # Carry final known clicks into lifetime total before clearing snapshots
+        _snaps = metadata.get(slot, {}).get("click_snapshots", [])
+        if _snaps:
+            metadata.setdefault(slot, {})
+            metadata[slot]["lifetime_clicks"] = metadata[slot].get("lifetime_clicks", 0) + _snaps[-1]["clicks"]
+            metadata[slot]["click_snapshots"] = []
         dupe_history[slot] = datetime.now(timezone.utc).isoformat()
         del state[slot]
         logger.info(f"Phase 0 — slot '{slot}' marked duplicate-removed.")
@@ -214,6 +220,7 @@ def _publish(listable) -> bool:
     metadata[slot]["published_at"] = datetime.now(timezone.utc).isoformat()
     metadata[slot]["equipment_type"] = listable.equipment_type
     metadata[slot]["city"] = city
+    metadata[slot]["click_snapshots"] = []   # reset for new listing instance; lifetime_clicks preserved
     _save_metadata()
     return True
 
@@ -254,8 +261,10 @@ if not fatal and within_budget():
         _slot = _current_title_to_slot.get(_title)
         if _slot and _clicks is not None:
             metadata.setdefault(_slot, {})
-            metadata[_slot]["last_clicks"] = _clicks
-            metadata[_slot]["last_clicks_at"] = _clicks_at
+            snaps = metadata[_slot].setdefault("click_snapshots", [])
+            snaps.append({"ts": _clicks_at, "clicks": _clicks})
+            if len(snaps) > 8:
+                metadata[_slot]["click_snapshots"] = snaps[-8:]
     _save_metadata()
 
     _cleanup_images()
@@ -274,6 +283,13 @@ if not fatal and within_budget():
 
         old_title = state[slot]
         logger.info(f"Phase 2 — replacing '{slot}': removing '{old_title}'")
+        # Carry final click count into lifetime total before this listing is deleted
+        _final_clicks = click_counts.get(old_title)
+        if _final_clicks is not None:
+            metadata.setdefault(slot, {})
+            metadata[slot]["lifetime_clicks"] = metadata[slot].get("lifetime_clicks", 0) + _final_clicks
+            metadata[slot]["click_snapshots"] = []  # _publish will reset anyway, but be explicit
+            _save_metadata()
         scraper.go_to_page("https://www.facebook.com/marketplace/you/selling/")
         l.remove_listing_by_title(old_title)
 
