@@ -39,6 +39,7 @@ JITTER_MAX_MIN = 25
 
 STATE_FILE = "state.json"
 DUPE_HISTORY_FILE = "data/duplicate_history.json"
+METADATA_FILE = "data/slot_metadata.json"
 LOG_FILE = "listing_progress.log"
 OUTPUT_DIR = "./images/output/"
 
@@ -126,6 +127,7 @@ def _dump_json(path: str, data: dict):
 
 state = _load_json(STATE_FILE)
 dupe_history = _load_json(DUPE_HISTORY_FILE)
+metadata = _load_json(METADATA_FILE)
 
 
 def _save_state():
@@ -134,6 +136,10 @@ def _save_state():
 
 def _save_dupe_history():
     _dump_json(DUPE_HISTORY_FILE, dupe_history)
+
+
+def _save_metadata():
+    _dump_json(METADATA_FILE, metadata)
 
 
 # ── Helpers ───────────────────────────────────────────────────────────────────
@@ -203,6 +209,12 @@ def _publish(listable) -> bool:
     _log_published(listable, city)
     state[slot] = listable.title
     _save_state()
+    metadata.setdefault(slot, {})
+    metadata[slot]["title"] = listable.title
+    metadata[slot]["published_at"] = datetime.now(timezone.utc).isoformat()
+    metadata[slot]["equipment_type"] = listable.equipment_type
+    metadata[slot]["city"] = city
+    _save_metadata()
     return True
 
 
@@ -236,6 +248,15 @@ if not fatal and within_budget():
     scraper.go_to_page("https://www.facebook.com/marketplace/you/selling/")
     click_counts = l.collect_click_snapshots()
     logger.info(f"Phase 2 — click snapshot: {len(click_counts)} listings.")
+    _current_title_to_slot = {title: slot for slot, title in state.items()}
+    _clicks_at = datetime.now(timezone.utc).isoformat()
+    for _title, _clicks in click_counts.items():
+        _slot = _current_title_to_slot.get(_title)
+        if _slot and _clicks is not None:
+            metadata.setdefault(_slot, {})
+            metadata[_slot]["last_clicks"] = _clicks
+            metadata[_slot]["last_clicks_at"] = _clicks_at
+    _save_metadata()
 
     _cleanup_images()
     for listable in get_listings(output_directory=OUTPUT_DIR):
