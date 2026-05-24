@@ -35,8 +35,8 @@ _parser.add_argument("--no-jitter", action="store_true", help="Skip startup rand
 _args = _parser.parse_args()
 
 # ── Config ────────────────────────────────────────────────────────────────────
-BUDGET_MIN_MIN = 110
-BUDGET_MAX_MIN = 130
+BUDGET_MIN_MIN = 210
+BUDGET_MAX_MIN = 250
 JITTER_MAX_MIN = 10
 
 STATE_FILE = "state.json"
@@ -170,9 +170,46 @@ l = Listing(scraper)
 
 _cleanup_images()
 
-# ── Phase 0: Remove FB-flagged duplicates ─────────────────────────────────────
-logger.info("Phase 0 — removing FB-flagged duplicate listings...")
+# ── Startup inventory — full scan before any mutations ────────────────────────
+logger.info("Startup — taking inventory of all active listings...")
 scraper.go_to_page("https://www.facebook.com/marketplace/you/selling/")
+
+_inventory = l.collect_listing_stats()  # {title: {clicks, price, days_listed_fb, views, is_duplicate}}
+logger.info(f"Inventory: {len(_inventory)} listings found on selling page.")
+
+_inv_title_to_slot = {title: slot for slot, title in state.items()}
+_inv_now = datetime.now(timezone.utc).isoformat()
+_dupe_titles_found: list = []
+_new_clicks_total = 0
+
+for _title, _stats in _inventory.items():
+    if _stats.get("is_duplicate"):
+        _dupe_titles_found.append(_title)
+
+    _slot = _inv_title_to_slot.get(_title)
+    if not _slot:
+        continue
+
+    metadata.setdefault(_slot, {})
+    _m = metadata[_slot]
+    _snaps = _m.setdefault("click_snapshots", [])
+    _clicks = _stats.get("clicks")
+    if _clicks is not None:
+        _last = _snaps[-1]["clicks"] if _snaps else 0
+        _new_clicks_total += max(0, _clicks - _last)
+        if not _snaps or _snaps[-1]["clicks"] != _clicks:
+            _snaps.append({"ts": _inv_now, "clicks": _clicks})
+            if len(_snaps) > 8:
+                _m["click_snapshots"] = _snaps[-8:]
+
+_save_metadata()
+logger.info(
+    f"Inventory: {len(_dupe_titles_found)} duplicate-flagged, "
+    f"{_new_clicks_total} new clicks since last scan."
+)
+
+# ── Phase 0: Remove FB-flagged duplicates ─────────────────────────────────────
+logger.info(f"Phase 0 — removing {len(_dupe_titles_found)} FB-flagged duplicate listings...")
 
 removed_titles = l.remove_duplicate_listings()
 title_to_slot = {title: slot for slot, title in state.items()}

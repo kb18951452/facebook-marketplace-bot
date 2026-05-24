@@ -1,9 +1,9 @@
 <#
 .SYNOPSIS
     Registers Windows Task Scheduler tasks to run the FB Marketplace bot
-    4 times per day, Tuesday through Sunday.
-    Agent adds 0-10 min random jitter and runs 110-130 min per session.
-    4 runs x ~120 min = ~268 listings/day = ~3,744 slots in ~14 days.
+    2 times per day, Tuesday through Sunday.
+    Agent adds 0-10 min random jitter and runs 210-250 min per session.
+    2 runs x ~230 min = ~460 min/day of active listing time.
 
 .NOTES
     Run once from an elevated PowerShell prompt:
@@ -21,9 +21,9 @@ $BatFile        = Join-Path $RepoDir "run_daily_agent.bat"
 $ImageBatFile   = Join-Path $RepoDir "run_image_pipeline.bat"
 $TaskGroup      = "FacebookMarketplaceBot"
 
-# 4 runs per day, 3-hour gaps. Max run = jitter(10) + budget(130) = 140 min < 180 min gap.
+# 2 runs per day, 6-hour gap. Max run = jitter(10) + budget(250) = 260 min < 360 min gap.
 $Days = @("Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday")
-$RunTimes = @("08:00","11:00","14:00","17:00")
+$RunTimes = @("09:00","16:00")
 
 # ── Unregister mode ───────────────────────────────────────────────────────────
 if ($Unregister) {
@@ -73,7 +73,7 @@ foreach ($time in $RunTimes) {
             -At $time
 
         $settings = New-ScheduledTaskSettingsSet `
-            -ExecutionTimeLimit "03:00:00" `
+            -ExecutionTimeLimit "05:00:00" `
             -MultipleInstances IgnoreNew `
             -StartWhenAvailable
 
@@ -127,7 +127,7 @@ foreach ($day in $imageDays) {
 }
 
 Write-Host ""
-Write-Host "Done. 24 listing tasks + 7 image pipeline tasks registered."
-Write-Host "Listing agent: 8:00, 11:00, 14:00, 17:00 Tue-Sun (+0-10 min jitter)"
+Write-Host "Done. 12 listing tasks + 7 image pipeline tasks registered."
+Write-Host "Listing agent: 09:00, 16:00 Tue-Sun (+0-10 min jitter, 210-250 min budget)"
 Write-Host "Image pipeline: 06:00 daily (Mon-Sun)"
 Write-Host "To remove all: .\setup_schedule.ps1 -Unregister"
