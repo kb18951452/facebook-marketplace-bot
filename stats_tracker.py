@@ -14,6 +14,8 @@ Usage:
 import json
 import logging
 import os
+import subprocess
+import sys
 from datetime import datetime, timezone
 
 from helpers.scraper import Scraper
@@ -116,3 +118,10 @@ logger.info(
 )
 if unmatched:
     logger.info(f"Unmatched titles (not in state.json): {unmatched[:10]}")
+
+# Keep the viewer up to date after every stats collection.
+try:
+    subprocess.run([sys.executable, "map_listings.py"], check=False, timeout=30)
+    logger.info("Map regenerated.")
+except Exception as _e:
+    logger.warning(f"Map regeneration failed: {_e}")

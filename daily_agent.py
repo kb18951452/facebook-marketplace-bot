@@ -17,6 +17,8 @@ import logging
 import os
 import random
 import shutil
+import subprocess
+import sys
 import time
 from datetime import datetime, timezone
 
@@ -33,9 +35,9 @@ _parser.add_argument("--no-jitter", action="store_true", help="Skip startup rand
 _args = _parser.parse_args()
 
 # ── Config ────────────────────────────────────────────────────────────────────
-BUDGET_MIN_MIN = 50
-BUDGET_MAX_MIN = 75
-JITTER_MAX_MIN = 25
+BUDGET_MIN_MIN = 110
+BUDGET_MAX_MIN = 130
+JITTER_MAX_MIN = 10
 
 STATE_FILE = "state.json"
 DUPE_HISTORY_FILE = "data/duplicate_history.json"
@@ -145,7 +147,9 @@ def _save_metadata():
 # ── Helpers ───────────────────────────────────────────────────────────────────
 def _make_slot(listable) -> str:
     city = listable.location.split(", ")[0]
-    return f"{listable.equipment_type}_{city}_{listable.lang}"
+    base = f"{listable.equipment_type}_{city}_{listable.lang}"
+    task = getattr(listable, "task_slug", None)
+    return f"{base}_{task}" if task else base
 
 
 def _cleanup_images():
@@ -197,6 +201,9 @@ _save_dupe_history()
 # Snapshot of slots that existed before Phase 1 (Phase 2 will only replace these)
 _pre_phase1_slots = set(state.keys())
 
+# Cities that already have at least one active listing (equip is parts[0], city is parts[1])
+_active_cities: set = {s.split("_")[1] for s in state if len(s.split("_")) > 1}
+
 # ── Publish helper ────────────────────────────────────────────────────────────
 def _publish(listable) -> bool:
     """Publish one listing. Returns False on fatal session error, True otherwise."""
@@ -225,13 +232,14 @@ def _publish(listable) -> bool:
     return True
 
 
-# ── Phase 1: Publish new slots ────────────────────────────────────────────────
-logger.info("Phase 1 — publishing new slots...")
+# ── Phase 1a: Coverage pass — one listing per uncovered city ─────────────────
+# Ensures every city gets at least one listing before we fill additional variants.
+logger.info("Phase 1a — coverage pass (one listing per uncovered city)...")
 fatal = False
 
 for listable in get_listings(output_directory=OUTPUT_DIR):
     if not within_budget():
-        logger.info("Phase 1 — budget exhausted, stopping.")
+        logger.info("Phase 1a — budget exhausted.")
         break
     if not hasattr(listable, "equipment_type") or not hasattr(listable, "lang"):
         _cleanup_images()
@@ -242,14 +250,70 @@ for listable in get_listings(output_directory=OUTPUT_DIR):
         _cleanup_images()
         continue
 
+    city = listable.location.split(", ")[0]
+    if city in _active_cities:  # already has coverage — defer to Phase 1b
+        _cleanup_images()
+        continue
+
     if not _publish(listable):
         fatal = True
         break
+    _active_cities.add(city)
     _cleanup_images()
 
-# ── Phase 2: Replace non-duplicate existing slots ─────────────────────────────
+# ── Phase 1b: Fill pass — remaining new slots for already-covered cities ───────
 if not fatal and within_budget():
-    logger.info("Phase 2 — replacing non-duplicate existing slots...")
+    logger.info("Phase 1b — fill pass (remaining new slots for covered cities)...")
+
+    for listable in get_listings(output_directory=OUTPUT_DIR):
+        if not within_budget():
+            logger.info("Phase 1b — budget exhausted.")
+            break
+        if not hasattr(listable, "equipment_type") or not hasattr(listable, "lang"):
+            _cleanup_images()
+            continue
+
+        slot = _make_slot(listable)
+        if slot in _pre_phase1_slots or slot in dupe_history or slot in state:
+            _cleanup_images()
+            continue
+
+        if not _publish(listable):
+            fatal = True
+            break
+        _cleanup_images()
+
+# ── Phase 3: Re-list previously-duplicate slots ───────────────────────────────
+# Restores listings for cities that lost coverage to FB duplicate removal.
+if not fatal and within_budget():
+    logger.info("Phase 3 — re-listing previously-duplicate slots...")
+
+    _cleanup_images()
+    for listable in get_listings(output_directory=OUTPUT_DIR):
+        if not within_budget():
+            logger.info("Phase 3 — budget exhausted, stopping.")
+            break
+        if not hasattr(listable, "equipment_type") or not hasattr(listable, "lang"):
+            _cleanup_images()
+            continue
+
+        slot = _make_slot(listable)
+        if slot not in dupe_history:
+            _cleanup_images()
+            continue
+
+        logger.info(f"Phase 3 — re-listing previously-duplicate slot: {slot}")
+        if not _publish(listable):
+            fatal = True
+            break
+
+        del dupe_history[slot]
+        _save_dupe_history()
+        _cleanup_images()
+
+# ── Phase 2: Replace non-duplicate existing slots (refresh — lowest priority) ──
+if not fatal and within_budget():
+    logger.info("Phase 2 — replacing non-duplicate existing slots (refresh)...")
 
     # Snapshot click counts before any deletions
     scraper.go_to_page("https://www.facebook.com/marketplace/you/selling/")
@@ -298,33 +362,6 @@ if not fatal and within_budget():
             break
         _cleanup_images()
 
-# ── Phase 3: Re-list previously-duplicate slots ───────────────────────────────
-if not fatal and within_budget():
-    logger.info("Phase 3 — re-listing previously-duplicate slots (end of queue)...")
-
-    _cleanup_images()
-    for listable in get_listings(output_directory=OUTPUT_DIR):
-        if not within_budget():
-            logger.info("Phase 3 — budget exhausted, stopping.")
-            break
-        if not hasattr(listable, "equipment_type") or not hasattr(listable, "lang"):
-            _cleanup_images()
-            continue
-
-        slot = _make_slot(listable)
-        if slot not in dupe_history:
-            _cleanup_images()
-            continue
-
-        logger.info(f"Phase 3 — re-listing previously-duplicate slot: {slot}")
-        if not _publish(listable):
-            fatal = True
-            break
-
-        del dupe_history[slot]
-        _save_dupe_history()
-        _cleanup_images()
-
 # ── Done ──────────────────────────────────────────────────────────────────────
 remaining = max(0, _deadline - time.time())
 logger.info(
@@ -332,3 +369,10 @@ logger.info(
     f"Remaining budget: {remaining / 60:.1f} min. "
     f"Fatal stop: {fatal}."
 )
+
+# Regenerate the map with fresh data so the viewer is always current.
+try:
+    subprocess.run([sys.executable, "map_listings.py"], check=False, timeout=30)
+    logger.info("Map regenerated.")
+except Exception as _e:
+    logger.warning(f"Map regeneration failed: {_e}")

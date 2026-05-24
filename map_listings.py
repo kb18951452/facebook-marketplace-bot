@@ -71,7 +71,7 @@ for slot in all_slots:
     if len(parts) < 3:
         continue
     equip = parts[0]
-    city  = "_".join(parts[1:-1])
+    city  = parts[1]  # equip=parts[0], city=parts[1], lang=parts[2], task=parts[3]
 
     geo = city_lookup.get(city)
     if not geo or not geo.get("lat") or not geo.get("lng"):
