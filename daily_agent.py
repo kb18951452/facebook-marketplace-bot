@@ -31,7 +31,8 @@ from helpers.listing_helper import Listing
 
 # ── Args ──────────────────────────────────────────────────────────────────────
 _parser = argparse.ArgumentParser(description="FB Marketplace daily listing agent")
-_parser.add_argument("--no-jitter", action="store_true", help="Skip startup random delay (useful for manual runs)")
+_parser.add_argument("--no-jitter", action="store_true", help="Skip startup random delay (useful for manual runs / supervisor)")
+_parser.add_argument("--budget-min", type=float, default=None, help="Override the random runtime budget (minutes). Used by run_session.py.")
 _args = _parser.parse_args()
 
 # ── Config ────────────────────────────────────────────────────────────────────
@@ -100,7 +101,10 @@ else:
     time.sleep(_jitter_secs)
 
 # ── Time budget ───────────────────────────────────────────────────────────────
-_budget_secs = random.uniform(BUDGET_MIN_MIN * 60, BUDGET_MAX_MIN * 60)
+if _args.budget_min is not None:
+    _budget_secs = max(0.0, _args.budget_min * 60)
+else:
+    _budget_secs = random.uniform(BUDGET_MIN_MIN * 60, BUDGET_MAX_MIN * 60)
 _deadline = time.time() + _budget_secs
 logger.info(
     f"Budget: {_budget_secs / 60:.1f} min — deadline "
@@ -162,10 +166,16 @@ def _cleanup_images():
 
 
 # ── Scraper / Listing init ────────────────────────────────────────────────────
-scraper = Scraper("https://facebook.com")
-scraper.add_login_functionality(
-    "https://facebook.com", 'svg[aria-label="Your profile"]', "facebook"
-)
+# Exit code 2 == startup/login could not complete (needs a human, e.g. 2FA).
+# run_session.py treats this differently from a mid-run crash (exit 1).
+try:
+    scraper = Scraper("https://facebook.com")
+    scraper.add_login_functionality(
+        "https://facebook.com", 'svg[aria-label="Your profile"]', "facebook"
+    )
+except SystemExit:
+    logger.error("Startup/login did not complete — exiting with code 2 (human action needed).")
+    sys.exit(2)
 l = Listing(scraper)
 
 _cleanup_images()
@@ -211,7 +221,14 @@ logger.info(
 # ── Phase 0: Remove FB-flagged duplicates ─────────────────────────────────────
 logger.info(f"Phase 0 — removing {len(_dupe_titles_found)} FB-flagged duplicate listings...")
 
-removed_titles = l.remove_duplicate_listings()
+# Dedup is best-effort: never let a stray UI exception abort the whole session.
+try:
+    removed_titles = l.remove_duplicate_listings()
+except (InvalidSessionIdException, NoSuchWindowException):
+    raise  # genuine session death — let it propagate so the supervisor restarts
+except Exception as e:
+    logger.error(f"Phase 0 dedup failed (non-fatal, continuing): {e}", exc_info=True)
+    removed_titles = []
 title_to_slot = {title: slot for slot, title in state.items()}
 
 for title in removed_titles:
@@ -413,3 +430,6 @@ try:
     logger.info("Map regenerated.")
 except Exception as _e:
     logger.warning(f"Map regeneration failed: {_e}")
+
+# Exit non-zero on a fatal session error so run_session.py restarts and resumes.
+sys.exit(1 if fatal else 0)

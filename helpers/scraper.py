@@ -1,4 +1,5 @@
 import os
+import json
 import pickle
 import time
 import random
@@ -65,33 +66,157 @@ class Scraper:
 		self.driver.get(self.url)
 		self.driver.maximize_window()
 
-	# Add login functionality and load cookies if there are any with 'cookies_file_name'
+	# Add login functionality. Tries, in order: saved cookies → automated
+	# credential login (handles the "re-enter your password" screen) → manual.
 	def add_login_functionality(self, login_url, is_logged_in_selector, cookies_file_name):
 		self.login_url = login_url
 		self.is_logged_in_selector = is_logged_in_selector
 		self.cookies_file_name = cookies_file_name + '.pkl'
 		self.cookies_file_path = self.cookies_folder + self.cookies_file_name
 
-		# Check if there is a cookie file saved
+		# 1) Try saved cookies
 		if self.is_cookie_file():
-			# Load cookies
 			self.load_cookies()
-
-			# Check if user is logged in after adding the cookies
-			is_logged_in = self.is_logged_in(5)
-			if is_logged_in:
+			if self.is_logged_in(8):
+				print('Logged in via saved cookies.')
 				return
+			print('Saved cookies did not yield a logged-in session.')
 
-		# Wait for the user to log in with maximum amount of time 5 minutes
-		print('Please login manually in the browser and after that you will be automatically loged in with cookies. Note that if you do not log in for five minutes, the program will turn off.')
-		is_logged_in = self.is_logged_in(300)
+		# 2) Try automated login with stored credentials
+		if self.login_with_credentials():
+			self.save_cookies()
+			print('Logged in via stored credentials; cookies refreshed.')
+			return
 
-		# User is not logged in so exit from the program
-		if not is_logged_in:
+		# 3) Manual fallback — the browser is already on the login/challenge page
+		print('Automated login did not complete. Please log in manually in the '
+		      'browser within 5 minutes (e.g. to clear a 2FA/checkpoint). The '
+		      'program will exit if you do not.')
+		if not self.is_logged_in(300):
+			print('ERROR: Not logged in after the manual window. Exiting.')
 			exit()
-
-		# User is logged in so save the cookies
 		self.save_cookies()
+
+	# Load Facebook credentials from env vars first, then credentials.json
+	def _load_credentials(self):
+		email = os.environ.get('FB_EMAIL')
+		password = os.environ.get('FB_PASSWORD')
+		if email and password:
+			return email, password
+
+		cred_path = 'credentials.json'
+		if os.path.exists(cred_path):
+			try:
+				with open(cred_path) as f:
+					data = json.load(f)
+				return email or data.get('email'), password or data.get('password')
+			except Exception as e:
+				print(f'WARNING: Could not read credentials.json: {e}')
+		return email, password
+
+	# Return the first element matching any of the given CSS selectors, else None
+	def _find_first(self, selectors, wait_element_time=3):
+		for selector in selectors:
+			element = self.find_element(selector, False, wait_element_time)
+			if element:
+				return element
+		return None
+
+	# Attempt an automated login with stored credentials. Handles both the full
+	# login form (email + password) and the password-only re-auth screen.
+	def login_with_credentials(self):
+		email, password = self._load_credentials()
+		if not password:
+			print('No stored Facebook password found (set FB_PASSWORD or '
+			      'credentials.json) — skipping automated login.')
+			return False
+
+		# Land on the login page (a logged-in session redirects to the feed)
+		self.driver.get('https://www.facebook.com/login/')
+		self.wait_random_time()
+		if self.is_logged_in(5):
+			return True
+
+		password_field = self._find_first(
+			['input#pass', 'input[name="pass"]', 'input[type="password"]'],
+			wait_element_time=10,
+		)
+		if not password_field:
+			print('Could not locate the Facebook password field.')
+			return False
+
+		# Fill the email/username only if the field is present and empty. On the
+		# "re-enter your password" screen there is no email field at all.
+		if email:
+			email_field = self._find_first(
+				['input#email', 'input[name="email"]', 'input[type="email"]'],
+				wait_element_time=2,
+			)
+			if email_field:
+				try:
+					if not email_field.get_attribute('value'):
+						email_field.clear()
+						email_field.send_keys(email)
+						self.wait_random_time()
+				except Exception:
+					pass
+
+		try:
+			password_field.clear()
+		except Exception:
+			pass
+		password_field.send_keys(password)
+		self.wait_random_time()
+		password_field.send_keys(Keys.RETURN)
+
+		return self._finalize_login()
+
+	# Poll after submitting credentials: succeed as soon as the logged-in marker
+	# appears, clicking through any "save this browser" interstitial. Many extra
+	# screens (trusted-device approval, save-browser) auto-resolve, so we keep
+	# waiting for the logged-in state rather than abandoning on first sight of a
+	# challenge-looking URL. Only after the full timeout do we report a real
+	# blocking step and hand off to the manual fallback.
+	def _finalize_login(self, timeout=90):
+		deadline = time.time() + timeout
+		challenge_noted = False
+		while time.time() < deadline:
+			if self.is_logged_in(2):
+				return True
+			self._accept_save_browser_prompt()
+			if not challenge_noted and self._login_challenge_detected():
+				print(f'Note: Facebook showed an extra step ({self.driver.current_url}) '
+				      '— waiting to see if it resolves automatically...')
+				challenge_noted = True
+			time.sleep(2)
+		if self._login_challenge_detected():
+			print('Facebook is requesting a verification step (2FA/checkpoint) '
+			      'that could not be completed automatically.')
+		return bool(self.is_logged_in(2))
+
+	# Click through the optional "Remember/Save this browser" interstitial
+	def _accept_save_browser_prompt(self):
+		xpaths = [
+			"//div[@aria-label='Continue'][@role='button']",
+			"//div[@aria-label='Save'][@role='button']",
+			"//button[@name='login']",
+			"//div[@role='button'][contains(., 'Continue')]",
+			"//div[@role='button'][contains(., 'Save')]",
+		]
+		for xpath in xpaths:
+			element = self.find_element_by_xpath(xpath, False, 1)
+			if element:
+				try:
+					element.click()
+					self.wait_random_time()
+					return
+				except Exception:
+					continue
+
+	# Detect verification steps that require human input (2FA, security checkpoint)
+	def _login_challenge_detected(self):
+		url = self.driver.current_url.lower()
+		return any(token in url for token in ('checkpoint', 'two_step', 'two-step', '/2fac'))
 
 	# Check if cookie file exists
 	def is_cookie_file(self):
@@ -245,6 +370,10 @@ class Scraper:
 		element.send_keys(text)
 
 	def input_file_add_files(self, selector, files):
+		# Normalize: accept either a list of paths or a newline-joined string
+		if isinstance(files, list):
+			files = '\n'.join(files)
+
 		# Intialize the condition to wait
 		wait_until = EC.presence_of_element_located((By.CSS_SELECTOR, selector))
 

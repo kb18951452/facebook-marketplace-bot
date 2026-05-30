@@ -1,3 +1,6 @@
 __pycache__/
 cookies/
 .DS_Store
+
+# Secrets — never commit Facebook credentials
+credentials.json

@@ -222,6 +222,29 @@ TASK_VARIANTS = {
                 "spa": "¿Necesitas quitar tocones, excavar hoyos para plantar, quitar pasto o limpiar raíces? Nuestra mini excavadora es la herramienta perfecta.",
             },
         },
+        {
+            "slug": "driveway",
+            "titles": {
+                "eng": [
+                    "Gravel Driveway Repair? Mini Excavator – {city}",
+                    "Washed-Out Driveway? Mini Ex for Regrade & Culvert – {city}",
+                    "New Driveway Excavation & Culvert Install – {city}",
+                    "Mini Ex for Driveway Drainage & Potholes – {city}",
+                    "Fix or Prep Your Driveway – Mini Excavator – {city}",
+                ],
+                "spa": [
+                    "¿Reparar Entrada de Grava? Mini Excavadora – {city}",
+                    "¿Entrada Dañada? Mini Ex para Nivelar y Alcantarilla – {city}",
+                    "Excavación de Entrada Nueva e Instalación de Alcantarilla – {city}",
+                    "Mini Ex para Drenaje y Baches de Entrada – {city}",
+                    "Repara o Prepara tu Entrada – Mini Excavadora – {city}",
+                ],
+            },
+            "desc_intro": {
+                "eng": "Washed-out gravel driveway, potholes, or need a culvert and proper drainage? Our mini-excavator digs out, regrades, and preps driveways the right way.",
+                "spa": "¿Entrada de grava dañada, baches, o necesitas una alcantarilla y buen drenaje? Nuestra mini excavadora excava, nivela y prepara entradas correctamente.",
+            },
+        },
     ],
     "trackloader": [
         {
@@ -314,6 +337,29 @@ TASK_VARIANTS = {
             "desc_intro": {
                 "eng": "Prepping for a concrete pad, building foundation, or slab pour? Our track loader is ideal for moving material and establishing grade.",
                 "spa": "¿Preparando para una base de concreto, cimientos de construcción, o colada de losa? Nuestra cargadora es ideal para mover material y establecer nivel.",
+            },
+        },
+        {
+            "slug": "driveway",
+            "titles": {
+                "eng": [
+                    "Gravel Driveway Repair & Regrading – Skid Steer – {city}",
+                    "Spread Gravel or Level Your Driveway – Track Loader – {city}",
+                    "Pothole & Washboard Driveway Fix – Skid Steer – {city}",
+                    "New Gravel Driveway? Track Loader Rental – {city}",
+                    "Track Loader for Driveway Grading & Gravel – {city}",
+                ],
+                "spa": [
+                    "Reparación y Nivelación de Entrada de Grava – Skid Steer – {city}",
+                    "Esparcir Grava o Nivelar tu Entrada – Cargadora – {city}",
+                    "Arreglo de Baches y Surcos en Entrada – Skid Steer – {city}",
+                    "¿Entrada de Grava Nueva? Renta Cargadora de Orugas – {city}",
+                    "Cargadora de Orugas para Nivelar Entradas y Grava – {city}",
+                ],
+            },
+            "desc_intro": {
+                "eng": "Rutted, potholed, or washboarded gravel driveway? Our track loader spreads new gravel, regrades, and levels driveways fast — or builds a new one from scratch.",
+                "spa": "¿Entrada de grava con baches, surcos o desniveles? Nuestra cargadora de orugas esparce grava nueva, nivela y repara entradas rápido — o construye una nueva.",
             },
         },
     ],

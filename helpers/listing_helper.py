@@ -27,6 +27,7 @@ class ListingData:
     groups: Optional[str] = None
     equipment_type: Optional[str] = None
     lang: Optional[str] = None
+    task_slug: Optional[str] = None
 
 
 class Listing:
@@ -303,16 +304,48 @@ class Listing:
                 break
         return dup_el, title
 
+    def _safe_click(self, element) -> bool:
+        """Click an element, falling back to a JS click when a sticky overlay
+        (e.g. the Marketplace nav bar) intercepts a native click. Returns success."""
+        try:
+            self.scraper.driver.execute_script(
+                'arguments[0].scrollIntoView({block: "center"});', element)
+            self.scraper.wait_random_time()
+        except Exception:
+            pass
+        try:
+            element.click()
+            return True
+        except ElementClickInterceptedException:
+            try:
+                self.scraper.driver.execute_script("arguments[0].click();", element)
+                return True
+            except Exception:
+                return False
+        except StaleElementReferenceException:
+            return False
+        except Exception:
+            return False
+
     def remove_duplicate_listings(self) -> list:
         """Remove all FB-flagged duplicates on the current page. Returns list of removed titles."""
         removed_titles = []
-        while True:
+        failures = 0
+        while failures < 3:
             dup_el, title = self._find_duplicate_with_title()
             if dup_el is None:
                 return removed_titles
-            dup_el.click()
+            if not self._safe_click(dup_el):
+                failures += 1
+                logger.warning(
+                    f"Could not open duplicate listing '{title}' (click intercepted/stale); "
+                    f"reloading selling page and retrying ({failures}/3).")
+                self.scraper.go_to_page('https://www.facebook.com/marketplace/you/selling/')
+                continue
             self.delete_open_listing()
             removed_titles.append(title)
+        logger.warning("remove_duplicate_listings: too many click failures — ending dedup phase early.")
+        return removed_titles
 
     def remove_listing(self,data, listing_type):
         title = self.generate_title_for_listing_type(data, listing_type)
