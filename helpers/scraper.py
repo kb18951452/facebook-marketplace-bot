@@ -31,7 +31,10 @@ class Scraper:
 
 	# Automatically close driver on destruction of the object
 	def __del__(self):
-		self.driver.close()
+		try:
+			self.driver.quit()
+		except Exception:
+			pass
 
 	# Add these options in order to make chrome driver appear as a human instead of detecting it as a bot
 	# Also change the 'cdc_' string in the chromedriver.exe with Notepad++ for example with 'abc_' to prevent detecting it as a bot
@@ -40,7 +43,9 @@ class Scraper:
 		self.driver_options = Options()
 
 		arguments = [
-			'--disable-blink-features=AutomationControlled'
+			'--disable-blink-features=AutomationControlled',
+			'--headless=new',
+			'--window-size=1920,1080',
 		]
 
 		experimental_options = {

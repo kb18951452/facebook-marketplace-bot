@@ -95,7 +95,11 @@ output_directory: str = "./images/output/"
 
 def _cleanup_images():
     if os.path.exists(output_directory):
-        shutil.rmtree(output_directory)
+        # On Windows, rmtree can fail on locked/read-only files; chmod them first
+        def _force_remove(func, path, _):
+            os.chmod(path, 0o777)
+            func(path)
+        shutil.rmtree(output_directory, onerror=_force_remove)
     os.makedirs(output_directory, exist_ok=True)
 
 def _publish(listable) -> bool:

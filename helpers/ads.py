@@ -76,32 +76,6 @@ def get_equipment() -> dict:
     }
     return equipment
 
-# Task-based title templates – English and Spanish
-TASK_TEMPLATES_MINI_EX = {
-    "eng": [
-        "Mini Excavator Rental – Drainage & Trenching – {city}",     # 54 chars
-        "French Drain Install? Mini Ex Rental – {city}",             # 47
-        "Trenching for Irrigation/Utilities? Mini Excavator",        # 51
-        "Mini Ex Rental for Yard Grading & Footings – {city}",       # 53
-        "Compact Excavator for Pond/Landscaping – {city}",           # 49
-        "Uneven Yard Leveling? Mini Ex Ready – {city}",              # 47
-        "Site Prep for Patio/Wall? Mini Excavator – {city}",         # 51
-        "Tree Holes or Sod Removal? Mini Ex Rental – {city}",         # 52
-        "Backfilling Trenches? Mini Excavator Available – {city}",   # 56
-        "Mini Ex for Foundation Redirect Drainage – {city}",         # 51
-    ],
-    "spa": [
-        "Renta Mini Excavadora – Drenaje y Zanjas – {city}",         # ~50
-        "¿Dren Francés? Mini Ex Disponible – {city}",                # ~43
-        "Zanjas para Riego/Utilidades? Mini Excavadora",             # ~47
-        "Renta Mini Ex para Nivelar Patio – {city}",                 # ~43
-        "Excavadora Compacta para Estanque/Paisaje – {city}",        # ~52
-        "¿Patio Desnivelado? Mini Ex Lista – {city}",                # ~43
-        "Prep Terreno Terraza/Muro? Mini Ex – {city}",               # ~45
-        "Rellenar Zanjas? Mini Excavadora – {city}",                 # ~43
-        "Mini Ex para Drenaje Cimientos – {city}",                   # ~43
-    ]
-}
 
 
 
@@ -370,17 +344,17 @@ def get_locations(path='data/cities_data.json'):
     with open(path, 'r') as cities_file:
         return json.load(cities_file)
 
-profiles = ["100000068273898"]
-
 def get_listing_title(equipment_type: str, city: str, language: str = "eng") -> str:
     """
     Generates a random title.
     80% chance = task-based (customer intent), 20% chance = classic style (your original varied templates).
     """
-    # 80% task-based titles
+    # 80% task-based titles — pick a random task variant for this equipment type
     if random.random() < 0.8:
-        templates = TASK_TEMPLATES_MINI_EX[language]
-        return random.choice(templates).format(city=city)
+        tasks = TASK_VARIANTS.get(equipment_type, [])
+        if tasks:
+            task = random.choice(tasks)
+            return random.choice(task["titles"][language]).format(city=city)
 
     # 20% classic varied titles (your original style)
     equipment = get_equipment()[equipment_type]
@@ -418,7 +392,7 @@ def get_listing_title(equipment_type: str, city: str, language: str = "eng") -> 
     templates = templates_eng if language == "eng" else templates_spa
     return random.choice(templates)
 
-def get_listing_description(language: str, blurb: str, title: str, daily_price: str, delivery_cost: float, location: str, task_intro: str = None):
+def get_listing_description(language: str, blurb: str, daily_price: str, delivery_cost: float, location: str, task_intro: Optional[str] = None):
     """
     Maximum natural variation with shuffled sections, multiple phrasings, and optional extras.
     """
@@ -551,7 +525,7 @@ def get_listing_description(language: str, blurb: str, title: str, daily_price: 
 
     return "\n\n".join(sections)
 
-def get_listings(output_directory: str = "./images/output/") -> Generator[ListingData, None, None]:
+def get_listings(output_directory: str = "./images/output/", skip_slots: Optional[set] = None, generate_images: bool = True) -> Generator[ListingData, None, None]:
     equipment = get_equipment()
     loc = get_locations()
     for location in loc:
@@ -564,14 +538,16 @@ def get_listings(output_directory: str = "./images/output/") -> Generator[Listin
             tasks = TASK_VARIANTS.get(item, [])
             for task in tasks:
                 for lang in ['eng']:
+                    if skip_slots and f"{item}_{city}_{lang}_{task['slug']}" in skip_slots:
+                        continue
                     images = []
-                    for image in random_images_from_directory(base_image_dir):
-                        images.append(generate_random_controlled_image(input_image=image, output_directory=output_directory))
+                    if generate_images:
+                        for image in random_images_from_directory(base_image_dir):
+                            images.append(generate_random_controlled_image(input_image=image, output_directory=output_directory))
                     title = random.choice(task['titles'][lang]).format(city=city)
                     description = get_listing_description(
                         language=lang,
                         blurb=equipment[item]['blurb'][lang],
-                        title=title,
                         daily_price=daily_price,
                         delivery_cost=delivery_cost,
                         location=listed_location,
@@ -586,7 +562,7 @@ def get_listings(output_directory: str = "./images/output/") -> Generator[Listin
                         category='Miscellaneous',
                         equipment_type=item,
                         lang=lang,
-                        task_slug=task['slug'],
+                        task_slug=str(task['slug']),
                     )
 
 
@@ -674,7 +650,7 @@ def generate_random_controlled_image(input_image: str = "images/basic.jpeg",
     background.save(image_path, quality=random.randint(82, 95))
     return image_path
 
-def random_images_from_directory(path, number=9):
+def random_images_from_directory(path: str, number: int = 9) -> list[str]:
     files = [f for f in os.listdir(path) if os.path.isfile(os.path.join(path, f))]
     image_extensions = ['.png', '.jpg', '.jpeg', '.gif', '.bmp']
     images = [f for f in files if any(f.lower().endswith(ext) for ext in image_extensions)]
@@ -682,7 +658,6 @@ def random_images_from_directory(path, number=9):
     # Separate original equipment shots (numeric names) from YouTube-extracted frames.
     # Original photos are guaranteed to show the equipment; always use one as the lead.
     originals = [f for f in images if f.split('.')[0].isdigit()]
-    rest = [f for f in images if f not in originals]
 
     selected = []
     if originals:

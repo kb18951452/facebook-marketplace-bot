@@ -822,21 +822,20 @@ class Listing:
             self.scraper.scroll_to_element_by_xpath(condition_combobox_xpath)
             self.scraper.element_click_by_xpath(condition_combobox_xpath, delay=True)
 
-            # Now select "Used - Like New"
-            condition_option_xpath = f'//span[@dir="auto"][text()="{data.condition}"]'
-            self.scraper.element_click_by_xpath(condition_option_xpath)
+            # Try exact match first; fall back to contains() in case of minor DOM drift
+            exact_xpath = f'//span[@dir="auto"][text()="{data.condition}"]'
+            fuzzy_xpath = f'//span[@dir="auto"][contains(text(), "Like New")]'
+            try:
+                self.scraper.element_click_by_xpath(exact_xpath)
+            except Exception:
+                self.scraper.element_click_by_xpath(fuzzy_xpath)
 
             logger.info("Condition selected successfully.")
         except Exception as e:
-            logger.error(f"Failed to select Condition: {e}")
-
-            # --- Take screenshot on failure for debugging ---
+            logger.error(f"Failed to select Condition (non-fatal, continuing): {e}")
             screenshot_path = f"screenshot_condition_error_{int(time.time())}.png"
             self.scraper.driver.save_screenshot(screenshot_path)
             logger.info(f"Screenshot saved to: {screenshot_path}")
-
-            # Re-raise to let the script crash (so you see the issue) or handle gracefully
-            raise
 
     @staticmethod
     def generate_title_for_listing_type(data: ListingData, listing_type):
