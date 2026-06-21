@@ -25,13 +25,14 @@ from datetime import datetime, timezone
 import requests
 from selenium.common.exceptions import InvalidSessionIdException, NoSuchWindowException
 
-from helpers.ads import get_listings
+from helpers.ads import get_listings, get_locations, TASK_VARIANTS
 from helpers.scraper import Scraper
 from helpers.listing_helper import Listing
 
 # ── Args ──────────────────────────────────────────────────────────────────────
 _parser = argparse.ArgumentParser(description="FB Marketplace daily listing agent")
-_parser.add_argument("--no-jitter", action="store_true", help="Skip startup random delay (useful for manual runs)")
+_parser.add_argument("--no-jitter", action="store_true", help="Skip startup random delay (useful for manual runs / supervisor)")
+_parser.add_argument("--budget-min", type=float, default=None, help="Override the random runtime budget (minutes). Used by run_session.py.")
 _args = _parser.parse_args()
 
 # ── Config ────────────────────────────────────────────────────────────────────
@@ -100,7 +101,10 @@ else:
     time.sleep(_jitter_secs)
 
 # ── Time budget ───────────────────────────────────────────────────────────────
-_budget_secs = random.uniform(BUDGET_MIN_MIN * 60, BUDGET_MAX_MIN * 60)
+if _args.budget_min is not None:
+    _budget_secs = max(0.0, _args.budget_min * 60)
+else:
+    _budget_secs = random.uniform(BUDGET_MIN_MIN * 60, BUDGET_MAX_MIN * 60)
 _deadline = time.time() + _budget_secs
 logger.info(
     f"Budget: {_budget_secs / 60:.1f} min — deadline "
@@ -162,10 +166,16 @@ def _cleanup_images():
 
 
 # ── Scraper / Listing init ────────────────────────────────────────────────────
-scraper = Scraper("https://facebook.com")
-scraper.add_login_functionality(
-    "https://facebook.com", 'svg[aria-label="Your profile"]', "facebook"
-)
+# Exit code 2 == startup/login could not complete (needs a human, e.g. 2FA).
+# run_session.py treats this differently from a mid-run crash (exit 1).
+try:
+    scraper = Scraper("https://facebook.com")
+    scraper.add_login_functionality(
+        "https://facebook.com", 'svg[aria-label="Your profile"]', "facebook"
+    )
+except SystemExit:
+    logger.error("Startup/login did not complete — exiting with code 2 (human action needed).")
+    sys.exit(2)
 l = Listing(scraper)
 
 _cleanup_images()
@@ -211,7 +221,14 @@ logger.info(
 # ── Phase 0: Remove FB-flagged duplicates ─────────────────────────────────────
 logger.info(f"Phase 0 — removing {len(_dupe_titles_found)} FB-flagged duplicate listings...")
 
-removed_titles = l.remove_duplicate_listings()
+# Dedup is best-effort: never let a stray UI exception abort the whole session.
+try:
+    removed_titles = l.remove_duplicate_listings()
+except (InvalidSessionIdException, NoSuchWindowException):
+    raise  # genuine session death — let it propagate so the supervisor restarts
+except Exception as e:
+    logger.error(f"Phase 0 dedup failed (non-fatal, continuing): {e}", exc_info=True)
+    removed_titles = []
 title_to_slot = {title: slot for slot, title in state.items()}
 
 for title in removed_titles:
@@ -238,8 +255,10 @@ _save_dupe_history()
 # Snapshot of slots that existed before Phase 1 (Phase 2 will only replace these)
 _pre_phase1_slots = set(state.keys())
 
-# Cities that already have at least one active listing (equip is parts[0], city is parts[1])
-_active_cities: set = {s.split("_")[1] for s in state if len(s.split("_")) > 1}
+# (city, equip) pairs already covered — Phase 1a posts one of each equipment type per city
+_covered_equip: set = {
+    (s.split("_")[1], s.split("_")[0]) for s in state if len(s.split("_")) > 1
+}
 
 # ── Publish helper ────────────────────────────────────────────────────────────
 def _publish(listable) -> bool:
@@ -274,7 +293,15 @@ def _publish(listable) -> bool:
 logger.info("Phase 1a — coverage pass (one listing per uncovered city)...")
 fatal = False
 
-for listable in get_listings(output_directory=OUTPUT_DIR):
+# Also skip task-variant slots for (city, equip) pairs that are already covered —
+# Phase 1a would only defer them to Phase 1b anyway.
+_covered_equip_slots = {
+    f"{equip}_{city}_eng_{task['slug']}"
+    for (city, equip) in _covered_equip
+    for task in TASK_VARIANTS.get(equip, [])
+}
+_phase1a_skip = set(_pre_phase1_slots) | set(dupe_history.keys()) | _covered_equip_slots
+for listable in get_listings(output_directory=OUTPUT_DIR, skip_slots=_phase1a_skip):
     if not within_budget():
         logger.info("Phase 1a — budget exhausted.")
         break
@@ -288,21 +315,22 @@ for listable in get_listings(output_directory=OUTPUT_DIR):
         continue
 
     city = listable.location.split(", ")[0]
-    if city in _active_cities:  # already has coverage — defer to Phase 1b
+    if (city, listable.equipment_type) in _covered_equip:  # this equip type covered — defer to Phase 1b
         _cleanup_images()
         continue
 
     if not _publish(listable):
         fatal = True
         break
-    _active_cities.add(city)
+    _covered_equip.add((city, listable.equipment_type))
     _cleanup_images()
 
 # ── Phase 1b: Fill pass — remaining new slots for already-covered cities ───────
 if not fatal and within_budget():
     logger.info("Phase 1b — fill pass (remaining new slots for covered cities)...")
 
-    for listable in get_listings(output_directory=OUTPUT_DIR):
+    _phase1b_skip = set(state.keys()) | set(dupe_history.keys())
+    for listable in get_listings(output_directory=OUTPUT_DIR, skip_slots=_phase1b_skip):
         if not within_budget():
             logger.info("Phase 1b — budget exhausted.")
             break
@@ -320,13 +348,23 @@ if not fatal and within_budget():
             break
         _cleanup_images()
 
+# Pre-compute all slot keys so Phase 3 and Phase 2 skip image generation for irrelevant slots
+_all_slots = {
+    f"{equip}_{loc['city']}_eng_{task['slug']}"
+    for equip, tasks in TASK_VARIANTS.items()
+    for task in tasks
+    for loc in get_locations()
+}
+_phase3_skip = _all_slots - set(dupe_history.keys())
+_phase2_skip = _all_slots - (_pre_phase1_slots - set(dupe_history.keys()))
+
 # ── Phase 3: Re-list previously-duplicate slots ───────────────────────────────
 # Restores listings for cities that lost coverage to FB duplicate removal.
 if not fatal and within_budget():
     logger.info("Phase 3 — re-listing previously-duplicate slots...")
 
     _cleanup_images()
-    for listable in get_listings(output_directory=OUTPUT_DIR):
+    for listable in get_listings(output_directory=OUTPUT_DIR, skip_slots=_phase3_skip):
         if not within_budget():
             logger.info("Phase 3 — budget exhausted, stopping.")
             break
@@ -369,7 +407,7 @@ if not fatal and within_budget():
     _save_metadata()
 
     _cleanup_images()
-    for listable in get_listings(output_directory=OUTPUT_DIR):
+    for listable in get_listings(output_directory=OUTPUT_DIR, skip_slots=_phase2_skip):
         if not within_budget():
             logger.info("Phase 2 — budget exhausted, stopping.")
             break
@@ -413,3 +451,6 @@ try:
     logger.info("Map regenerated.")
 except Exception as _e:
     logger.warning(f"Map regeneration failed: {_e}")
+
+# Exit non-zero on a fatal session error so run_session.py restarts and resumes.
+sys.exit(1 if fatal else 0)

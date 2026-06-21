@@ -25,7 +25,7 @@ def main():
     fallbacks = 0
     seen_slots = set()
 
-    listings = get_listings()
+    listings = get_listings(generate_images=False)
     if limit:
         listings = itertools.islice(listings, limit)
 
@@ -57,7 +57,7 @@ def main():
 
     if fallbacks:
         print(f"\nFALLBACK slots (missing from pool):")
-        listings2 = get_listings()
+        listings2 = get_listings(generate_images=False)
         if limit:
             listings2 = itertools.islice(listings2, limit)
         for listing in listings2:
