@@ -88,8 +88,8 @@ for title, stats in listing_stats.items():
         # Only append if this is a new timestamp or different click count
         if not snaps or snaps[-1]["clicks"] != stats["clicks"]:
             snaps.append({"ts": now, "clicks": stats["clicks"]})
-            if len(snaps) > 8:
-                m["click_snapshots"] = snaps[-8:]
+            if len(snaps) > 200:
+                m["click_snapshots"] = snaps[-200:]
 
     if stats["views"] is not None:
         m["last_views"] = stats["views"]

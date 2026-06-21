@@ -209,8 +209,8 @@ for _title, _stats in _inventory.items():
         _new_clicks_total += max(0, _clicks - _last)
         if not _snaps or _snaps[-1]["clicks"] != _clicks:
             _snaps.append({"ts": _inv_now, "clicks": _clicks})
-            if len(_snaps) > 8:
-                _m["click_snapshots"] = _snaps[-8:]
+            if len(_snaps) > 200:
+                _m["click_snapshots"] = _snaps[-200:]
 
 _save_metadata()
 logger.info(
@@ -402,8 +402,8 @@ if not fatal and within_budget():
             metadata.setdefault(_slot, {})
             snaps = metadata[_slot].setdefault("click_snapshots", [])
             snaps.append({"ts": _clicks_at, "clicks": _clicks})
-            if len(snaps) > 8:
-                metadata[_slot]["click_snapshots"] = snaps[-8:]
+            if len(snaps) > 200:
+                metadata[_slot]["click_snapshots"] = snaps[-200:]
     _save_metadata()
 
     _cleanup_images()
