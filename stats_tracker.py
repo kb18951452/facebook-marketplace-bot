@@ -1,11 +1,11 @@
 """
-stats_tracker.py — Lightweight daily stats collector.
+stats_tracker.py — Hourly stats collector.
 
 Scrapes the FB Marketplace selling page for clicks, price, views, age, and
 duplicate flags, then merges results into data/slot_metadata.json.
 
 Runtime: ~3–5 minutes (read-only, no publishing, no deletions).
-Runs Mon–Sun independently of the main listing agent.
+Runs hourly via FacebookStatsTracker_Hourly scheduled task.
 
 Usage:
     python stats_tracker.py
@@ -82,14 +82,12 @@ for title, stats in listing_stats.items():
     metadata.setdefault(slot, {})
     m = metadata[slot]
 
-    # Rolling click snapshots (last 8)
+    # Rolling click snapshots — always record every run so 7-day delta is computable from any point
     if stats["clicks"] is not None:
         snaps = m.setdefault("click_snapshots", [])
-        # Only append if this is a new timestamp or different click count
-        if not snaps or snaps[-1]["clicks"] != stats["clicks"]:
-            snaps.append({"ts": now, "clicks": stats["clicks"]})
-            if len(snaps) > 200:
-                m["click_snapshots"] = snaps[-200:]
+        snaps.append({"ts": now, "clicks": stats["clicks"]})
+        if len(snaps) > 200:
+            m["click_snapshots"] = snaps[-200:]
 
     if stats["views"] is not None:
         m["last_views"] = stats["views"]
