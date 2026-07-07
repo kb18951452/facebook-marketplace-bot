@@ -37,6 +37,7 @@ from helpers.click_history import (
     carry_last_snapshot,
     reset_for_new_listing,
 )
+from helpers.scan_health import record_scan
 
 # ── Args ──────────────────────────────────────────────────────────────────────
 _parser = argparse.ArgumentParser(description="FB Marketplace daily listing agent")
@@ -187,6 +188,7 @@ scraper.go_to_page("https://www.facebook.com/marketplace/you/selling/")
 
 _inventory = l.collect_listing_stats()  # {title: {clicks, price, days_listed_fb, views, is_duplicate}}
 logger.info(f"Inventory: {len(_inventory)} listings found on selling page.")
+record_scan("daily_agent_inventory", len(_inventory))
 
 _inv_title_to_slot = {title: slot for slot, title in state.items()}
 _inv_now = datetime.now(timezone.utc).isoformat()
@@ -382,6 +384,7 @@ if not fatal and within_budget():
     # Snapshot click counts before any deletions
     scraper.go_to_page("https://www.facebook.com/marketplace/you/selling/")
     click_counts = l.collect_click_snapshots()
+    record_scan("daily_agent_phase2_clicks", len(click_counts))
     logger.info(f"Phase 2 — click snapshot: {len(click_counts)} listings.")
     _current_title_to_slot = {title: slot for slot, title in state.items()}
     _clicks_at = datetime.now(timezone.utc).isoformat()

@@ -21,6 +21,7 @@ from datetime import datetime, timezone
 from helpers.scraper import Scraper
 from helpers.listing_helper import Listing
 from helpers.click_history import record_snapshot
+from helpers.scan_health import record_scan
 
 # ── Config ────────────────────────────────────────────────────────────────────
 STATE_FILE    = "state.json"
@@ -67,6 +68,7 @@ scraper.go_to_page("https://www.facebook.com/marketplace/you/selling/")
 logger.info("Collecting listing stats...")
 listing_stats = l.collect_listing_stats()
 logger.info(f"Found {len(listing_stats)} listings on selling page.")
+record_scan("stats_tracker", len(listing_stats))
 
 # ── Merge into metadata ───────────────────────────────────────────────────────
 now = datetime.now(timezone.utc).isoformat()
