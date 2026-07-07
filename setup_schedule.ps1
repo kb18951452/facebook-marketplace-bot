@@ -2,10 +2,10 @@
 .SYNOPSIS
     Registers Windows Task Scheduler tasks to run the FB Marketplace bot
     2 times per day, Tuesday through Sunday.
-    Each task launches run_session.py, a 3-hour supervised window that
+    Each task launches run_session.py, a 3h45m supervised window that
     self-logs-in, lists, gathers stats, and auto-restarts the agent
     (resuming from state.json) if it crashes mid-run.
-    2 runs x 180 min = ~360 min/day of active listing time.
+    2 runs x 225 min = ~450 min/day of active listing time.
 
 .NOTES
     Run once from an elevated PowerShell prompt:
@@ -23,10 +23,11 @@ $BatFile        = Join-Path $RepoDir "run_daily_agent.bat"
 $ImageBatFile   = Join-Path $RepoDir "run_image_pipeline.bat"
 $TaskGroup      = "FacebookMarketplaceBot"
 
-# 2 runs per day at 09:00 and 13:00 (4-hour gap). Each session window is 180 min,
-# so a run finishes well before the next one starts.
+# 2 runs per day at 08:00 and 13:00 (5-hour gap). Each session window is 225 min
+# (3h45m), leaving a ~75 min buffer before the next trigger so a run finishes
+# well before the next one starts.
 $Days = @("Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday")
-$RunTimes = @("09:00","13:00")
+$RunTimes = @("08:00","13:00")
 
 # ── Unregister mode ───────────────────────────────────────────────────────────
 if ($Unregister) {
@@ -76,7 +77,7 @@ foreach ($time in $RunTimes) {
             -At $time
 
         $settings = New-ScheduledTaskSettingsSet `
-            -ExecutionTimeLimit "03:30:00" `
+            -ExecutionTimeLimit "04:15:00" `
             -MultipleInstances IgnoreNew `
             -StartWhenAvailable
 
@@ -86,7 +87,7 @@ foreach ($time in $RunTimes) {
             -Trigger $trigger `
             -Settings $settings `
             -RunLevel Limited `
-            -Description "FB Marketplace bot - $day run $runIndex at $time (3h supervised session)" `
+            -Description "FB Marketplace bot - $day run $runIndex at $time (3h45m supervised session)" `
             -Force | Out-Null
 
         Write-Host "Registered: $taskName at $time"
@@ -95,7 +96,7 @@ foreach ($time in $RunTimes) {
 }
 
 # ── Image pipeline task — runs once daily at 06:00 Mon-Sun ───────────────────
-# Runs before the first listing agent window (09:00) so fresh images are ready.
+# Runs before the first listing agent window (08:00) so fresh images are ready.
 $imageDays = @("Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday")
 foreach ($day in $imageDays) {
     $taskName = "${TaskGroup}_ImagePipeline_${day}"
@@ -131,6 +132,6 @@ foreach ($day in $imageDays) {
 
 Write-Host ""
 Write-Host "Done. 12 listing tasks + 7 image pipeline tasks registered."
-Write-Host "Listing agent: 09:00, 13:00 Tue-Sun (3-hour supervised session each, auto-restart on crash)"
+Write-Host "Listing agent: 08:00, 13:00 Tue-Sun (3h45m supervised session each, auto-restart on crash)"
 Write-Host "Image pipeline: 06:00 daily (Mon-Sun)"
 Write-Host "To remove all: .\setup_schedule.ps1 -Unregister"

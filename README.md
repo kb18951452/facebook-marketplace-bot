@@ -43,14 +43,14 @@ Images are sourced from a local library (`images/kx71/`, `images/svl75/`), manip
 
 | Script | Purpose | Schedule |
 |---|---|---|
-| `daily_agent.py` | Publish/refresh listings on FB Marketplace | 4×/day, Tue–Sun, 8:00/11:00/14:00/17:00 |
+| `daily_agent.py` | Publish/refresh listings on FB Marketplace | 2×/day, Tue–Sun, 08:00/13:00 (3h45m supervised session each) |
 | `stats_tracker.py` | Collect click counts and views from selling page | Daily, Mon–Sun, ~14:00 |
 | `image_pipeline_agent.py` | Harvest YouTube frames → AI verification → promote to library | Daily, 06:00 |
 | `map_listings.py` | Generate `listings_map.html` viewer | Auto-runs at end of daily_agent + stats_tracker |
 
 ### daily_agent.py — priority order
 
-The agent works through phases in this order, stopping when the time budget (110–130 min + 0–10 min jitter) runs out:
+The agent works through phases in this order, stopping when the time budget runs out. Each scheduled run is a run_session.py-supervised 225-minute (3h45m) window that keeps relaunching daily_agent.py (resuming from state.json) if it crashes, passing the time remaining in the window as its budget:
 
 ```
 Phase 0  Remove FB-flagged duplicates; record in duplicate_history.json
@@ -127,7 +127,7 @@ Run once from an **elevated** PowerShell prompt to register all Windows Task Sch
 ```
 
 This registers:
-- 24 listing agent tasks (4 runs/day x 6 days, Tue–Sun)
+- 12 listing agent tasks (2 runs/day x 6 days, Tue–Sun)
 - 7 image pipeline tasks (once/day at 06:00, Mon–Sun)
 
 To remove all tasks:
@@ -168,12 +168,12 @@ To remove all tasks:
 
 ---
 
-## Key constants (daily_agent.py)
+## Key constants
 
-| Constant | Default | Effect |
-|---|---|---|
-| `BUDGET_MIN_MIN` | 110 | Minimum session length in minutes |
-| `BUDGET_MAX_MIN` | 130 | Maximum session length in minutes |
-| `JITTER_MAX_MIN` | 10 | Max random startup delay in minutes |
+| Constant | Where | Default | Effect |
+|---|---|---|---|
+| `SESSION_MINUTES` | `run_session.py` | 225 | Length of each scheduled supervised window. This is the constant that actually governs daily runtime in production — it's passed to `daily_agent.py` as `--budget-min`, which overrides that script's own `BUDGET_MIN_MIN`/`BUDGET_MAX_MIN`/jitter (those only apply to a standalone manual run, not the scheduled one). |
+| `BUDGET_MIN_MIN` / `BUDGET_MAX_MIN` | `daily_agent.py` | 210 / 250 | Random session length range, used only when `daily_agent.py` is run manually without `--budget-min` |
+| `JITTER_MAX_MIN` | `daily_agent.py` | 10 | Max random startup delay in minutes for a manual run (skipped via `--no-jitter`, which is how the scheduler always invokes it) |
 
 Pass `--no-jitter` for immediate starts during manual testing.

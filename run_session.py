@@ -1,7 +1,7 @@
 """
 run_session.py — Supervisor for one scheduled listing session.
 
-Owns a single wall-clock window (default 3 hours) and keeps the listing agent
+Owns a single wall-clock window (default 3h45m) and keeps the listing agent
 alive inside it:
 
   * Launches daily_agent.py with --no-jitter and a --budget-min equal to the
@@ -14,7 +14,7 @@ alive inside it:
   * A login give-up (exit 2 — e.g. 2FA/checkpoint needs a human) ends the
     session; blindly retrying a blocked login risks locking the account.
 
-Windows Task Scheduler invokes this once at 09:00 and once at 13:00 via
+Windows Task Scheduler invokes this once at 08:00 and once at 13:00 via
 run_daily_agent.bat. MultipleInstances=IgnoreNew prevents overlap.
 """
 
@@ -24,7 +24,7 @@ import sys
 import time
 
 # ── Config ──────────────────────────────────────────────────────────────────
-SESSION_MINUTES = 180          # length of the scheduled window
+SESSION_MINUTES = 225          # length of the scheduled window (+25% over the original 180)
 MIN_BUDGET_MIN = 8             # don't bother launching with less runway than this
 RESTART_BACKOFF_SEC = 30       # pause between a crash and the next relaunch
 LOG_FILE = "listing_progress.log"
