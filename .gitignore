@@ -4,3 +4,6 @@ cookies/
 
 # Secrets — never commit Facebook credentials
 credentials.json
+
+# Personal Claude Code permission overrides, not shared config
+.claude/settings.local.json

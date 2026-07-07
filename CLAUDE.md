@@ -26,7 +26,7 @@ The bot automates Facebook Marketplace to publish heavy equipment rental listing
 1. `Scraper` launches Chrome with anti-bot flags and logs in via cookies
 2. `get_listings()` (in `helpers/ads.py`) generates a `ListingData` for every `(equipment_type, city, language)` combination
 3. `state.json` tracks which slots have already been published (key: `"{equipment_type}_{city}_{lang}"`). Already-completed slots are skipped; if a slot has an old title it gets removed first
-4. `Listing.update_listings()` publishes via Selenium form automation, then saves state immediately
+4. `Listing.publish_listing()` publishes via Selenium form automation, then saves state immediately
 5. After all listings, `remove_duplicate_listings()` cleans up any Facebook-flagged duplicates
 
 **Key modules:**

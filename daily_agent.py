@@ -266,7 +266,7 @@ def _publish(listable) -> bool:
     slot = _make_slot(listable)
     logger.info(f"Publishing slot '{slot}': {listable.title}")
     try:
-        l.update_listings(listings=[listable], listing_type="item")
+        l.publish_listing(listable, "item")
     except (InvalidSessionIdException, NoSuchWindowException):
         logger.error("Chrome session died — stopping. Re-run to resume from state.json.")
         return False
