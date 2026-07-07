@@ -2,13 +2,14 @@
 daily_agent.py — Time-budgeted Facebook Marketplace listing agent.
 
 Priority order each run:
-  0. Remove FB-flagged duplicate listings; record their slots in duplicate_history.json
-  1. Publish new slots (not yet in state, not in dupe history)
-  2. Replace non-duplicate existing slots (all that fit in budget)
-  3. Re-list previously-duplicate slots (end of queue)
+  0.  Remove FB-flagged duplicate listings; record their slots in duplicate_history.json
+  1a. Coverage pass — one listing per city with zero active slots
+  1b. Fill pass — remaining new slot/task/language variants
+  3.  Re-list previously-duplicate slots (restores lost coverage)
+  2.  Refresh existing non-duplicate slots with new titles/descriptions (lowest priority)
 
 Scheduling: Tue–Sun via Windows Task Scheduler (see setup_schedule.ps1).
-Jitter: random 0–25 min sleep at startup + random 50–75 min runtime budget.
+Jitter: random 0–10 min sleep at startup + random 210–250 min runtime budget.
 """
 
 import argparse
@@ -28,6 +29,14 @@ from selenium.common.exceptions import InvalidSessionIdException, NoSuchWindowEx
 from helpers.ads import get_listings, get_locations, TASK_VARIANTS
 from helpers.scraper import Scraper
 from helpers.listing_helper import Listing
+from helpers.slot import build as build_slot, from_listing as slot_from_listing
+from helpers.click_history import (
+    record_snapshot,
+    clicks_since_last,
+    carry_clicks,
+    carry_last_snapshot,
+    reset_for_new_listing,
+)
 
 # ── Args ──────────────────────────────────────────────────────────────────────
 _parser = argparse.ArgumentParser(description="FB Marketplace daily listing agent")
@@ -148,14 +157,6 @@ def _save_metadata():
     _dump_json(METADATA_FILE, metadata)
 
 
-# ── Helpers ───────────────────────────────────────────────────────────────────
-def _make_slot(listable) -> str:
-    city = listable.location.split(", ")[0]
-    base = f"{listable.equipment_type}_{city}_{listable.lang}"
-    task = getattr(listable, "task_slug", None)
-    return f"{base}_{task}" if task else base
-
-
 def _cleanup_images():
     if os.path.exists(OUTPUT_DIR):
         def _force_rm(func, path, _):
@@ -200,17 +201,9 @@ for _title, _stats in _inventory.items():
     if not _slot:
         continue
 
-    metadata.setdefault(_slot, {})
-    _m = metadata[_slot]
-    _snaps = _m.setdefault("click_snapshots", [])
     _clicks = _stats.get("clicks")
-    if _clicks is not None:
-        _last = _snaps[-1]["clicks"] if _snaps else 0
-        _new_clicks_total += max(0, _clicks - _last)
-        if not _snaps or _snaps[-1]["clicks"] != _clicks:
-            _snaps.append({"ts": _inv_now, "clicks": _clicks})
-            if len(_snaps) > 200:
-                _m["click_snapshots"] = _snaps[-200:]
+    _new_clicks_total += clicks_since_last(metadata, _slot, _clicks)
+    record_snapshot(metadata, _slot, _clicks, ts=_inv_now, skip_if_unchanged=True)
 
 _save_metadata()
 logger.info(
@@ -238,11 +231,7 @@ for title in removed_titles:
     slot = title_to_slot.get(title)
     if slot:
         # Carry final known clicks into lifetime total before clearing snapshots
-        _snaps = metadata.get(slot, {}).get("click_snapshots", [])
-        if _snaps:
-            metadata.setdefault(slot, {})
-            metadata[slot]["lifetime_clicks"] = metadata[slot].get("lifetime_clicks", 0) + _snaps[-1]["clicks"]
-            metadata[slot]["click_snapshots"] = []
+        carry_last_snapshot(metadata, slot)
         dupe_history[slot] = datetime.now(timezone.utc).isoformat()
         del state[slot]
         logger.info(f"Phase 0 — slot '{slot}' marked duplicate-removed.")
@@ -263,7 +252,7 @@ _covered_equip: set = {
 # ── Publish helper ────────────────────────────────────────────────────────────
 def _publish(listable) -> bool:
     """Publish one listing. Returns False on fatal session error, True otherwise."""
-    slot = _make_slot(listable)
+    slot = slot_from_listing(listable)
     logger.info(f"Publishing slot '{slot}': {listable.title}")
     try:
         l.publish_listing(listable, "item")
@@ -283,7 +272,7 @@ def _publish(listable) -> bool:
     metadata[slot]["published_at"] = datetime.now(timezone.utc).isoformat()
     metadata[slot]["equipment_type"] = listable.equipment_type
     metadata[slot]["city"] = city
-    metadata[slot]["click_snapshots"] = []   # reset for new listing instance; lifetime_clicks preserved
+    reset_for_new_listing(metadata, slot)
     _save_metadata()
     return True
 
@@ -296,7 +285,7 @@ fatal = False
 # Also skip task-variant slots for (city, equip) pairs that are already covered —
 # Phase 1a would only defer them to Phase 1b anyway.
 _covered_equip_slots = {
-    f"{equip}_{city}_eng_{task['slug']}"
+    build_slot(equip, city, "eng", task["slug"])
     for (city, equip) in _covered_equip
     for task in TASK_VARIANTS.get(equip, [])
 }
@@ -309,7 +298,7 @@ for listable in get_listings(output_directory=OUTPUT_DIR, skip_slots=_phase1a_sk
         _cleanup_images()
         continue
 
-    slot = _make_slot(listable)
+    slot = slot_from_listing(listable)
     if slot in _pre_phase1_slots or slot in dupe_history or slot in state:
         _cleanup_images()
         continue
@@ -338,7 +327,7 @@ if not fatal and within_budget():
             _cleanup_images()
             continue
 
-        slot = _make_slot(listable)
+        slot = slot_from_listing(listable)
         if slot in _pre_phase1_slots or slot in dupe_history or slot in state:
             _cleanup_images()
             continue
@@ -350,7 +339,7 @@ if not fatal and within_budget():
 
 # Pre-compute all slot keys so Phase 3 and Phase 2 skip image generation for irrelevant slots
 _all_slots = {
-    f"{equip}_{loc['city']}_eng_{task['slug']}"
+    build_slot(equip, loc["city"], "eng", task["slug"])
     for equip, tasks in TASK_VARIANTS.items()
     for task in tasks
     for loc in get_locations()
@@ -372,7 +361,7 @@ if not fatal and within_budget():
             _cleanup_images()
             continue
 
-        slot = _make_slot(listable)
+        slot = slot_from_listing(listable)
         if slot not in dupe_history:
             _cleanup_images()
             continue
@@ -398,12 +387,8 @@ if not fatal and within_budget():
     _clicks_at = datetime.now(timezone.utc).isoformat()
     for _title, _clicks in click_counts.items():
         _slot = _current_title_to_slot.get(_title)
-        if _slot and _clicks is not None:
-            metadata.setdefault(_slot, {})
-            snaps = metadata[_slot].setdefault("click_snapshots", [])
-            snaps.append({"ts": _clicks_at, "clicks": _clicks})
-            if len(snaps) > 200:
-                metadata[_slot]["click_snapshots"] = snaps[-200:]
+        if _slot:
+            record_snapshot(metadata, _slot, _clicks, ts=_clicks_at)
     _save_metadata()
 
     _cleanup_images()
@@ -415,7 +400,7 @@ if not fatal and within_budget():
             _cleanup_images()
             continue
 
-        slot = _make_slot(listable)
+        slot = slot_from_listing(listable)
         if slot not in _pre_phase1_slots or slot in dupe_history:
             _cleanup_images()
             continue
@@ -423,12 +408,8 @@ if not fatal and within_budget():
         old_title = state[slot]
         logger.info(f"Phase 2 — replacing '{slot}': removing '{old_title}'")
         # Carry final click count into lifetime total before this listing is deleted
-        _final_clicks = click_counts.get(old_title)
-        if _final_clicks is not None:
-            metadata.setdefault(slot, {})
-            metadata[slot]["lifetime_clicks"] = metadata[slot].get("lifetime_clicks", 0) + _final_clicks
-            metadata[slot]["click_snapshots"] = []  # _publish will reset anyway, but be explicit
-            _save_metadata()
+        carry_clicks(metadata, slot, click_counts.get(old_title))
+        _save_metadata()
         scraper.go_to_page("https://www.facebook.com/marketplace/you/selling/")
         l.remove_listing_by_title(old_title)
 

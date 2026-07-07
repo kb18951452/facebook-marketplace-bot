@@ -15,7 +15,10 @@ import os
 import subprocess
 import webbrowser
 from collections import defaultdict
-from datetime import datetime, timedelta, timezone
+from datetime import datetime, timezone
+
+from helpers.slot import parse as parse_slot
+from helpers.click_history import seven_day_delta, lifetime_total
 
 # ── Load data ─────────────────────────────────────────────────────────────────
 def _load(path):
@@ -86,48 +89,15 @@ def _get_schedule_info():
         return "—", "—"
 
 
-def _seven_day_clicks(snaps, published_at=None):
-    """Delta clicks for the current listing instance over the last 7 days.
-
-    Filters out snapshots older than published_at so a re-listed slot doesn't
-    compute a negative delta against its previous life's high click count.
-    """
-    if not snaps:
-        return None
-    cutoff = datetime.now(timezone.utc) - timedelta(days=7)
-    pub_dt = None
-    if published_at:
-        try:
-            pub_dt = datetime.fromisoformat(published_at)
-            if pub_dt.tzinfo is None:
-                pub_dt = pub_dt.replace(tzinfo=timezone.utc)
-        except Exception:
-            pass
-    recent = []
-    for s in snaps:
-        try:
-            ts = datetime.fromisoformat(s["ts"])
-            if ts.tzinfo is None:
-                ts = ts.replace(tzinfo=timezone.utc)
-            if ts >= cutoff and (pub_dt is None or ts >= pub_dt):
-                recent.append(s)
-        except Exception:
-            pass
-    if not recent:
-        return None
-    if len(recent) == 1:
-        return recent[-1]["clicks"]
-    return recent[-1]["clicks"] - recent[0]["clicks"]
-
 # ── Build markers (active listings only) ──────────────────────────────────────
 markers = []
 
 for slot in state.keys():
-    parts = slot.split("_")
-    if len(parts) < 3:
+    parsed = parse_slot(slot)
+    if not parsed:
         continue
-    equip = parts[0]
-    city  = parts[1]
+    equip = parsed.equipment_type
+    city  = parsed.city
 
     geo = city_lookup.get(city)
     if not geo or not geo.get("lat") or not geo.get("lng"):
@@ -138,8 +108,8 @@ for slot in state.keys():
     pub_at = meta.get("published_at")
 
     current_clicks  = snaps[-1]["clicks"] if snaps else None
-    seven_day       = _seven_day_clicks(snaps, pub_at)
-    lifetime_clicks = (meta.get("lifetime_clicks") or 0) + (current_clicks or 0)
+    seven_day       = seven_day_delta(snaps, pub_at)
+    lifetime_clicks = lifetime_total(metadata, slot)
 
     markers.append({
         "slot":            slot,

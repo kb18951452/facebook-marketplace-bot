@@ -1,15 +1,11 @@
-# Remove and then publish each listing
-import os
-import random
 import re
 
 from selenium.webdriver.common.by import By
-from selenium.webdriver.common.action_chains import ActionChains
 from dataclasses import dataclass
 from typing import List, Optional
 import logging
 import time
-from selenium.common.exceptions import TimeoutException, ElementClickInterceptedException, StaleElementReferenceException
+from selenium.common.exceptions import ElementClickInterceptedException, StaleElementReferenceException
 
 
 logger = logging.getLogger(__name__)
@@ -43,21 +39,10 @@ class Listing:
         if self.scraper.find_element_by_xpath(confirm_delete_selector_xpath, False):
             self.scraper.element_click_by_xpath(confirm_delete_selector_xpath)
         else:
-            dialog_selector = 'div[aria-label="Delete listing"] div[aria-label="Delete"][tabindex="0"]'
-            dialog = self.scraper.find_element(dialog_selector)
-
-            # Find the 'Delete' button within the dialog
-            delete_button = dialog.find_element(By.XPATH, ".//div[@aria-label='Delete']")
+            self.scraper.element_click('div[aria-label="Delete listing"] div[aria-label="Delete"][tabindex="0"]')
 
         # Wait until the popup is closed
         self.scraper.element_wait_to_be_invisible('div[aria-label="Your Listing"]')
-
-    def update_listings(self, listings: List[ListingData], listing_type: str) -> None:
-        if not listings:
-            return
-
-        for listing in listings:
-            self.publish_listing(listing, listing_type)
 
     def remove_listing_by_title(self, title: str):
         listing_title = self.find_listing_by_title(title)
@@ -143,31 +128,18 @@ class Listing:
 
         return stats
 
-    def _safe_click(self, element):
-        """Click an element, retrying once on StaleElementReferenceException."""
-        try:
-            element.click()
-        except StaleElementReferenceException:
-            return False
-        except ElementClickInterceptedException:
-            self.scraper.driver.execute_script("arguments[0].click();", element)
-        return True
-
-    def collect_click_snapshots(self) -> dict:
-        """Scan the selling page and return {title: clicks_or_None} without deleting anything."""
+    def _scroll_and_gather_buttons(self, extract_fn) -> dict:
+        """Scroll the selling page and apply extract_fn(btn) to each unseen 'More options' button."""
+        _XPATH = '//div[starts-with(@aria-label, "More options for ") and @role="button" and @tabindex="0"]'
         result = {}
         last_height = -1
         while True:
-            buttons = self.scraper.driver.find_elements(
-                By.XPATH,
-                '//div[starts-with(@aria-label, "More options for ") and @role="button" and @tabindex="0"]'
-            )
-            for btn in buttons:
+            for btn in self.scraper.driver.find_elements(By.XPATH, _XPATH):
                 try:
                     aria = btn.get_attribute("aria-label") or ""
                     title = aria.replace("More options for ", "", 1).strip()
                     if title and title not in result:
-                        result[title] = self._extract_clicks_from_card(btn)
+                        result[title] = extract_fn(btn)
                 except Exception:
                     pass
             new_height = self.scraper.driver.execute_script("return document.body.scrollHeight")
@@ -177,37 +149,87 @@ class Listing:
             time.sleep(1)
             last_height = new_height
         return result
+
+    def collect_click_snapshots(self) -> dict:
+        """Scan the selling page and return {title: clicks_or_None} without deleting anything."""
+        return self._scroll_and_gather_buttons(self._extract_clicks_from_card)
 
     def collect_listing_stats(self) -> dict:
-        """
-        Scroll the selling page and return rich stats per listing title.
-        {title: {clicks, price, days_listed_fb, views, is_duplicate}}
-        """
-        result = {}
-        last_height = -1
-        while True:
-            buttons = self.scraper.driver.find_elements(
-                By.XPATH,
-                '//div[starts-with(@aria-label, "More options for ") and @role="button" and @tabindex="0"]',
-            )
-            for btn in buttons:
-                try:
-                    aria  = btn.get_attribute("aria-label") or ""
-                    title = aria.replace("More options for ", "", 1).strip()
-                    if title and title not in result:
-                        result[title] = self._extract_card_stats(btn)
-                except Exception:
-                    pass
-            new_height = self.scraper.driver.execute_script("return document.body.scrollHeight")
-            if new_height == last_height:
-                break
-            self.scraper.driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
-            time.sleep(1)
-            last_height = new_height
-        return result
+        """Scroll the selling page and return {title: {clicks, price, days_listed_fb, views, is_duplicate}}."""
+        return self._scroll_and_gather_buttons(self._extract_card_stats)
+
+    def _click_delete_via_more_options(self, more_options_button) -> bool:
+        """Given an already-located 'More options for X' button, click through
+        Delete listing -> confirm -> dismiss survey. Shared by
+        remove_all_listings (button is whichever listing is first in the
+        list) and remove_listing_by_title_via_search (button is the one
+        listing left after filtering by title). Returns False on any
+        missing/stale element so the caller can retry or report failure."""
+        self.scraper.wait_random_time()
+        if not self._safe_click(more_options_button):
+            return False
+
+        # Click "Delete listing"
+        self.scraper.wait_random_time()
+        delete_btn = self.scraper.find_element_by_xpath(
+            '//span[normalize-space(text())="Delete listing"]',
+            exit_on_missing_element=False,
+            wait_element_time=10
+        )
+        if not delete_btn or not self._safe_click(delete_btn):
+            return False
+
+        # Confirm deletion
+        self.scraper.wait_random_time()
+        confirm_xpath = (
+            '//div[@aria-label="Delete" and @role="button" and @tabindex="0" '
+            'and descendant::span[normalize-space(text())="Delete"]]'
+        )
+        confirm_btn = self.scraper.find_element_by_xpath(
+            confirm_xpath, exit_on_missing_element=False, wait_element_time=10
+        )
+        if not confirm_btn or not self._safe_click(confirm_btn):
+            return False
+
+        logger.info("Deletion confirmed.")
+
+        # Handle the survey dialog ("I'd rather not answer" → Next)
+        self.scraper.wait_random_time()
+        self.handle_delete_confirmation_dialog()
+        return True
+
+    def remove_listing_by_title_via_search(self, title: str) -> bool:
+        """Delete a listing by filtering the selling-page search box to its
+        title, then deleting via the 'More options' menu. More robust than
+        remove_listing_by_title for listings far down the page (avoids
+        lazy-loading), and doesn't need an exact-title DOM match — the
+        search filter narrows to one result, then whichever 'More options'
+        button appears is used. Returns False if the listing isn't found or
+        any step fails; caller should leave the slot in place for retry."""
+        search = self.scraper.find_element('input[placeholder="Search your listings"]', False, 5)
+        if search:
+            self.scraper.element_delete_text('input[placeholder="Search your listings"]')
+            self.scraper.element_send_keys('input[placeholder="Search your listings"]', title)
+            time.sleep(1.5)
+
+        btn = self.scraper.find_element_by_xpath(
+            '//div[starts-with(@aria-label, "More options for ") and @role="button" and @tabindex="0"]',
+            exit_on_missing_element=False,
+            wait_element_time=10,
+        )
+        if not btn:
+            logger.warning(f"'More options' button not found for: {title!r}")
+            return False
+
+        try:
+            self.scraper.driver.execute_script("arguments[0].scrollIntoView({block:'center'});", btn)
+        except StaleElementReferenceException:
+            return False
+
+        return self._click_delete_via_more_options(btn)
 
     def remove_all_listings(self, before_delete=None):
-        print("Starting to delete all Marketplace listings...")
+        logger.info("Starting to delete all Marketplace listings...")
 
         while True:
             more_options = self.scraper.find_element_by_xpath(
@@ -217,7 +239,7 @@ class Listing:
             )
 
             if not more_options:
-                print("No more listings found — all deleted!")
+                logger.info("No more listings found — all deleted.")
                 return
 
             try:
@@ -235,43 +257,10 @@ class Listing:
                 except Exception:
                     pass
 
-            self.scraper.wait_random_time()
-            if not self._safe_click(more_options):
-                continue  # stale — re-find on next iteration
+            if not self._click_delete_via_more_options(more_options):
+                continue  # stale/missing — re-find on next iteration
 
-            # Click "Delete listing"
-            self.scraper.wait_random_time()
-            delete_btn = self.scraper.find_element_by_xpath(
-                '//span[normalize-space(text())="Delete listing"]',
-                exit_on_missing_element=False,
-                wait_element_time=10
-            )
-            if not delete_btn:
-                continue
-            if not self._safe_click(delete_btn):
-                continue
-
-            # Confirm deletion
-            self.scraper.wait_random_time()
-            confirm_xpath = (
-                '//div[@aria-label="Delete" and @role="button" and @tabindex="0" '
-                'and descendant::span[normalize-space(text())="Delete"]]'
-            )
-            confirm_btn = self.scraper.find_element_by_xpath(
-                confirm_xpath, exit_on_missing_element=False, wait_element_time=10
-            )
-            if not confirm_btn:
-                continue
-            if not self._safe_click(confirm_btn):
-                continue
-
-            print("Confirmed deletion...")
-
-            # Handle the survey dialog ("I'd rather not answer" → Next)
-            self.scraper.wait_random_time()
-            self.handle_delete_confirmation_dialog()
-
-            print("Deleted one listing.")
+            logger.info("Deleted one listing.")
             self.scraper.wait_random_time()
 
 
@@ -346,31 +335,6 @@ class Listing:
             removed_titles.append(title)
         logger.warning("remove_duplicate_listings: too many click failures — ending dedup phase early.")
         return removed_titles
-
-    def remove_listing(self,data, listing_type):
-        title = self.generate_title_for_listing_type(data, listing_type)
-        listing_title = self.find_listing_by_title(title)
-
-        # Listing not found so stop the function
-        if not listing_title:
-            return
-
-        listing_title.click()
-
-        # Click on the delete listing button
-        self.scraper.element_click('div:not([role="gridcell"]) > div[aria-label="Delete"][tabindex="0"]')
-
-        # Click on confirm button to delete
-        confirm_delete_selector = 'div[aria-label="Delete listing"] div[aria-label="Delete"][tabindex="0"]'
-        if self.scraper.find_element(confirm_delete_selector, False, 3):
-            self.scraper.element_click(confirm_delete_selector)
-        else:
-            confirm_delete_selector = 'div[aria-label="Delete Listing"] div[aria-label="Delete"][tabindex="0"]'
-            if self.scraper.find_element(confirm_delete_selector, True, 3):
-                self.scraper.element_click(confirm_delete_selector)
-
-        # Wait until the popup is closed
-        self.scraper.element_wait_to_be_invisible('div[aria-label="Your Listing"]')
 
     def publish_listing(self, data: ListingData, listing_type):
         logger.info(f"Creating \"{data.title}\"")
@@ -461,7 +425,8 @@ class Listing:
                     logger.info("Location filled on page 2 via fallback.")
                     location_filled = True
                 else:
-                    logger.warning("Location not filled on either page — trying Next anyway.")
+                    logger.error(f"Location autocomplete failed for '{data.location}' — aborting listing.")
+                    raise ValueError(f"Location not filled for '{data.location}'")
 
         self.find_and_click_next()
 
@@ -555,9 +520,10 @@ class Listing:
             texas_item.click()
             time.sleep(0.5)
             logger.info(f"Location autocomplete selected: '{selected_text}'")
+            return True
         else:
-            logger.warning(f"No matching Texas option in dropdown for '{location}' — field left as typed.")
-        return True
+            logger.warning(f"No matching Texas option in dropdown for '{location}' — location not set.")
+            return False
 
     def _fill_location(self, location: str, wait: int = 3, use_js_fallback: bool = False) -> bool:
         """Try known location-field selectors; on page 2 also fall back to element near 'Required' label."""
@@ -694,29 +660,6 @@ class Listing:
         logger.warning(f"find_and_click_next: no Next button found. Buttons on page: {clicked}")
         return False
 
-    @staticmethod
-    def generate_multiple_images_path(folder_path, image_names):
-        # Convert folder_path to an absolute path if it's not already
-        absolute_folder_path = os.path.abspath(folder_path)
-
-        # Ensure the folder path ends with the correct separator
-        if not absolute_folder_path.endswith(os.sep):
-            absolute_folder_path += os.sep
-
-        images_paths = []
-
-        # If image_names is provided, process each name
-        if image_names:
-            for image_name in image_names:
-                # Strip any leading or trailing whitespace from the image name
-                image_name = image_name.strip()
-                # Use os.path.join for cross-platform compatibility
-                full_path = os.path.join(absolute_folder_path, image_name)
-                images_paths.append(full_path)
-
-        # Join all paths with newline for return
-        return '\n'.join(images_paths)
-
     def _ensure_boost_off(self):
         """Turn off 'Boost listing after publish' toggle if it is on. Never boost."""
         boost_xpaths = [
@@ -837,78 +780,6 @@ class Listing:
             self.scraper.driver.save_screenshot(screenshot_path)
             logger.info(f"Screenshot saved to: {screenshot_path}")
 
-    @staticmethod
-    def generate_title_for_listing_type(data: ListingData, listing_type):
-        title = ''
-
-        if listing_type == 'item':
-            title = data.title
-
-        # if listing_type == 'vehicle':
-        #     title = f'{data.Year} {data.Make} {data.Model}'
-
-        return title
-
-    def add_listing_to_multiple_groups(self, data: ListingData):
-        # Create an array for group names by splitting the string by this symbol ";"
-        group_names = data.groups.split(';')
-
-        # If the groups are empty do not do anything
-        if not group_names:
-            return
-
-        # Post in different groups
-        for group_name in group_names:
-            # Remove whitespace before and after the name
-            group_name = group_name.strip()
-
-            self.scraper.element_click_by_xpath(f'//span[text()="{group_name}"]')
-
-    def post_listing_to_multiple_groups(self, data: ListingData, listing_type):
-        title = self.generate_title_for_listing_type(data, listing_type)
-        title_element = self.find_listing_by_title(title)
-
-        # If there is no add with this title do not do anything
-        if not title_element:
-            return None
-
-        # Create an array for group names by splitting the string by this symbol ";"
-        group_names = data.groups.split(';')
-
-        # If the groups are empty do not do anything
-        if not group_names:
-            return None
-
-        search_input_selector = '[aria-label="Search for groups"]'
-
-        # Post in different groups
-        for group_name in group_names:
-            # Click on the Share button to the listing that we want to share
-            self.scraper.element_click(f'[aria-label="{title}"] + div [aria-label="Share"]')
-            # Click on the Share to a group button
-            self.scraper.element_click_by_xpath('//span[text()="Share to a group"]')
-
-            # Remove whitespace before and after the name
-            group_name = group_name.strip()
-
-            # Remove current text from this input
-            self.scraper.element_delete_text(search_input_selector)
-            # Enter the title of the group in the input for search
-            self.scraper.element_send_keys(search_input_selector, group_name[:51])
-
-            self.scraper.element_click_by_xpath(f'//span[text()="{group_name}"]')
-
-            if self.scraper.find_element('[aria-label="Create a public post…"]', False):
-                self.scraper.element_send_keys('[aria-label="Create a public post…"]', data.description)
-            elif self.scraper.find_element('[aria-label="Write something..."]', False):
-                self.scraper.element_send_keys('[aria-label="Write something..."]', data.description)
-
-            self.scraper.element_click('[aria-label="Post"]:not([aria-disabled])')
-            # Wait till the post is posted successfully
-            self.scraper.element_wait_to_be_invisible('[role="dialog"]')
-            self.scraper.element_wait_to_be_invisible('[aria-label="Loading...]"')
-            self.scraper.find_element_by_xpath('//span[text()="Shared to your group."]', False)
-
     def find_listing_by_title(self, title):
         search_input = self.scraper.find_element('input[placeholder="Search your listings"]', False)
         # Search input field is not existing
@@ -921,9 +792,6 @@ class Listing:
         self.scraper.element_send_keys('input[placeholder="Search your listings"]', title)
 
         return self.scraper.find_element_by_xpath(f'//span[text()="{title}"]', False, 5)
-
-    def find_duplicate_listing(self):
-        return self.scraper.find_element_by_xpath(f'//div[text()="It looks like you created a duplicate listing."]', False)
 
     def find_other_listing_by_title(self, title):
         locator = 'input[placeholder="Search listings"]'
@@ -963,11 +831,7 @@ class Listing:
     # (or call it separately after triggering the delete flow)
 
     def handle_delete_confirmation_dialog(self):
-        """
-        Handles the additional survey dialog that appears after confirming deletion.
-        Selects "I'd rather not answer" (or "I'd rather not say") and clicks "Next".
-        """
-        print("Handling post-deletion survey dialog...")
+        logger.debug("Handling post-deletion survey dialog.")
 
         # Wait for the radio button group / dialog to appear
         radio_label_xpath = '//span[normalize-space(text())="I\'d rather not answer" or normalize-space(text())="I\'d rather not say"]'
@@ -978,7 +842,7 @@ class Listing:
         )
 
         if not radio_label:
-            print("No survey dialog detected — skipping.")
+            logger.debug("No survey dialog detected — skipping.")
             return
 
         # The <label> wraps the radio input, clicking the label is safest
@@ -989,7 +853,7 @@ class Listing:
         except ElementClickInterceptedException:
             self.scraper.driver.execute_script("arguments[0].click();", label_container)
 
-        print("Selected 'I'd rather not answer'")
+        logger.debug("Selected 'I'd rather not answer'.")
 
         # Now click the "Next" button
         next_button_xpath = (
@@ -1007,6 +871,6 @@ class Listing:
                 next_btn.click()
             except ElementClickInterceptedException:
                 self.scraper.driver.execute_script("arguments[0].click();", next_btn)
-            print("Clicked 'Next' in survey dialog")
+            logger.debug("Clicked 'Next' in survey dialog.")
         else:
-            print("Warning: Could not find 'Next' button in survey dialog")
+            logger.warning("Could not find 'Next' button in survey dialog.")

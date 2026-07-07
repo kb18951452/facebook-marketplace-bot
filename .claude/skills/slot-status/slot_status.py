@@ -12,7 +12,6 @@ Run from repo root:
 
 import argparse
 import json
-import re
 import sys
 from collections import Counter
 from pathlib import Path
@@ -21,8 +20,7 @@ ROOT = Path(__file__).resolve().parents[3]
 sys.path.insert(0, str(ROOT))
 
 from helpers.ads import get_equipment, get_locations, TASK_VARIANTS  # noqa: E402
-
-SLOT_RE = re.compile(r"^(mini-ex|trackloader)_(.+)_(eng|spa)_(.+)$")
+from helpers.slot import build as build_slot, parse as parse_slot  # noqa: E402
 
 
 def expected_slots() -> set:
@@ -32,7 +30,7 @@ def expected_slots() -> set:
     for city in cities:
         for item in equipment:
             for task in TASK_VARIANTS.get(item, []):
-                slots.add(f"{item}_{city}_eng_{task['slug']}")
+                slots.add(build_slot(item, city, "eng", task["slug"]))
     return slots
 
 
@@ -42,14 +40,6 @@ def load_json(path: str) -> dict:
         return {}
     with open(p) as f:
         return json.load(f)
-
-
-def parse_slot(slot: str):
-    m = SLOT_RE.match(slot)
-    if not m:
-        return None
-    item, city, lang, task = m.groups()
-    return {"equipment_type": item, "city": city, "lang": lang, "task_slug": task}
 
 
 def build_report() -> dict:
@@ -66,18 +56,18 @@ def build_report() -> dict:
     for slot in pending:
         parsed = parse_slot(slot)
         if parsed:
-            by_city[parsed["city"]] += 1
+            by_city[parsed.city] += 1
 
     by_equipment_pending = Counter()
     for slot in pending:
         parsed = parse_slot(slot)
         if parsed:
-            by_equipment_pending[parsed["equipment_type"]] += 1
+            by_equipment_pending[parsed.equipment_type] += 1
 
     legacy_lang = Counter()
     for slot in legacy:
         parsed = parse_slot(slot)
-        legacy_lang[parsed["lang"] if parsed else "unparsed"] += 1
+        legacy_lang[parsed.lang if parsed else "unparsed"] += 1
 
     return {
         "expected_total": len(expected),

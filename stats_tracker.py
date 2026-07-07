@@ -20,6 +20,7 @@ from datetime import datetime, timezone
 
 from helpers.scraper import Scraper
 from helpers.listing_helper import Listing
+from helpers.click_history import record_snapshot
 
 # ── Config ────────────────────────────────────────────────────────────────────
 STATE_FILE    = "state.json"
@@ -83,11 +84,7 @@ for title, stats in listing_stats.items():
     m = metadata[slot]
 
     # Rolling click snapshots — always record every run so 7-day delta is computable from any point
-    if stats["clicks"] is not None:
-        snaps = m.setdefault("click_snapshots", [])
-        snaps.append({"ts": now, "clicks": stats["clicks"]})
-        if len(snaps) > 200:
-            m["click_snapshots"] = snaps[-200:]
+    record_snapshot(metadata, slot, stats["clicks"], ts=now)
 
     if stats["views"] is not None:
         m["last_views"] = stats["views"]
