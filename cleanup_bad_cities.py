@@ -2,7 +2,10 @@
 cleanup_bad_cities.py — Remove FB Marketplace listings for cities that resolve
 to wrong locations (not near Waco, TX).
 
-Cities removed from cities_data.json that still have live listings:
+The removal list lives in data/bad_cities.json, not here — check_city_distances.py
+appends to it automatically when it finds a new city whose geocoded lat/lng is
+implausibly far from Waco. Known past offenders (already removed from
+cities_data.json, but with live listings that needed cleanup):
   Beverly       -> Beverly, IL
   Beverly Hills -> Beverly Hills, NC (sometimes)
   Windsor       -> Windsor, QLD Australia
@@ -23,9 +26,12 @@ from helpers.scraper import Scraper
 from helpers.listing_helper import Listing
 from helpers.slot import parse as parse_slot
 
-REMOVE_CITIES = {"Windsor", "Downs", "Jewell", "Beverly", "Beverly Hills"}
+BAD_CITIES_FILE = "data/bad_cities.json"
 STATE_FILE = "state.json"
 LOG_FILE = "listing_progress.log"
+
+with open(BAD_CITIES_FILE, encoding="utf-8") as _f:
+    REMOVE_CITIES = set(json.load(_f))
 
 logging.basicConfig(
     level=logging.INFO,

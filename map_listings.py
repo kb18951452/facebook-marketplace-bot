@@ -17,8 +17,9 @@ import webbrowser
 from collections import defaultdict
 from datetime import datetime, timezone
 
-from helpers.slot import parse as parse_slot
+from helpers.slot import parse as parse_slot, build as build_slot
 from helpers.click_history import seven_day_delta, lifetime_total
+from helpers.ads import get_equipment, get_locations, TASK_VARIANTS
 
 # ── Load data ─────────────────────────────────────────────────────────────────
 def _load(path):
@@ -31,6 +32,7 @@ cities_raw   = _load("data/cities_data.json")
 state        = _load("state.json")
 metadata     = _load("data/slot_metadata.json")
 competitors  = _load("data/competitors.json").get("sellers", {})
+dupe_history = _load("data/duplicate_history.json")
 
 city_lookup = {c["city"]: c for c in (cities_raw if isinstance(cities_raw, list) else [])}
 
@@ -126,12 +128,54 @@ for slot in state.keys():
         "radius":          5,  # filled in below
     })
 
+# ── Pending markers: per (city, equipment) aggregate of missing task variants ──
+# One marker per equipment type per city that isn't fully covered — not one per
+# task variant, to keep density comparable to the active-listing markers.
+active_slots = set(state.keys())
+pending_markers = []
+
+for loc in get_locations():
+    city = loc.get("city")
+    geo = city_lookup.get(city)
+    if not geo or not geo.get("lat") or not geo.get("lng"):
+        continue
+    for equip in get_equipment():
+        tasks = TASK_VARIANTS.get(equip, [])
+        if not tasks:
+            continue
+        missing_tasks = []
+        duplicate_count = 0
+        for task in tasks:
+            slot = build_slot(equip, city, "eng", task["slug"])
+            if slot in active_slots:
+                continue
+            missing_tasks.append(task["slug"])
+            if slot in dupe_history:
+                duplicate_count += 1
+        if not missing_tasks:
+            continue
+        pending_markers.append({
+            "slot":            f"{equip}_pending",  # synthetic, for stable jitter ordering only
+            "city":            city,
+            "equip":           equip,
+            "lat":             float(geo["lat"]),
+            "lng":             float(geo["lng"]),
+            "missing_count":   len(missing_tasks),
+            "total_count":     len(tasks),
+            "missing_tasks":   missing_tasks,
+            "duplicate_count": duplicate_count,
+        })
+
 # ── Jitter: spread same-city markers so bubbles never overlap ─────────────────
 # Sort within each city by slot name for stable placement across reloads.
 # Spread in a circle; longitude scaled by ~cos(31°N) so the circle looks round.
+# Active and pending markers jitter together so a city's full picture clusters
+# in one place on the map.
 JITTER_R = 0.004
 city_groups = defaultdict(list)
 for m in markers:
+    city_groups[m["city"]].append(m)
+for m in pending_markers:
     city_groups[m["city"]].append(m)
 
 for group in city_groups.values():
@@ -185,6 +229,7 @@ stats = {
     "cities_total":   len(city_lookup),
     "avg_clicks":     avg_clicks,
     "avg_7d":         avg_7d,
+    "pending_total":  sum(p["missing_count"] for p in pending_markers),
     "next_run":       next_run_str,
     "last_run":       last_run_str,
     "generated_at":   datetime.now().strftime("%Y-%m-%d %H:%M"),
@@ -198,10 +243,11 @@ else:
     clat, clng = 31.5, -97.1
 
 # ── HTML ──────────────────────────────────────────────────────────────────────
-MJ = json.dumps(markers,     ensure_ascii=False)
-UJ = json.dumps(uncovered,   ensure_ascii=False)
-SJ = json.dumps(stats,       ensure_ascii=False)
-CJ = json.dumps(competitors, ensure_ascii=False)
+MJ = json.dumps(markers,         ensure_ascii=False)
+UJ = json.dumps(uncovered,       ensure_ascii=False)
+PJ = json.dumps(pending_markers, ensure_ascii=False)
+SJ = json.dumps(stats,           ensure_ascii=False)
+CJ = json.dumps(competitors,     ensure_ascii=False)
 
 HTML = f"""<!DOCTYPE html>
 <html lang="en">
@@ -255,6 +301,7 @@ body {{ font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; 
 .blue   {{ background:#3b82f6; }}
 .gray   {{ background:#d1d5db; }}
 .purple {{ background:#8b5cf6; }}
+.hollow {{ background:transparent; border:1.5px dashed #6b7280; }}
 
 select.comp-sel {{
   width:100%; font-size:12px; padding:4px 6px; margin-top:5px;
@@ -320,6 +367,7 @@ select.comp-sel {{
     <div class="row"><span>Cities active</span><span class="val" id="s-cities"></span></div>
     <div class="row"><span>Cities total</span><span class="val" id="s-ctotal"></span></div>
     <div class="row"><span>Not yet listed</span><span class="val" id="s-unc"></span></div>
+    <div class="row"><span>Pending slots</span><span class="val" id="s-pending"></span></div>
   </div>
   <hr class="divider"/>
   <div class="section">
@@ -373,6 +421,9 @@ select.comp-sel {{
   <div class="leg-row" id="leg-unc" onclick="toggle('unc')">
     <span class="dot gray"></span>Not yet listed
   </div>
+  <div class="leg-row" id="leg-pending" onclick="toggle('pending')">
+    <span class="dot hollow"></span>Pending (green/blue outline = equipment)
+  </div>
   <div class="leg-row" id="leg-comp" onclick="toggleComp()" style="display:none">
     <span class="dot purple"></span>Competitor listing
   </div>
@@ -398,6 +449,7 @@ select.comp-sel {{
 <script>
 const MARKERS      = {MJ};
 const UNCOVERED    = {UJ};
+const PENDING      = {PJ};
 const STATS        = {SJ};
 const COMPETITORS  = {CJ};
 
@@ -408,6 +460,7 @@ document.getElementById('s-total').textContent  = STATS.active_total;
 document.getElementById('s-cities').textContent = STATS.cities_active;
 document.getElementById('s-ctotal').textContent = STATS.cities_total;
 document.getElementById('s-unc').textContent    = STATS.uncovered;
+document.getElementById('s-pending').textContent = STATS.pending_total;
 document.getElementById('s-avg').textContent    = STATS.avg_clicks != null ? STATS.avg_clicks : '—';
 document.getElementById('s-7d').textContent     = STATS.avg_7d    != null ? STATS.avg_7d     : '—';
 document.getElementById('ts').textContent       = 'Updated ' + STATS.generated_at;
@@ -421,11 +474,12 @@ L.tileLayer('https://{{s}}.tile.openstreetmap.org/{{z}}/{{x}}/{{y}}.png', {{
 
 // ── Layer groups ──────────────────────────────────────────────────────────────
 const layers = {{
-  mini:  L.layerGroup().addTo(map),
-  track: L.layerGroup().addTo(map),
-  unc:   L.layerGroup().addTo(map),
+  mini:    L.layerGroup().addTo(map),
+  track:   L.layerGroup().addTo(map),
+  unc:     L.layerGroup().addTo(map),
+  pending: L.layerGroup().addTo(map),
 }};
-const visible = {{ mini: true, track: true, unc: true }};
+const visible = {{ mini: true, track: true, unc: true, pending: true }};
 
 function toggle(key) {{
   visible[key] = !visible[key];
@@ -456,6 +510,21 @@ function buildPopup(m) {{
     '</div>';
   return p;
 }}
+function fmtTaskSlug(s) {{
+  return s.split('_').map(function(w) {{ return w.charAt(0).toUpperCase() + w.slice(1); }}).join(' ');
+}}
+function buildPendingPopup(m) {{
+  var equipLabel = m.equip === 'mini-ex' ? 'Mini-Excavator' : 'Track Loader';
+  var p = '<div class="lf-popup"><div class="city">' + m.city + ', TX</div>' +
+    '<div class="sub">' + equipLabel + ' — pending</div><hr/>' +
+    '<div class="stat-row"><span>Missing task variants</span><span>' + m.missing_count + ' / ' + m.total_count + '</span></div>';
+  if (m.duplicate_count > 0) {{
+    p += '<div class="stat-row"><span>⚠️ Duplicate-queued</span><span>' + m.duplicate_count + '</span></div>';
+  }}
+  p += '<hr/><div style="font-size:11px;color:#374151;line-height:1.6">' +
+    m.missing_tasks.map(fmtTaskSlug).join('<br>') + '</div></div>';
+  return p;
+}}
 function updateStats(s) {{
   document.getElementById('s-mini').textContent   = s.active_mini_ex;
   document.getElementById('s-track').textContent  = s.active_track;
@@ -463,6 +532,7 @@ function updateStats(s) {{
   document.getElementById('s-cities').textContent = s.cities_active;
   document.getElementById('s-ctotal').textContent = s.cities_total;
   document.getElementById('s-unc').textContent    = s.uncovered;
+  document.getElementById('s-pending').textContent = s.pending_total;
   document.getElementById('s-avg').textContent    = s.avg_clicks != null ? s.avg_clicks : '—';
   document.getElementById('s-7d').textContent     = s.avg_7d    != null ? s.avg_7d     : '—';
   if (s.next_run) document.getElementById('s-next-run').textContent = s.next_run;
@@ -473,10 +543,11 @@ function updateStats(s) {{
 // ── Layer renderer (called on initial load and on every /api/markers refresh) ─
 var knownSlots = new Set(MARKERS.map(function(m) {{ return m.slot; }}));
 
-function renderLayers(markersArr, uncoveredArr) {{
+function renderLayers(markersArr, uncoveredArr, pendingArr) {{
   layers.mini.clearLayers();
   layers.track.clearLayers();
   layers.unc.clearLayers();
+  layers.pending.clearLayers();
 
   uncoveredArr.forEach(function(c) {{
     L.circleMarker([c.lat, c.lng], {{
@@ -484,6 +555,14 @@ function renderLayers(markersArr, uncoveredArr) {{
     }}).bindPopup(
       '<div class="lf-popup"><div class="city">' + c.city + ', TX</div><div class="sub">Not yet listed</div></div>'
     ).addTo(layers.unc);
+  }});
+
+  (pendingArr || []).forEach(function(m) {{
+    var color = m.equip === 'mini-ex' ? '#22c55e' : '#3b82f6';
+    L.circleMarker([m.lat, m.lng], {{
+      radius: 6, color: color, fillColor: color, fillOpacity: 0.08,
+      weight: 1.5, dashArray: '3,3',
+    }}).bindPopup(buildPendingPopup(m)).addTo(layers.pending);
   }});
 
   var newSlots = new Set(markersArr.map(function(m) {{ return m.slot; }}));
@@ -506,7 +585,7 @@ function renderLayers(markersArr, uncoveredArr) {{
 }}
 
 // Initial render from baked-in data
-renderLayers(MARKERS, UNCOVERED);
+renderLayers(MARKERS, UNCOVERED, PENDING);
 
 // ── Bot status controls ───────────────────────────────────────────────────────
 const SERVER_MODE = window.location.protocol !== 'file:';
@@ -554,7 +633,7 @@ function refreshMarkers() {{
   fetch('/api/markers')
     .then(function(r) {{ return r.json(); }})
     .then(function(d) {{
-      if (d.markers)   renderLayers(d.markers, d.uncovered || []);
+      if (d.markers)   renderLayers(d.markers, d.uncovered || [], d.pending || []);
       if (d.stats)     updateStats(d.stats);
     }})
     .catch(function() {{}});
@@ -669,12 +748,13 @@ with open(OUT, "w", encoding="utf-8") as f:
 
 # Also write raw data so map_server /api/markers can serve it without re-parsing HTML
 with open("listings_data.json", "w", encoding="utf-8") as f:
-    json.dump({"markers": markers, "uncovered": uncovered, "stats": stats},
+    json.dump({"markers": markers, "uncovered": uncovered, "pending": pending_markers, "stats": stats},
               f, ensure_ascii=False)
 
 print(f"Map written to {OUT}")
 print(f"  Active     : {stats['active_total']}  ({stats['active_mini_ex']} mini-ex, {stats['active_track']} track)")
 print(f"  Uncovered  : {stats['uncovered']} / {stats['cities_total']} cities")
+print(f"  Pending    : {stats['pending_total']} task-variant slots across {len(pending_markers)} city/equipment pairs")
 print(f"  Avg clicks : {stats['avg_clicks'] or 'n/a'}  |  7-day avg delta: {stats['avg_7d'] or 'n/a'}")
 
 parser = argparse.ArgumentParser()

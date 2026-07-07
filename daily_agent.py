@@ -407,11 +407,18 @@ if not fatal and within_budget():
 
         old_title = state[slot]
         logger.info(f"Phase 2 — replacing '{slot}': removing '{old_title}'")
-        # Carry final click count into lifetime total before this listing is deleted
+        scraper.go_to_page("https://www.facebook.com/marketplace/you/selling/")
+        if not l.remove_listing_by_title_via_search(old_title):
+            logger.warning(
+                f"Phase 2 — could not confirm removal of '{old_title}' (slot '{slot}'); "
+                "skipping replacement this run to avoid orphaning a duplicate listing."
+            )
+            _cleanup_images()
+            continue
+
+        # Carry final click count into lifetime total only after the old listing is confirmed gone
         carry_clicks(metadata, slot, click_counts.get(old_title))
         _save_metadata()
-        scraper.go_to_page("https://www.facebook.com/marketplace/you/selling/")
-        l.remove_listing_by_title(old_title)
 
         if not _publish(listable):
             fatal = True
