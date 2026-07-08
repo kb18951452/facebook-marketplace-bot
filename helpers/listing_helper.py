@@ -128,26 +128,49 @@ class Listing:
 
         return stats
 
+    # Facebook lazy-loads the selling grid in network batches, so
+    # document.body.scrollHeight can sit still for a round or two between
+    # batches -- stopping on the first unchanged height (the old behavior
+    # here) reads that pause as "fully loaded" and cuts the scan off after
+    # the first batch, capping scans at ~60-140 listings regardless of how
+    # many are actually live. Confirmed live against the selling page
+    # 2026-07-07 (diag_scroll.py): the old check broke after round 1-2 while
+    # titles kept arriving steadily through round 60+, and two independent
+    # idle-tolerant runs converged on ~615-620 real listings. Tolerating
+    # several consecutive no-growth rounds before stopping reliably reaches
+    # the true count.
+    _SCROLL_IDLE_ROUNDS_TO_STOP = 10
+    _SCROLL_MAX_ROUNDS = 500
+
     def _scroll_and_gather_buttons(self, extract_fn) -> dict:
         """Scroll the selling page and apply extract_fn(btn) to each unseen 'More options' button."""
         _XPATH = '//div[starts-with(@aria-label, "More options for ") and @role="button" and @tabindex="0"]'
         result = {}
-        last_height = -1
-        while True:
-            for btn in self.scraper.driver.find_elements(By.XPATH, _XPATH):
-                try:
-                    aria = btn.get_attribute("aria-label") or ""
-                    title = aria.replace("More options for ", "", 1).strip()
-                    if title and title not in result:
+        idle_rounds = 0
+        round_num = 0
+        while idle_rounds < self._SCROLL_IDLE_ROUNDS_TO_STOP and round_num < self._SCROLL_MAX_ROUNDS:
+            buttons = self.scraper.driver.find_elements(By.XPATH, _XPATH)
+            # Bulk-read aria-labels in one round trip -- calling .get_attribute()
+            # per element here made each round's cost grow with the number of
+            # already-seen listings (measured ~7.5s/round at 600+ buttons vs
+            # ~2s/round early on), which compounds badly with the idle-round
+            # tolerance above.
+            titles = self.scraper.driver.execute_script(
+                "return arguments[0].map(el => el.getAttribute('aria-label'));", buttons
+            )
+            found_new = False
+            for btn, aria in zip(buttons, titles):
+                title = (aria or "").replace("More options for ", "", 1).strip()
+                if title and title not in result:
+                    try:
                         result[title] = extract_fn(btn)
-                except Exception:
-                    pass
-            new_height = self.scraper.driver.execute_script("return document.body.scrollHeight")
-            if new_height == last_height:
-                break
+                        found_new = True
+                    except Exception:
+                        pass
+            idle_rounds = 0 if found_new else idle_rounds + 1
             self.scraper.driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
-            time.sleep(1)
-            last_height = new_height
+            time.sleep(1.5)
+            round_num += 1
         return result
 
     def collect_click_snapshots(self) -> dict:
