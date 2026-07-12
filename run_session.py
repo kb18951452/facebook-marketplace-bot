@@ -23,6 +23,8 @@ import subprocess
 import sys
 import time
 
+from helpers.run_outcome import install_crash_logger, record_run
+
 # ── Config ──────────────────────────────────────────────────────────────────
 SESSION_MINUTES = 225          # length of the scheduled window (+25% over the original 180)
 MIN_BUDGET_MIN = 8             # don't bother launching with less runway than this
@@ -40,21 +42,33 @@ logging.basicConfig(
     handlers=[logging.FileHandler(LOG_FILE, mode="a")],
 )
 logger = logging.getLogger("run_session")
+install_crash_logger("run_session")
 
 
 def main() -> int:
-    deadline = time.time() + SESSION_MINUTES * 60
+    start = time.time()
+    deadline = start + SESSION_MINUTES * 60
     logger.info(
         f"=== Session supervisor started — {SESSION_MINUTES} min window, "
         f"deadline {time.strftime('%H:%M:%S', time.localtime(deadline))} ==="
     )
+
+    def _finish(code: int, status: str, note: str = None) -> int:
+        record_run(
+            "run_session",
+            status,
+            metrics={"attempts": attempt, "minutes_used": round((time.time() - start) / 60, 1), "final_code": code},
+            note=note,
+        )
+        return code
 
     attempt = 0
     while True:
         remaining_min = (deadline - time.time()) / 60
         if remaining_min < MIN_BUDGET_MIN:
             logger.info(f"Session window closing ({remaining_min:.1f} min left) — done.")
-            return 0
+            return _finish(0, "success" if attempt else "no-op",
+                            note=None if attempt else "window closed before any attempt could be launched")
 
         attempt += 1
         logger.info(
@@ -72,10 +86,10 @@ def main() -> int:
 
         if code == EXIT_CLEAN:
             logger.info("Agent finished cleanly — no more work this session.")
-            return 0
+            return _finish(0, "success")
         if code == EXIT_LOGIN_BLOCKED:
             logger.error("Agent could not log in (human action needed) — ending session.")
-            return 2
+            return _finish(2, "blocked", note="login could not complete — needs human")
 
         # Any other exit (fatal session death, crash) → restart and resume.
         logger.warning(
@@ -84,7 +98,7 @@ def main() -> int:
         )
         if (deadline - time.time()) <= RESTART_BACKOFF_SEC:
             logger.info("Not enough window left to back off and retry — done.")
-            return code
+            return _finish(code, "fatal", note=f"crash-looped {attempt} attempts, ran out of window to retry")
         time.sleep(RESTART_BACKOFF_SEC)
 
 

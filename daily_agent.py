@@ -38,6 +38,7 @@ from helpers.click_history import (
     reset_for_new_listing,
 )
 from helpers.scan_health import record_scan
+from helpers.run_outcome import install_crash_logger, record_run
 
 # ── Args ──────────────────────────────────────────────────────────────────────
 _parser = argparse.ArgumentParser(description="FB Marketplace daily listing agent")
@@ -68,6 +69,7 @@ logging.basicConfig(
     handlers=[logging.FileHandler(LOG_FILE, mode="a")],
 )
 logger = logging.getLogger(__name__)
+install_crash_logger("daily_agent")
 
 # ── Sumo Logic ────────────────────────────────────────────────────────────────
 with open("data/cities_data.json") as _f:
@@ -177,6 +179,7 @@ try:
     )
 except SystemExit:
     logger.error("Startup/login did not complete — exiting with code 2 (human action needed).")
+    record_run("daily_agent", "blocked", note="login could not complete (2FA/checkpoint) — needs human")
     sys.exit(2)
 l = Listing(scraper)
 
@@ -252,6 +255,9 @@ _covered_equip: set = {
 }
 
 # ── Publish helper ────────────────────────────────────────────────────────────
+_published_count = 0
+
+
 def _publish(listable) -> bool:
     """Publish one listing. Returns False on fatal session error, True otherwise."""
     slot = slot_from_listing(listable)
@@ -265,9 +271,11 @@ def _publish(listable) -> bool:
         logger.error(f"Listing '{listable.title}' failed: {e}", exc_info=True)
         return True  # non-fatal
 
+    global _published_count
     city = listable.location.split(", ")[0]
     _log_published(listable, city)
     state[slot] = listable.title
+    _published_count += 1
     _save_state()
     metadata.setdefault(slot, {})
     metadata[slot]["title"] = listable.title
@@ -434,6 +442,26 @@ logger.info(
     f"Agent run complete. "
     f"Remaining budget: {remaining / 60:.1f} min. "
     f"Fatal stop: {fatal}."
+)
+
+if fatal:
+    _outcome_status = "fatal"
+elif _published_count == 0 and not removed_titles:
+    _outcome_status = "no-op"
+else:
+    _outcome_status = "success"
+record_run(
+    "daily_agent",
+    _outcome_status,
+    metrics={
+        "published": _published_count,
+        "duplicates_removed": len(removed_titles),
+        "inventory_count": len(_inventory),
+        "dupe_flagged": len(_dupe_titles_found),
+        "budget_min": round(_budget_secs / 60, 1),
+        "remaining_min": round(remaining / 60, 1),
+    },
+    note="no listings published and no duplicates removed this run" if _outcome_status == "no-op" else None,
 )
 
 # Regenerate the map with fresh data so the viewer is always current.

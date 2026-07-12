@@ -22,6 +22,7 @@ from helpers.scraper import Scraper
 from helpers.listing_helper import Listing
 from helpers.click_history import record_snapshot
 from helpers.scan_health import record_scan
+from helpers.run_outcome import install_crash_logger, record_run
 
 # ── Config ────────────────────────────────────────────────────────────────────
 STATE_FILE    = "state.json"
@@ -36,6 +37,7 @@ logging.basicConfig(
     handlers=[logging.FileHandler(LOG_FILE, mode="a")],
 )
 logger = logging.getLogger(__name__)
+install_crash_logger("stats_tracker")
 
 # ── State I/O ─────────────────────────────────────────────────────────────────
 def _load(path: str) -> dict:
@@ -115,6 +117,13 @@ logger.info(
 )
 if unmatched:
     logger.info(f"Unmatched titles (not in state.json): {unmatched[:10]}")
+
+record_run(
+    "stats_tracker",
+    "no-op" if matched == 0 else "success",
+    metrics={"found": len(listing_stats), "matched": matched, "unmatched": len(unmatched)},
+    note=None if matched else "0 listings matched state.json — scrape may have failed or state.json is stale",
+)
 
 # Keep the viewer up to date after every stats collection.
 try:
