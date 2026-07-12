@@ -22,6 +22,7 @@ import logging
 import subprocess
 import sys
 import time
+from datetime import datetime
 
 from helpers.run_outcome import install_crash_logger, record_run
 
@@ -45,19 +46,36 @@ logger = logging.getLogger("run_session")
 install_crash_logger("run_session")
 
 
+def _trigger_label(at: datetime) -> str:
+    """Best-effort label matching the Task Scheduler task name that fired this
+    run (e.g. 'Tuesday_Run1'), so ledger entries are attributable to one of
+    the 12 FacebookMarketplaceBot_{Day}_Run{1,2} tasks without Task Scheduler
+    passing its own name through. Derived from wall-clock at startup — Run1
+    fires at 09:00, Run2 at 13:00 — since a WakeToRun catch-up can start late,
+    this is a guess, not a guarantee; the raw timestamp is also recorded."""
+    return f"{at.strftime('%A')}_Run{1 if at.hour < 11 else 2}"
+
+
 def main() -> int:
     start = time.time()
     deadline = start + SESSION_MINUTES * 60
+    trigger = _trigger_label(datetime.now())
     logger.info(
         f"=== Session supervisor started — {SESSION_MINUTES} min window, "
-        f"deadline {time.strftime('%H:%M:%S', time.localtime(deadline))} ==="
+        f"deadline {time.strftime('%H:%M:%S', time.localtime(deadline))}, "
+        f"trigger guess: {trigger} ==="
     )
 
     def _finish(code: int, status: str, note: str = None) -> int:
         record_run(
             "run_session",
             status,
-            metrics={"attempts": attempt, "minutes_used": round((time.time() - start) / 60, 1), "final_code": code},
+            metrics={
+                "trigger": trigger,
+                "attempts": attempt,
+                "minutes_used": round((time.time() - start) / 60, 1),
+                "final_code": code,
+            },
             note=note,
         )
         return code
