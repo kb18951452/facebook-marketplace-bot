@@ -5,7 +5,7 @@
         "lat": "31.38656",
         "lng": "-97.21556",
         "distance": 2.4,
-        "estimated_cost": 84.6
+        "estimated_cost": 75.1
     },
     {
         "city": "Rosenthal",
@@ -13,7 +13,7 @@
         "lat": "31.41739",
         "lng": "-97.09944",
         "distance": 2.4,
-        "estimated_cost": 84.6
+        "estimated_cost": 75.1
     },
     {
         "city": "Hewitt",
@@ -21,15 +21,7 @@
         "lat": "31.46239",
         "lng": "-97.19584",
         "distance": 4.8,
-        "estimated_cost": 94.2
-    },
-    {
-        "city": "Atco",
-        "state": "TX",
-        "lat": "31.47989",
-        "lng": "-97.24528",
-        "distance": 8.5,
-        "estimated_cost": 109.0
+        "estimated_cost": 84.2
     },
     {
         "city": "Bruceville",
@@ -37,7 +29,7 @@
         "lat": "31.31934",
         "lng": "-97.23667",
         "distance": 8.5,
-        "estimated_cost": 109.0
+        "estimated_cost": 98.1
     },
     {
         "city": "Bruceville-Eddy",
@@ -45,7 +37,7 @@
         "lat": "31.30517",
         "lng": "-97.25167",
         "distance": 8.5,
-        "estimated_cost": 109.0
+        "estimated_cost": 98.1
     },
     {
         "city": "Eddy",
@@ -53,7 +45,7 @@
         "lat": "31.29462",
         "lng": "-97.25223",
         "distance": 9.4,
-        "estimated_cost": 112.6
+        "estimated_cost": 101.5
     },
     {
         "city": "Levi",
@@ -61,7 +53,7 @@
         "lat": "31.37712",
         "lng": "-97.12222",
         "distance": 9.8,
-        "estimated_cost": 114.2
+        "estimated_cost": 103.0
     },
     {
         "city": "Robinson",
@@ -69,15 +61,7 @@
         "lat": "31.46767",
         "lng": "-97.11472",
         "distance": 10.3,
-        "estimated_cost": 116.2
-    },
-    {
-        "city": "Windsor",
-        "state": "TX",
-        "lat": "31.52211",
-        "lng": "-97.34196",
-        "distance": 10.8,
-        "estimated_cost": 118.2
+        "estimated_cost": 104.9
     },
     {
         "city": "Woodway",
@@ -85,31 +69,7 @@
         "lat": "31.506",
         "lng": "-97.20501",
         "distance": 11.0,
-        "estimated_cost": 119.0
-    },
-    {
-        "city": "Beverly Hills",
-        "state": "TX",
-        "lat": "31.52156",
-        "lng": "-97.15389",
-        "distance": 11.2,
-        "estimated_cost": 119.8
-    },
-    {
-        "city": "Beverly",
-        "state": "TX",
-        "lat": "31.52517",
-        "lng": "-97.14195",
-        "distance": 11.2,
-        "estimated_cost": 119.8
-    },
-    {
-        "city": "Jewell",
-        "state": "TX",
-        "lat": "31.50294",
-        "lng": "-97.19612",
-        "distance": 11.5,
-        "estimated_cost": 121.0
+        "estimated_cost": 107.6
     },
     {
         "city": "Willow Grove",
@@ -117,7 +77,7 @@
         "lat": "31.55016",
         "lng": "-97.29584",
         "distance": 12.2,
-        "estimated_cost": 123.8
+        "estimated_cost": 112.1
     },
     {
         "city": "Moody",
@@ -125,15 +85,7 @@
         "lat": "31.30823",
         "lng": "-97.3614",
         "distance": 12.4,
-        "estimated_cost": 124.6
-    },
-    {
-        "city": "Downs",
-        "state": "TX",
-        "lat": "31.45406",
-        "lng": "-97.07",
-        "distance": 12.6,
-        "estimated_cost": 125.4
+        "estimated_cost": 112.9
     },
     {
         "city": "Speegleville",
@@ -141,7 +93,7 @@
         "lat": "31.556",
         "lng": "-97.25251",
         "distance": 13.2,
-        "estimated_cost": 127.8
+        "estimated_cost": 115.9
     },
     {
         "city": "Golinda",
@@ -149,7 +101,7 @@
         "lat": "31.37767",
         "lng": "-97.08278",
         "distance": 13.3,
-        "estimated_cost": 128.2
+        "estimated_cost": 116.3
     },
     {
         "city": "McGregor",
@@ -157,15 +109,7 @@
         "lat": "31.44406",
         "lng": "-97.40918",
         "distance": 13.3,
-        "estimated_cost": 128.2
-    },
-    {
-        "city": "Ocee",
-        "state": "TX",
-        "lat": "31.556",
-        "lng": "-97.35557",
-        "distance": 13.6,
-        "estimated_cost": 129.4
+        "estimated_cost": 116.3
     },
     {
         "city": "Asa",
@@ -173,7 +117,7 @@
         "lat": "31.41434",
         "lng": "-97.05416",
         "distance": 14.6,
-        "estimated_cost": 133.4
+        "estimated_cost": 121.2
     },
     {
         "city": "Mountain View",
@@ -181,7 +125,7 @@
         "lat": "32.11237",
         "lng": "-97.07612",
         "distance": 14.7,
-        "estimated_cost": 133.8
+        "estimated_cost": 121.5
     },
     {
         "city": "Waco",
@@ -189,7 +133,7 @@
         "lat": "31.54933",
         "lng": "-97.14667",
         "distance": 15.5,
-        "estimated_cost": 137.0
+        "estimated_cost": 124.6
     },
     {
         "city": "East Waco",
@@ -197,7 +141,7 @@
         "lat": "31.55711",
         "lng": "-97.09695",
         "distance": 15.5,
-        "estimated_cost": 137.0
+        "estimated_cost": 124.6
     },
     {
         "city": "North Prairie",
@@ -205,7 +149,7 @@
         "lat": "31.34184",
         "lng": "-97.08361",
         "distance": 15.9,
-        "estimated_cost": 138.6
+        "estimated_cost": 126.1
     },
     {
         "city": "Stampede",
@@ -213,7 +157,7 @@
         "lat": "31.28212",
         "lng": "-97.4039",
         "distance": 16.8,
-        "estimated_cost": 142.2
+        "estimated_cost": 129.5
     },
     {
         "city": "Mooreville",
@@ -221,7 +165,7 @@
         "lat": "31.30212",
         "lng": "-97.14083",
         "distance": 16.9,
-        "estimated_cost": 142.6
+        "estimated_cost": 129.9
     },
     {
         "city": "Wardlaw",
@@ -229,7 +173,7 @@
         "lat": "31.54656",
         "lng": "-97.06472",
         "distance": 17.2,
-        "estimated_cost": 143.8
+        "estimated_cost": 131.0
     },
     {
         "city": "Bellmead",
@@ -237,15 +181,7 @@
         "lat": "31.59405",
         "lng": "-97.10889",
         "distance": 17.2,
-        "estimated_cost": 143.8
-    },
-    {
-        "city": "Troy",
-        "state": "TX",
-        "lat": "31.20684",
-        "lng": "-97.30278",
-        "distance": 17.2,
-        "estimated_cost": 143.8
+        "estimated_cost": 131.0
     },
     {
         "city": "Blevins",
@@ -253,7 +189,7 @@
         "lat": "31.22323",
         "lng": "-97.20861",
         "distance": 17.5,
-        "estimated_cost": 145.0
+        "estimated_cost": 132.1
     },
     {
         "city": "Whitson",
@@ -261,7 +197,7 @@
         "lat": "31.33378",
         "lng": "-97.44057",
         "distance": 17.5,
-        "estimated_cost": 145.0
+        "estimated_cost": 132.1
     },
     {
         "city": "Cego",
@@ -269,7 +205,7 @@
         "lat": "31.24518",
         "lng": "-97.1625",
         "distance": 18.1,
-        "estimated_cost": 147.4
+        "estimated_cost": 134.4
     },
     {
         "city": "Crawford",
@@ -277,7 +213,7 @@
         "lat": "31.53433",
         "lng": "-97.44307",
         "distance": 18.2,
-        "estimated_cost": 147.8
+        "estimated_cost": 134.8
     },
     {
         "city": "Neale",
@@ -285,7 +221,7 @@
         "lat": "31.52295",
         "lng": "-97.02416",
         "distance": 18.6,
-        "estimated_cost": 149.4
+        "estimated_cost": 136.3
     },
     {
         "city": "Lacy-Lakeview",
@@ -293,15 +229,7 @@
         "lat": "31.62933",
         "lng": "-97.10278",
         "distance": 18.6,
-        "estimated_cost": 149.4
-    },
-    {
-        "city": "Guda",
-        "state": "TX",
-        "lat": "31.35878",
-        "lng": "-97.03277",
-        "distance": 18.9,
-        "estimated_cost": 150.6
+        "estimated_cost": 136.3
     },
     {
         "city": "Caldwell Crossing",
@@ -309,7 +237,7 @@
         "lat": "31.62405",
         "lng": "-97.33473",
         "distance": 19.0,
-        "estimated_cost": 151.0
+        "estimated_cost": 137.8
     },
     {
         "city": "Northcrest",
@@ -317,7 +245,7 @@
         "lat": "31.63655",
         "lng": "-97.09972",
         "distance": 19.0,
-        "estimated_cost": 151.0
+        "estimated_cost": 137.8
     },
     {
         "city": "Bosqueville",
@@ -325,7 +253,7 @@
         "lat": "31.60905",
         "lng": "-97.19528",
         "distance": 19.3,
-        "estimated_cost": 152.2
+        "estimated_cost": 138.9
     },
     {
         "city": "Satin",
@@ -333,7 +261,7 @@
         "lat": "31.34656",
         "lng": "-97.03166",
         "distance": 20.1,
-        "estimated_cost": 155.4
+        "estimated_cost": 141.9
     },
     {
         "city": "Meador Grove",
@@ -341,7 +269,7 @@
         "lat": "31.28545",
         "lng": "-97.45696",
         "distance": 20.6,
-        "estimated_cost": 157.4
+        "estimated_cost": 143.8
     },
     {
         "city": "Oglesby",
@@ -349,7 +277,7 @@
         "lat": "31.4185",
         "lng": "-97.50724",
         "distance": 20.8,
-        "estimated_cost": 158.2
+        "estimated_cost": 144.6
     },
     {
         "city": "Elm Mott",
@@ -357,7 +285,7 @@
         "lat": "31.67183",
         "lng": "-97.09889",
         "distance": 21.1,
-        "estimated_cost": 159.4
+        "estimated_cost": 145.7
     },
     {
         "city": "China Spring",
@@ -365,7 +293,7 @@
         "lat": "31.64917",
         "lng": "-97.30472",
         "distance": 21.2,
-        "estimated_cost": 159.8
+        "estimated_cost": 146.1
     },
     {
         "city": "China Springs",
@@ -373,7 +301,7 @@
         "lat": "31.65239",
         "lng": "-97.30779",
         "distance": 21.2,
-        "estimated_cost": 159.8
+        "estimated_cost": 146.1
     },
     {
         "city": "Berger",
@@ -381,7 +309,7 @@
         "lat": "31.16379",
         "lng": "-97.31973",
         "distance": 21.2,
-        "estimated_cost": 159.8
+        "estimated_cost": 146.1
     },
     {
         "city": "Hallsburg",
@@ -389,7 +317,7 @@
         "lat": "31.53878",
         "lng": "-96.95611",
         "distance": 21.8,
-        "estimated_cost": 162.2
+        "estimated_cost": 148.4
     },
     {
         "city": "Chilton",
@@ -397,7 +325,7 @@
         "lat": "31.28018",
         "lng": "-97.06416",
         "distance": 21.9,
-        "estimated_cost": 162.6
+        "estimated_cost": 148.7
     },
     {
         "city": "Pendleton",
@@ -405,7 +333,7 @@
         "lat": "31.19518",
         "lng": "-97.34862",
         "distance": 22.1,
-        "estimated_cost": 163.4
+        "estimated_cost": 149.5
     },
     {
         "city": "Rock Creek",
@@ -413,7 +341,7 @@
         "lat": "31.66711",
         "lng": "-97.24167",
         "distance": 23.1,
-        "estimated_cost": 167.4
+        "estimated_cost": 153.3
     },
     {
         "city": "Cavitt",
@@ -421,7 +349,7 @@
         "lat": "31.37572",
         "lng": "-97.51863",
         "distance": 23.3,
-        "estimated_cost": 168.2
+        "estimated_cost": 154.0
     },
     {
         "city": "Belfalls",
@@ -429,7 +357,7 @@
         "lat": "31.17323",
         "lng": "-97.20361",
         "distance": 23.4,
-        "estimated_cost": 168.6
+        "estimated_cost": 154.4
     },
     {
         "city": "Temple",
@@ -437,7 +365,7 @@
         "lat": "31.09823",
         "lng": "-97.34278",
         "distance": 24.7,
-        "estimated_cost": 173.8
+        "estimated_cost": 159.3
     },
     {
         "city": "Lime City",
@@ -445,7 +373,7 @@
         "lat": "31.39461",
         "lng": "-97.52724",
         "distance": 25.0,
-        "estimated_cost": 175.0
+        "estimated_cost": 160.4
     },
     {
         "city": "Riesel",
@@ -453,7 +381,7 @@
         "lat": "31.47489",
         "lng": "-96.92333",
         "distance": 25.0,
-        "estimated_cost": 175.0
+        "estimated_cost": 160.4
     },
     {
         "city": "Ross",
@@ -461,7 +389,7 @@
         "lat": "31.7185",
         "lng": "-97.11917",
         "distance": 25.1,
-        "estimated_cost": 175.4
+        "estimated_cost": 160.8
     },
     {
         "city": "Valley Mills",
@@ -469,7 +397,7 @@
         "lat": "31.65933",
         "lng": "-97.47224",
         "distance": 25.6,
-        "estimated_cost": 177.4
+        "estimated_cost": 162.7
     },
     {
         "city": "Axtell",
@@ -477,7 +405,7 @@
         "lat": "31.65822",
         "lng": "-96.97139",
         "distance": 25.6,
-        "estimated_cost": 177.4
+        "estimated_cost": 162.7
     },
     {
         "city": "Morgans Point Resort",
@@ -485,7 +413,7 @@
         "lat": "31.14823",
         "lng": "-97.46334",
         "distance": 26.6,
-        "estimated_cost": 181.4
+        "estimated_cost": 166.5
     },
     {
         "city": "Osage",
@@ -493,7 +421,7 @@
         "lat": "31.52461",
         "lng": "-97.56474",
         "distance": 26.7,
-        "estimated_cost": 181.8
+        "estimated_cost": 166.9
     },
     {
         "city": "Battle",
@@ -501,7 +429,7 @@
         "lat": "31.55267",
         "lng": "-96.88944",
         "distance": 26.8,
-        "estimated_cost": 182.2
+        "estimated_cost": 167.2
     },
     {
         "city": "Gholson",
@@ -509,7 +437,7 @@
         "lat": "31.701",
         "lng": "-97.2164",
         "distance": 27.0,
-        "estimated_cost": 183.0
+        "estimated_cost": 168.0
     },
     {
         "city": "Oenaville",
@@ -517,7 +445,7 @@
         "lat": "31.12768",
         "lng": "-97.22833",
         "distance": 27.0,
-        "estimated_cost": 183.0
+        "estimated_cost": 168.0
     },
     {
         "city": "Moffat",
@@ -525,7 +453,7 @@
         "lat": "31.1999",
         "lng": "-97.46834",
         "distance": 27.3,
-        "estimated_cost": 184.2
+        "estimated_cost": 169.1
     },
     {
         "city": "Elk",
@@ -533,7 +461,7 @@
         "lat": "31.61656",
         "lng": "-96.93583",
         "distance": 27.5,
-        "estimated_cost": 185.0
+        "estimated_cost": 169.9
     },
     {
         "city": "Leroy",
@@ -541,7 +469,7 @@
         "lat": "31.73155",
         "lng": "-97.01778",
         "distance": 27.6,
-        "estimated_cost": 185.4
+        "estimated_cost": 170.3
     },
     {
         "city": "Tomlinson Hill",
@@ -549,15 +477,7 @@
         "lat": "31.26573",
         "lng": "-96.98805",
         "distance": 28.3,
-        "estimated_cost": 188.2
-    },
-    {
-        "city": "Durango",
-        "state": "TX",
-        "lat": "31.2049",
-        "lng": "-97.13055",
-        "distance": 28.4,
-        "estimated_cost": 188.6
+        "estimated_cost": 172.9
     },
     {
         "city": "Triangle",
@@ -565,7 +485,7 @@
         "lat": "31.28157",
         "lng": "-96.98999",
         "distance": 28.7,
-        "estimated_cost": 189.8
+        "estimated_cost": 174.4
     },
     {
         "city": "Wiggins",
@@ -573,7 +493,7 @@
         "lat": "31.76127",
         "lng": "-97.15806",
         "distance": 28.8,
-        "estimated_cost": 190.2
+        "estimated_cost": 174.8
     },
     {
         "city": "Mart",
@@ -581,7 +501,7 @@
         "lat": "31.54239",
         "lng": "-96.8336",
         "distance": 28.8,
-        "estimated_cost": 190.2
+        "estimated_cost": 174.8
     },
     {
         "city": "Perry",
@@ -589,7 +509,7 @@
         "lat": "31.41795",
         "lng": "-96.91527",
         "distance": 29.0,
-        "estimated_cost": 191.0
+        "estimated_cost": 175.5
     },
     {
         "city": "Tours",
@@ -597,7 +517,7 @@
         "lat": "31.75988",
         "lng": "-97.03778",
         "distance": 29.3,
-        "estimated_cost": 192.2
+        "estimated_cost": 176.7
     },
     {
         "city": "South Mountain",
@@ -605,7 +525,7 @@
         "lat": "31.42767",
         "lng": "-97.67752",
         "distance": 29.4,
-        "estimated_cost": 192.6
+        "estimated_cost": 177.1
     },
     {
         "city": "Jubilee Springs",
@@ -613,7 +533,7 @@
         "lat": "31.17684",
         "lng": "-97.49918",
         "distance": 29.6,
-        "estimated_cost": 193.4
+        "estimated_cost": 177.8
     },
     {
         "city": "Ratibor",
@@ -621,7 +541,7 @@
         "lat": "31.0874",
         "lng": "-97.2125",
         "distance": 30.2,
-        "estimated_cost": 195.8
+        "estimated_cost": 180.1
     },
     {
         "city": "Oscar",
@@ -629,7 +549,7 @@
         "lat": "31.05074",
         "lng": "-97.26222",
         "distance": 30.2,
-        "estimated_cost": 195.8
+        "estimated_cost": 180.1
     },
     {
         "city": "Watt",
@@ -637,7 +557,7 @@
         "lat": "31.64378",
         "lng": "-96.85888",
         "distance": 30.5,
-        "estimated_cost": 197.0
+        "estimated_cost": 181.2
     },
     {
         "city": "Mound",
@@ -645,7 +565,7 @@
         "lat": "31.35183",
         "lng": "-97.63752",
         "distance": 30.6,
-        "estimated_cost": 197.4
+        "estimated_cost": 181.6
     },
     {
         "city": "Owl Creek",
@@ -653,15 +573,7 @@
         "lat": "31.2274",
         "lng": "-97.51168",
         "distance": 30.7,
-        "estimated_cost": 197.8
-    },
-    {
-        "city": "West",
-        "state": "TX",
-        "lat": "31.80238",
-        "lng": "-97.09167",
-        "distance": 30.7,
-        "estimated_cost": 197.8
+        "estimated_cost": 182.0
     },
     {
         "city": "Greenock",
@@ -669,7 +581,7 @@
         "lat": "31.76627",
         "lng": "-97.34557",
         "distance": 30.8,
-        "estimated_cost": 198.2
+        "estimated_cost": 182.3
     },
     {
         "city": "Heidenheimer",
@@ -677,7 +589,7 @@
         "lat": "31.01824",
         "lng": "-97.30278",
         "distance": 31.4,
-        "estimated_cost": 200.6
+        "estimated_cost": 184.6
     },
     {
         "city": "Marlin",
@@ -685,7 +597,7 @@
         "lat": "31.30629",
         "lng": "-96.89804",
         "distance": 31.5,
-        "estimated_cost": 201.0
+        "estimated_cost": 185.0
     },
     {
         "city": "Hoen",
@@ -693,7 +605,7 @@
         "lat": "31.78155",
         "lng": "-96.98555",
         "distance": 31.5,
-        "estimated_cost": 201.0
+        "estimated_cost": 185.0
     },
     {
         "city": "Marvin",
@@ -701,7 +613,7 @@
         "lat": "30.91463",
         "lng": "-96.70303",
         "distance": 31.5,
-        "estimated_cost": 201.0
+        "estimated_cost": 185.0
     },
     {
         "city": "Seaton",
@@ -709,7 +621,7 @@
         "lat": "31.05768",
         "lng": "-97.21611",
         "distance": 31.6,
-        "estimated_cost": 201.4
+        "estimated_cost": 185.4
     },
     {
         "city": "Pendell",
@@ -717,7 +629,7 @@
         "lat": "31.71377",
         "lng": "-97.54141",
         "distance": 31.8,
-        "estimated_cost": 202.2
+        "estimated_cost": 186.1
     },
     {
         "city": "Rogers Hill",
@@ -725,7 +637,7 @@
         "lat": "31.73127",
         "lng": "-97.19889",
         "distance": 31.9,
-        "estimated_cost": 202.6
+        "estimated_cost": 186.5
     },
     {
         "city": "Bland",
@@ -733,7 +645,7 @@
         "lat": "31.21295",
         "lng": "-97.51446",
         "distance": 32.0,
-        "estimated_cost": 203.0
+        "estimated_cost": 186.9
     },
     {
         "city": "Flat",
@@ -741,7 +653,7 @@
         "lat": "31.30878",
         "lng": "-97.63002",
         "distance": 32.4,
-        "estimated_cost": 204.6
+        "estimated_cost": 188.4
     },
     {
         "city": "Belton",
@@ -749,7 +661,7 @@
         "lat": "31.05601",
         "lng": "-97.46445",
         "distance": 33.0,
-        "estimated_cost": 207.0
+        "estimated_cost": 190.6
     },
     {
         "city": "Leon Junction",
@@ -757,7 +669,7 @@
         "lat": "31.341",
         "lng": "-97.59418",
         "distance": 33.2,
-        "estimated_cost": 207.8
+        "estimated_cost": 191.4
     },
     {
         "city": "Airville",
@@ -765,7 +677,7 @@
         "lat": "31.07713",
         "lng": "-97.16361",
         "distance": 33.2,
-        "estimated_cost": 207.8
+        "estimated_cost": 191.4
     },
     {
         "city": "Gatesville",
@@ -773,7 +685,7 @@
         "lat": "31.43516",
         "lng": "-97.74391",
         "distance": 33.4,
-        "estimated_cost": 208.6
+        "estimated_cost": 192.2
     },
     {
         "city": "Academy",
@@ -781,7 +693,7 @@
         "lat": "30.98102",
         "lng": "-97.34167",
         "distance": 33.5,
-        "estimated_cost": 209.0
+        "estimated_cost": 192.5
     },
     {
         "city": "Mount Calm",
@@ -789,7 +701,7 @@
         "lat": "31.75627",
         "lng": "-96.87916",
         "distance": 33.5,
-        "estimated_cost": 209.0
+        "estimated_cost": 192.5
     },
     {
         "city": "Cayote",
@@ -797,7 +709,7 @@
         "lat": "31.76877",
         "lng": "-97.45752",
         "distance": 33.7,
-        "estimated_cost": 209.8
+        "estimated_cost": 193.3
     },
     {
         "city": "Westcliff",
@@ -805,7 +717,7 @@
         "lat": "31.11518",
         "lng": "-97.5164",
         "distance": 33.8,
-        "estimated_cost": 210.2
+        "estimated_cost": 193.7
     },
     {
         "city": "Lott",
@@ -813,7 +725,7 @@
         "lat": "31.20351",
         "lng": "-97.03666",
         "distance": 34.2,
-        "estimated_cost": 211.8
+        "estimated_cost": 195.2
     },
     {
         "city": "Birome",
@@ -821,7 +733,7 @@
         "lat": "31.81322",
         "lng": "-96.96278",
         "distance": 34.2,
-        "estimated_cost": 211.8
+        "estimated_cost": 195.2
     },
     {
         "city": "Mosheim",
@@ -829,7 +741,7 @@
         "lat": "31.62627",
         "lng": "-97.60002",
         "distance": 34.3,
-        "estimated_cost": 212.2
+        "estimated_cost": 195.6
     },
     {
         "city": "Ocker",
@@ -837,7 +749,7 @@
         "lat": "31.07074",
         "lng": "-97.14361",
         "distance": 34.5,
-        "estimated_cost": 213.0
+        "estimated_cost": 196.3
     },
     {
         "city": "Little River",
@@ -845,7 +757,7 @@
         "lat": "30.98879",
         "lng": "-97.36611",
         "distance": 34.6,
-        "estimated_cost": 213.4
+        "estimated_cost": 196.7
     },
     {
         "city": "Little River-Academy",
@@ -853,7 +765,7 @@
         "lat": "30.98629",
         "lng": "-97.35861",
         "distance": 34.6,
-        "estimated_cost": 213.4
+        "estimated_cost": 196.7
     },
     {
         "city": "Zabcikville",
@@ -861,7 +773,7 @@
         "lat": "31.04518",
         "lng": "-97.16666",
         "distance": 34.7,
-        "estimated_cost": 213.8
+        "estimated_cost": 197.1
     },
     {
         "city": "Rocky Hill",
@@ -869,7 +781,7 @@
         "lat": "31.34767",
         "lng": "-96.9486",
         "distance": 34.8,
-        "estimated_cost": 214.2
+        "estimated_cost": 197.4
     },
     {
         "city": "Prairie Hill",
@@ -877,7 +789,7 @@
         "lat": "31.65517",
         "lng": "-96.78888",
         "distance": 34.8,
-        "estimated_cost": 214.2
+        "estimated_cost": 197.4
     },
     {
         "city": "Otto",
@@ -885,7 +797,7 @@
         "lat": "31.44906",
         "lng": "-96.80888",
         "distance": 35.2,
-        "estimated_cost": 215.8
+        "estimated_cost": 199.0
     },
     {
         "city": "Cedar Springs",
@@ -893,7 +805,7 @@
         "lat": "31.17796",
         "lng": "-96.91943",
         "distance": 35.5,
-        "estimated_cost": 217.0
+        "estimated_cost": 200.1
     },
     {
         "city": "Abbott",
@@ -901,7 +813,7 @@
         "lat": "31.88488",
         "lng": "-97.07334",
         "distance": 36.0,
-        "estimated_cost": 219.0
+        "estimated_cost": 202.0
     },
     {
         "city": "Cyclone",
@@ -909,7 +821,7 @@
         "lat": "31.02768",
         "lng": "-97.15083",
         "distance": 36.7,
-        "estimated_cost": 221.8
+        "estimated_cost": 204.6
     },
     {
         "city": "Clifton",
@@ -917,7 +829,7 @@
         "lat": "31.78238",
         "lng": "-97.57669",
         "distance": 37.0,
-        "estimated_cost": 223.0
+        "estimated_cost": 205.8
     },
     {
         "city": "McClanahan",
@@ -925,7 +837,7 @@
         "lat": "31.35712",
         "lng": "-96.8286",
         "distance": 37.6,
-        "estimated_cost": 225.4
+        "estimated_cost": 208.0
     },
     {
         "city": "Red Ranger",
@@ -933,7 +845,7 @@
         "lat": "31.00657",
         "lng": "-97.18027",
         "distance": 37.6,
-        "estimated_cost": 225.4
+        "estimated_cost": 208.0
     },
     {
         "city": "Ben Hur",
@@ -941,7 +853,7 @@
         "lat": "31.51045",
         "lng": "-96.72776",
         "distance": 37.6,
-        "estimated_cost": 225.4
+        "estimated_cost": 208.0
     },
     {
         "city": "Penelope",
@@ -949,7 +861,7 @@
         "lat": "31.86016",
         "lng": "-96.92666",
         "distance": 38.1,
-        "estimated_cost": 227.4
+        "estimated_cost": 209.9
     },
     {
         "city": "Aquilla",
@@ -957,7 +869,7 @@
         "lat": "31.85155",
         "lng": "-97.21806",
         "distance": 38.2,
-        "estimated_cost": 227.8
+        "estimated_cost": 210.3
     },
     {
         "city": "Kirk",
@@ -965,7 +877,7 @@
         "lat": "31.58711",
         "lng": "-96.72804",
         "distance": 38.4,
-        "estimated_cost": 228.6
+        "estimated_cost": 211.0
     },
     {
         "city": "Westphalia",
@@ -973,7 +885,7 @@
         "lat": "31.11907",
         "lng": "-97.11527",
         "distance": 38.5,
-        "estimated_cost": 229.0
+        "estimated_cost": 211.4
     },
     {
         "city": "Travis",
@@ -981,7 +893,7 @@
         "lat": "31.13546",
         "lng": "-97.00277",
         "distance": 38.7,
-        "estimated_cost": 229.8
+        "estimated_cost": 212.2
     },
     {
         "city": "Tyson",
@@ -989,7 +901,7 @@
         "lat": "31.79877",
         "lng": "-97.23945",
         "distance": 38.8,
-        "estimated_cost": 230.2
+        "estimated_cost": 212.5
     },
     {
         "city": "Laguna Park",
@@ -997,15 +909,7 @@
         "lat": "31.85932",
         "lng": "-97.37974",
         "distance": 38.9,
-        "estimated_cost": 230.6
-    },
-    {
-        "city": "Rogers",
-        "state": "TX",
-        "lat": "30.93157",
-        "lng": "-97.22666",
-        "distance": 39.1,
-        "estimated_cost": 231.4
+        "estimated_cost": 212.9
     },
     {
         "city": "Barclay",
@@ -1013,7 +917,7 @@
         "lat": "31.07657",
         "lng": "-97.10944",
         "distance": 39.4,
-        "estimated_cost": 232.6
+        "estimated_cost": 214.8
     },
     {
         "city": "Leedale",
@@ -1021,7 +925,7 @@
         "lat": "30.98657",
         "lng": "-97.19805",
         "distance": 39.6,
-        "estimated_cost": 233.4
+        "estimated_cost": 215.6
     },
     {
         "city": "Lavender",
@@ -1029,7 +933,7 @@
         "lat": "31.53461",
         "lng": "-96.65582",
         "distance": 39.6,
-        "estimated_cost": 233.4
+        "estimated_cost": 215.6
     },
     {
         "city": "Frosa",
@@ -1037,7 +941,7 @@
         "lat": "31.62739",
         "lng": "-96.69749",
         "distance": 40.5,
-        "estimated_cost": 237.0
+        "estimated_cost": 219.0
     },
     {
         "city": "Meeks",
@@ -1045,7 +949,7 @@
         "lat": "30.99213",
         "lng": "-97.11722",
         "distance": 40.6,
-        "estimated_cost": 237.4
+        "estimated_cost": 219.3
     },
     {
         "city": "Salado",
@@ -1053,7 +957,7 @@
         "lat": "30.94713",
         "lng": "-97.53862",
         "distance": 40.8,
-        "estimated_cost": 238.2
+        "estimated_cost": 220.1
     },
     {
         "city": "Womack",
@@ -1061,7 +965,7 @@
         "lat": "31.8371",
         "lng": "-97.49613",
         "distance": 41.2,
-        "estimated_cost": 239.8
+        "estimated_cost": 221.6
     },
     {
         "city": "Chatt",
@@ -1069,7 +973,7 @@
         "lat": "31.94377",
         "lng": "-97.08973",
         "distance": 41.2,
-        "estimated_cost": 239.8
+        "estimated_cost": 221.6
     },
     {
         "city": "Wilderville",
@@ -1077,7 +981,7 @@
         "lat": "31.10463",
         "lng": "-96.88304",
         "distance": 41.3,
-        "estimated_cost": 240.2
+        "estimated_cost": 222.0
     },
     {
         "city": "Reagan",
@@ -1085,7 +989,7 @@
         "lat": "31.21824",
         "lng": "-96.78248",
         "distance": 41.3,
-        "estimated_cost": 240.2
+        "estimated_cost": 222.0
     },
     {
         "city": "Nolanville",
@@ -1093,7 +997,7 @@
         "lat": "31.07879",
         "lng": "-97.60557",
         "distance": 41.4,
-        "estimated_cost": 240.6
+        "estimated_cost": 222.4
     },
     {
         "city": "Delia",
@@ -1101,7 +1005,7 @@
         "lat": "31.70683",
         "lng": "-96.76777",
         "distance": 41.5,
-        "estimated_cost": 241.0
+        "estimated_cost": 222.7
     },
     {
         "city": "Menlow",
@@ -1109,15 +1013,7 @@
         "lat": "31.8696",
         "lng": "-97.16056",
         "distance": 41.7,
-        "estimated_cost": 241.8
-    },
-    {
-        "city": "Holland",
-        "state": "TX",
-        "lat": "30.87824",
-        "lng": "-97.40167",
-        "distance": 41.7,
-        "estimated_cost": 241.8
+        "estimated_cost": 223.5
     },
     {
         "city": "Riggs Ford",
@@ -1125,7 +1021,7 @@
         "lat": "31.21795",
         "lng": "-97.65474",
         "distance": 41.8,
-        "estimated_cost": 242.2
+        "estimated_cost": 223.9
     },
     {
         "city": "Hubbard",
@@ -1133,7 +1029,7 @@
         "lat": "31.84849",
         "lng": "-96.79721",
         "distance": 41.8,
-        "estimated_cost": 242.2
+        "estimated_cost": 223.9
     },
     {
         "city": "Curry Crossing",
@@ -1141,7 +1037,7 @@
         "lat": "31.20295",
         "lng": "-97.63752",
         "distance": 41.9,
-        "estimated_cost": 242.6
+        "estimated_cost": 224.3
     },
     {
         "city": "Bowers",
@@ -1149,7 +1045,7 @@
         "lat": "30.91185",
         "lng": "-97.18611",
         "distance": 41.9,
-        "estimated_cost": 242.6
+        "estimated_cost": 224.3
     },
     {
         "city": "New Colony",
@@ -1157,7 +1053,7 @@
         "lat": "30.96213",
         "lng": "-97.16305",
         "distance": 42.4,
-        "estimated_cost": 244.6
+        "estimated_cost": 226.1
     },
     {
         "city": "Arnett",
@@ -1165,7 +1061,7 @@
         "lat": "31.44516",
         "lng": "-97.89142",
         "distance": 42.4,
-        "estimated_cost": 244.6
+        "estimated_cost": 226.1
     },
     {
         "city": "Malone",
@@ -1173,15 +1069,7 @@
         "lat": "31.91794",
         "lng": "-96.89472",
         "distance": 42.4,
-        "estimated_cost": 244.6
-    },
-    {
-        "city": "Zipperlandville",
-        "state": "TX",
-        "lat": "31.06879",
-        "lng": "-97.05527",
-        "distance": 42.7,
-        "estimated_cost": 245.8
+        "estimated_cost": 226.1
     },
     {
         "city": "Big Hill",
@@ -1189,7 +1077,7 @@
         "lat": "31.46767",
         "lng": "-96.67359",
         "distance": 42.7,
-        "estimated_cost": 245.8
+        "estimated_cost": 227.3
     },
     {
         "city": "Horn Hill",
@@ -1197,7 +1085,7 @@
         "lat": "31.56906",
         "lng": "-96.6336",
         "distance": 43.0,
-        "estimated_cost": 247.0
+        "estimated_cost": 228.4
     },
     {
         "city": "Rosebud",
@@ -1205,7 +1093,7 @@
         "lat": "31.07296",
         "lng": "-96.9786",
         "distance": 43.4,
-        "estimated_cost": 248.6
+        "estimated_cost": 229.9
     },
     {
         "city": "Stranger",
@@ -1213,7 +1101,7 @@
         "lat": "31.32684",
         "lng": "-96.72443",
         "distance": 43.6,
-        "estimated_cost": 249.4
+        "estimated_cost": 230.7
     },
     {
         "city": "Crossroad Store",
@@ -1221,7 +1109,7 @@
         "lat": "31.73405",
         "lng": "-97.6653",
         "distance": 43.8,
-        "estimated_cost": 250.2
+        "estimated_cost": 231.4
     },
     {
         "city": "Smiths Bend",
@@ -1229,7 +1117,7 @@
         "lat": "31.83016",
         "lng": "-97.30446",
         "distance": 43.9,
-        "estimated_cost": 250.6
+        "estimated_cost": 231.8
     },
     {
         "city": "Yarrelton",
@@ -1237,7 +1125,7 @@
         "lat": "30.95074",
         "lng": "-97.07999",
         "distance": 43.9,
-        "estimated_cost": 250.6
+        "estimated_cost": 231.8
     },
     {
         "city": "Prairie Valley",
@@ -1245,7 +1133,7 @@
         "lat": "31.8771",
         "lng": "-97.32835",
         "distance": 44.0,
-        "estimated_cost": 251.0
+        "estimated_cost": 232.2
     },
     {
         "city": "Edgeworth",
@@ -1253,7 +1141,7 @@
         "lat": "30.95157",
         "lng": "-97.14055",
         "distance": 44.1,
-        "estimated_cost": 251.4
+        "estimated_cost": 232.6
     },
     {
         "city": "Odds",
@@ -1261,7 +1149,7 @@
         "lat": "31.40906",
         "lng": "-96.71582",
         "distance": 44.2,
-        "estimated_cost": 251.8
+        "estimated_cost": 232.9
     },
     {
         "city": "Beacon",
@@ -1269,7 +1157,7 @@
         "lat": "31.18268",
         "lng": "-96.81165",
         "distance": 44.3,
-        "estimated_cost": 252.2
+        "estimated_cost": 233.3
     },
     {
         "city": "Spivey Crossing",
@@ -1277,7 +1165,7 @@
         "lat": "31.78849",
         "lng": "-97.32446",
         "distance": 44.5,
-        "estimated_cost": 253.0
+        "estimated_cost": 234.1
     },
     {
         "city": "Levita",
@@ -1285,7 +1173,7 @@
         "lat": "31.51488",
         "lng": "-97.88808",
         "distance": 44.8,
-        "estimated_cost": 254.2
+        "estimated_cost": 235.2
     },
     {
         "city": "South Elm",
@@ -1293,7 +1181,7 @@
         "lat": "30.94741",
         "lng": "-97.13027",
         "distance": 44.9,
-        "estimated_cost": 254.6
+        "estimated_cost": 235.6
     },
     {
         "city": "Ater",
@@ -1301,7 +1189,7 @@
         "lat": "31.52322",
         "lng": "-97.86114",
         "distance": 44.9,
-        "estimated_cost": 254.6
+        "estimated_cost": 235.6
     },
     {
         "city": "Winslow",
@@ -1309,7 +1197,7 @@
         "lat": "31.99599",
         "lng": "-97.12417",
         "distance": 44.9,
-        "estimated_cost": 254.6
+        "estimated_cost": 235.6
     },
     {
         "city": "Harker Heights",
@@ -1317,15 +1205,7 @@
         "lat": "31.08351",
         "lng": "-97.65974",
         "distance": 45.0,
-        "estimated_cost": 255.0
-    },
-    {
-        "city": "Hillsboro",
-        "state": "TX",
-        "lat": "32.01099",
-        "lng": "-97.13001",
-        "distance": 45.2,
-        "estimated_cost": 255.8
+        "estimated_cost": 236.0
     },
     {
         "city": "Bynum",
@@ -1333,7 +1213,7 @@
         "lat": "31.97182",
         "lng": "-97.00306",
         "distance": 45.5,
-        "estimated_cost": 257.0
+        "estimated_cost": 237.8
     },
     {
         "city": "Coolidge",
@@ -1341,7 +1221,7 @@
         "lat": "31.75405",
         "lng": "-96.64999",
         "distance": 45.6,
-        "estimated_cost": 257.4
+        "estimated_cost": 238.2
     },
     {
         "city": "Lakewood Harbor",
@@ -1349,7 +1229,7 @@
         "lat": "31.90377",
         "lng": "-97.41974",
         "distance": 45.9,
-        "estimated_cost": 258.6
+        "estimated_cost": 239.4
     },
     {
         "city": "Prairie Dell",
@@ -1357,7 +1237,7 @@
         "lat": "30.88407",
         "lng": "-97.58029",
         "distance": 46.0,
-        "estimated_cost": 259.0
+        "estimated_cost": 239.7
     },
     {
         "city": "Highbank",
@@ -1365,7 +1245,7 @@
         "lat": "31.1699",
         "lng": "-96.83359",
         "distance": 46.1,
-        "estimated_cost": 259.4
+        "estimated_cost": 240.1
     },
     {
         "city": "Vaughan",
@@ -1373,7 +1253,7 @@
         "lat": "31.9146",
         "lng": "-97.17362",
         "distance": 46.3,
-        "estimated_cost": 260.2
+        "estimated_cost": 240.9
     },
     {
         "city": "Baileyville",
@@ -1381,7 +1261,7 @@
         "lat": "31.05268",
         "lng": "-96.82859",
         "distance": 46.3,
-        "estimated_cost": 260.2
+        "estimated_cost": 240.9
     },
     {
         "city": "Buckholts",
@@ -1389,7 +1269,7 @@
         "lat": "30.87297",
         "lng": "-97.12499",
         "distance": 46.5,
-        "estimated_cost": 261.0
+        "estimated_cost": 241.6
     },
     {
         "city": "Coymack",
@@ -1397,7 +1277,7 @@
         "lat": "31.18018",
         "lng": "-96.84248",
         "distance": 46.6,
-        "estimated_cost": 261.4
+        "estimated_cost": 242.0
     },
     {
         "city": "Turnersville",
@@ -1405,7 +1285,7 @@
         "lat": "31.61738",
         "lng": "-97.73891",
         "distance": 46.6,
-        "estimated_cost": 261.4
+        "estimated_cost": 242.0
     },
     {
         "city": "Val Verde",
@@ -1413,7 +1293,7 @@
         "lat": "30.83436",
         "lng": "-97.24777",
         "distance": 46.6,
-        "estimated_cost": 261.4
+        "estimated_cost": 242.0
     },
     {
         "city": "Alto Springs",
@@ -1421,7 +1301,7 @@
         "lat": "31.28601",
         "lng": "-96.67054",
         "distance": 46.7,
-        "estimated_cost": 261.8
+        "estimated_cost": 242.4
     },
     {
         "city": "Thelma",
@@ -1429,7 +1309,7 @@
         "lat": "31.58322",
         "lng": "-96.61109",
         "distance": 46.7,
-        "estimated_cost": 261.8
+        "estimated_cost": 242.4
     },
     {
         "city": "Echols",
@@ -1437,7 +1317,7 @@
         "lat": "31.686",
         "lng": "-96.63749",
         "distance": 46.7,
-        "estimated_cost": 261.8
+        "estimated_cost": 242.4
     },
     {
         "city": "Pancake",
@@ -1445,7 +1325,7 @@
         "lat": "31.61766",
         "lng": "-97.79975",
         "distance": 46.9,
-        "estimated_cost": 262.6
+        "estimated_cost": 243.1
     },
     {
         "city": "Munger",
@@ -1453,7 +1333,7 @@
         "lat": "31.796",
         "lng": "-96.70638",
         "distance": 46.9,
-        "estimated_cost": 262.6
+        "estimated_cost": 243.1
     },
     {
         "city": "Mason Crossing",
@@ -1461,7 +1341,7 @@
         "lat": "31.20545",
         "lng": "-97.71557",
         "distance": 47.1,
-        "estimated_cost": 263.4
+        "estimated_cost": 243.9
     },
     {
         "city": "Groesbeck",
@@ -1469,7 +1349,7 @@
         "lat": "31.52434",
         "lng": "-96.53387",
         "distance": 47.1,
-        "estimated_cost": 263.4
+        "estimated_cost": 243.9
     },
     {
         "city": "South Purmela",
@@ -1477,7 +1357,7 @@
         "lat": "31.46988",
         "lng": "-97.97225",
         "distance": 47.4,
-        "estimated_cost": 264.6
+        "estimated_cost": 245.0
     },
     {
         "city": "Eloise",
@@ -1485,7 +1365,7 @@
         "lat": "31.12296",
         "lng": "-96.80859",
         "distance": 47.6,
-        "estimated_cost": 265.4
+        "estimated_cost": 245.8
     },
     {
         "city": "Kosse",
@@ -1493,7 +1373,7 @@
         "lat": "31.30768",
         "lng": "-96.63192",
         "distance": 47.6,
-        "estimated_cost": 265.4
+        "estimated_cost": 245.8
     },
     {
         "city": "Dawson",
@@ -1501,7 +1381,7 @@
         "lat": "31.89405",
         "lng": "-96.71471",
         "distance": 47.6,
-        "estimated_cost": 265.4
+        "estimated_cost": 245.8
     },
     {
         "city": "Marak",
@@ -1509,7 +1389,7 @@
         "lat": "30.90185",
         "lng": "-97.0686",
         "distance": 47.7,
-        "estimated_cost": 265.8
+        "estimated_cost": 246.2
     },
     {
         "city": "Bartlett",
@@ -1517,15 +1397,7 @@
         "lat": "30.79491",
         "lng": "-97.42556",
         "distance": 47.8,
-        "estimated_cost": 266.2
-    },
-    {
-        "city": "Jonesboro",
-        "state": "TX",
-        "lat": "31.6146",
-        "lng": "-97.87669",
-        "distance": 47.9,
-        "estimated_cost": 266.6
+        "estimated_cost": 246.5
     },
     {
         "city": "Irene",
@@ -1533,7 +1405,7 @@
         "lat": "31.9921",
         "lng": "-96.87139",
         "distance": 47.9,
-        "estimated_cost": 266.6
+        "estimated_cost": 246.9
     },
     {
         "city": "Whitney",
@@ -1541,7 +1413,7 @@
         "lat": "31.95182",
         "lng": "-97.3214",
         "distance": 48.1,
-        "estimated_cost": 267.4
+        "estimated_cost": 247.7
     },
     {
         "city": "Pidcoke",
@@ -1549,7 +1421,7 @@
         "lat": "31.27906",
         "lng": "-97.88836",
         "distance": 48.3,
-        "estimated_cost": 268.2
+        "estimated_cost": 248.4
     },
     {
         "city": "Coit",
@@ -1557,7 +1429,7 @@
         "lat": "31.38323",
         "lng": "-96.67137",
         "distance": 48.4,
-        "estimated_cost": 268.6
+        "estimated_cost": 248.8
     },
     {
         "city": "Purmela",
@@ -1565,15 +1437,7 @@
         "lat": "31.48377",
         "lng": "-97.96225",
         "distance": 48.4,
-        "estimated_cost": 268.6
-    },
-    {
-        "city": "Burlington",
-        "state": "TX",
-        "lat": "31.01518",
-        "lng": "-96.99666",
-        "distance": 48.5,
-        "estimated_cost": 269.0
+        "estimated_cost": 248.8
     },
     {
         "city": "Vilas",
@@ -1581,7 +1445,7 @@
         "lat": "30.84102",
         "lng": "-97.30361",
         "distance": 48.7,
-        "estimated_cost": 269.8
+        "estimated_cost": 249.9
     },
     {
         "city": "Meridian",
@@ -1589,7 +1453,7 @@
         "lat": "31.92321",
         "lng": "-97.65669",
         "distance": 48.7,
-        "estimated_cost": 269.8
+        "estimated_cost": 249.9
     },
     {
         "city": "Pelham",
@@ -1597,7 +1461,7 @@
         "lat": "31.9596",
         "lng": "-96.80527",
         "distance": 48.7,
-        "estimated_cost": 269.8
+        "estimated_cost": 249.9
     },
     {
         "city": "Datura",
@@ -1605,7 +1469,7 @@
         "lat": "31.72433",
         "lng": "-96.61304",
         "distance": 49.0,
-        "estimated_cost": 271.0
+        "estimated_cost": 251.1
     },
     {
         "city": "Jackson Crossing",
@@ -1613,7 +1477,7 @@
         "lat": "31.2485",
         "lng": "-97.8378",
         "distance": 49.2,
-        "estimated_cost": 271.8
+        "estimated_cost": 251.8
     },
     {
         "city": "Bremond",
@@ -1621,7 +1485,7 @@
         "lat": "31.16518",
         "lng": "-96.67692",
         "distance": 49.6,
-        "estimated_cost": 273.4
+        "estimated_cost": 253.3
     },
     {
         "city": "Pettibone",
@@ -1629,7 +1493,7 @@
         "lat": "30.84991",
         "lng": "-97.08082",
         "distance": 49.6,
-        "estimated_cost": 273.4
+        "estimated_cost": 253.3
     },
     {
         "city": "Saint Elijah Village",
@@ -1637,7 +1501,7 @@
         "lat": "31.22239",
         "lng": "-97.7878",
         "distance": 49.8,
-        "estimated_cost": 274.2
+        "estimated_cost": 254.1
     },
     {
         "city": "Splawn",
@@ -1645,7 +1509,7 @@
         "lat": "30.92019",
         "lng": "-96.98582",
         "distance": 49.9,
-        "estimated_cost": 274.6
+        "estimated_cost": 254.5
     },
     {
         "city": "Bosque",
@@ -1653,7 +1517,7 @@
         "lat": "31.85488",
         "lng": "-97.60391",
         "distance": 49.9,
-        "estimated_cost": 274.6
+        "estimated_cost": 254.5
     },
     {
         "city": "Donahoe",
@@ -1661,6 +1525,6 @@
         "lat": "30.81602",
         "lng": "-97.33306",
         "distance": 49.9,
-        "estimated_cost": 274.6
+        "estimated_cost": 254.5
     }
 ]
