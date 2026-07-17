@@ -46,10 +46,16 @@ class Scraper:
 
 		arguments = [
 			'--disable-blink-features=AutomationControlled',
-			'--headless=new',
 			'--window-size=1920,1080',
 			'--log-level=3',
 		]
+
+		# Headless by default (scheduled/unattended runs). Set FB_BOT_HEADLESS=0
+		# to open a real visible window — needed for the tier-3 manual-login
+		# fallback in add_login_functionality(), which requires a human to
+		# actually see and click through the browser.
+		if os.environ.get('FB_BOT_HEADLESS', '1').lower() not in ('0', 'false', 'no'):
+			arguments.insert(1, '--headless=new')
 
 		experimental_options = {
 			'excludeSwitches': ['enable-automation', 'enable-logging'],
