@@ -1,11 +1,18 @@
 <#
 .SYNOPSIS
     Registers Windows Task Scheduler tasks to run the FB Marketplace bot
-    2 times per day, Tuesday through Sunday.
-    Each task launches run_session.py, a 3h45m supervised window that
-    self-logs-in, lists, gathers stats, and auto-restarts the agent
-    (resuming from state.json) if it crashes mid-run.
-    2 runs x 225 min = ~450 min/day of active listing time.
+    once per day, on 4 of 5 weekdays (Mon-Fri, no weekends).
+    Each task launches run_daily_agent.bat, which first runs schedule_gate.py
+    (picks a new random day off each week so the skip pattern doesn't repeat
+    predictably) and then, on a run day, run_session.py — a 90-min supervised
+    window that self-logs-in, lists, gathers stats, and auto-restarts the
+    agent (resuming from state.json) if it crashes mid-run.
+    Also registers the stats tracker (read-only FB scrape, every 3 days) and
+    the local image pipeline (daily, does not touch Facebook).
+
+    Reduced from 2x/day 7-day and an hourly stats scrape after the FB account
+    was flagged for suspected automation — fewer, shorter, less predictable
+    touches on the account.
 
 .NOTES
     Run once from an elevated PowerShell prompt:
@@ -21,18 +28,20 @@ param(
 $RepoDir        = "C:\Users\kenne\gitrepo\facebook-marketplace-bot"
 $BatFile        = Join-Path $RepoDir "run_daily_agent.bat"
 $ImageBatFile   = Join-Path $RepoDir "run_image_pipeline.bat"
+$StatsBatFile   = Join-Path $RepoDir "run_stats_tracker.bat"
 $TaskGroup      = "FacebookMarketplaceBot"
 
-# 2 runs per day at 08:00 and 13:00 (5-hour gap). Each session window is 225 min
-# (3h45m), leaving a ~75 min buffer before the next trigger so a run finishes
-# well before the next one starts.
-$Days = @("Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday")
-$RunTimes = @("08:00","13:00")
+# 1 run per day at 08:00, Mon-Fri. schedule_gate.py skips one rotating day
+# off per week, so only 4 of the 5 registered days actually run the agent.
+# Session window is 90 min, leaving well over an hour of buffer before the
+# ExecutionTimeLimit kicks in.
+$Days = @("Monday","Tuesday","Wednesday","Thursday","Friday")
+$RunTimes = @("08:00")
 
 # ── Unregister mode ───────────────────────────────────────────────────────────
 if ($Unregister) {
     $tasks = Get-ScheduledTask -TaskPath "\" -ErrorAction SilentlyContinue |
-             Where-Object { $_.TaskName -like "${TaskGroup}_*" }
+             Where-Object { $_.TaskName -like "${TaskGroup}_*" -or $_.TaskName -eq "FacebookStatsTracker_Hourly" }
     foreach ($t in $tasks) {
         Unregister-ScheduledTask -TaskName $t.TaskName -Confirm:$false
         Write-Host "Removed: $($t.TaskName)"
@@ -58,11 +67,10 @@ if (-not $PythonExe) {
 }
 Write-Host "Using Python: $PythonExe"
 
-# ── Register 4 tasks per day ──────────────────────────────────────────────────
-$runIndex = 1
+# ── Register 1 task per weekday ───────────────────────────────────────────────
 foreach ($time in $RunTimes) {
     foreach ($day in $Days) {
-        $taskName = "${TaskGroup}_${day}_Run${runIndex}"
+        $taskName = "${TaskGroup}_${day}"
 
         Unregister-ScheduledTask -TaskName $taskName -Confirm:$false -ErrorAction SilentlyContinue
 
@@ -77,7 +85,7 @@ foreach ($time in $RunTimes) {
             -At $time
 
         $settings = New-ScheduledTaskSettingsSet `
-            -ExecutionTimeLimit "04:15:00" `
+            -ExecutionTimeLimit "02:00:00" `
             -MultipleInstances IgnoreNew `
             -StartWhenAvailable
 
@@ -87,12 +95,11 @@ foreach ($time in $RunTimes) {
             -Trigger $trigger `
             -Settings $settings `
             -RunLevel Limited `
-            -Description "FB Marketplace bot - $day run $runIndex at $time (3h45m supervised session)" `
+            -Description "FB Marketplace bot - $day at $time (90 min supervised session, or skipped if $day is this week's rotating day off)" `
             -Force | Out-Null
 
         Write-Host "Registered: $taskName at $time"
     }
-    $runIndex++
 }
 
 # ── Image pipeline task — runs once daily at 06:00 Mon-Sun ───────────────────
@@ -130,8 +137,43 @@ foreach ($day in $imageDays) {
     Write-Host "Registered: $taskName at 06:00"
 }
 
+# ── Stats tracker task — read-only FB scrape, every 3 days ──────────────────
+# Previously hourly/24-7 (set up ad hoc outside this script, undocumented) —
+# cut way back since round-the-clock scraping of the account's own selling
+# page was a likely contributor to the automation flag.
+Unregister-ScheduledTask -TaskName "FacebookStatsTracker_Hourly" -Confirm:$false -ErrorAction SilentlyContinue
+$statsTaskName = "${TaskGroup}_StatsTracker"
+Unregister-ScheduledTask -TaskName $statsTaskName -Confirm:$false -ErrorAction SilentlyContinue
+
+$action = New-ScheduledTaskAction `
+    -Execute "cmd.exe" `
+    -Argument "/c `"$StatsBatFile`"" `
+    -WorkingDirectory $RepoDir
+
+$trigger = New-ScheduledTaskTrigger `
+    -Daily `
+    -DaysInterval 3 `
+    -At "14:00"
+
+$settings = New-ScheduledTaskSettingsSet `
+    -ExecutionTimeLimit "00:30:00" `
+    -MultipleInstances IgnoreNew `
+    -StartWhenAvailable
+
+Register-ScheduledTask `
+    -TaskName $statsTaskName `
+    -Action $action `
+    -Trigger $trigger `
+    -Settings $settings `
+    -RunLevel Limited `
+    -Description "FB Bot stats tracker (read-only scrape) - every 3 days at 14:00" `
+    -Force | Out-Null
+
+Write-Host "Registered: $statsTaskName at 14:00, every 3 days"
+
 Write-Host ""
-Write-Host "Done. 12 listing tasks + 7 image pipeline tasks registered."
-Write-Host "Listing agent: 08:00, 13:00 Tue-Sun (3h45m supervised session each, auto-restart on crash)"
+Write-Host "Done. 5 listing tasks + 7 image pipeline tasks + 1 stats tracker task registered."
+Write-Host "Listing agent: 08:00 Mon-Fri (90 min supervised session, one rotating day off per week, auto-restart on crash)"
 Write-Host "Image pipeline: 06:00 daily (Mon-Sun)"
+Write-Host "Stats tracker: 14:00, every 3 days"
 Write-Host "To remove all: .\setup_schedule.ps1 -Unregister"

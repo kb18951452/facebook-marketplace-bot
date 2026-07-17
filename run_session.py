@@ -1,7 +1,7 @@
 """
 run_session.py — Supervisor for one scheduled listing session.
 
-Owns a single wall-clock window (default 3h45m) and keeps the listing agent
+Owns a single wall-clock window (default 90 min) and keeps the listing agent
 alive inside it:
 
   * Launches daily_agent.py with --no-jitter and a --budget-min equal to the
@@ -14,7 +14,8 @@ alive inside it:
   * A login give-up (exit 2 — e.g. 2FA/checkpoint needs a human) ends the
     session; blindly retrying a blocked login risks locking the account.
 
-Windows Task Scheduler invokes this once at 08:00 and once at 13:00 via
+Windows Task Scheduler invokes this once daily on weekdays (via
+schedule_gate.py, which skips one rotating day off per week) through
 run_daily_agent.bat. MultipleInstances=IgnoreNew prevents overlap.
 """
 
@@ -27,7 +28,7 @@ from datetime import datetime
 from helpers.run_outcome import install_crash_logger, record_run
 
 # ── Config ──────────────────────────────────────────────────────────────────
-SESSION_MINUTES = 225          # length of the scheduled window (+25% over the original 180)
+SESSION_MINUTES = 90           # length of the scheduled window (cut from 225 to reduce continuous FB activity)
 MIN_BUDGET_MIN = 8             # don't bother launching with less runway than this
 RESTART_BACKOFF_SEC = 30       # pause between a crash and the next relaunch
 LOG_FILE = "listing_progress.log"
@@ -48,12 +49,10 @@ install_crash_logger("run_session")
 
 def _trigger_label(at: datetime) -> str:
     """Best-effort label matching the Task Scheduler task name that fired this
-    run (e.g. 'Tuesday_Run1'), so ledger entries are attributable to one of
-    the 12 FacebookMarketplaceBot_{Day}_Run{1,2} tasks without Task Scheduler
-    passing its own name through. Derived from wall-clock at startup — Run1
-    fires at 09:00, Run2 at 13:00 — since a WakeToRun catch-up can start late,
-    this is a guess, not a guarantee; the raw timestamp is also recorded."""
-    return f"{at.strftime('%A')}_Run{1 if at.hour < 11 else 2}"
+    run (e.g. 'Tuesday'), so ledger entries are attributable to one of the
+    FacebookMarketplaceBot_{Day} tasks without Task Scheduler passing its own
+    name through. Derived from wall-clock at startup."""
+    return at.strftime('%A')
 
 
 def main() -> int:

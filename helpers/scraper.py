@@ -10,10 +10,12 @@ from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
-from selenium.common.exceptions import InvalidArgumentException, TimeoutException
-from selenium.common.exceptions import ElementClickInterceptedException
+from selenium.common.exceptions import InvalidArgumentException, ElementClickInterceptedException
 from webdriver_manager.chrome import ChromeDriverManager
 from webdriver_manager.core.os_manager import ChromeType
+import logging
+
+logger = logging.getLogger(__name__)
 
 
 class Scraper:
@@ -46,6 +48,7 @@ class Scraper:
 			'--disable-blink-features=AutomationControlled',
 			'--headless=new',
 			'--window-size=1920,1080',
+			'--log-level=3',
 		]
 
 		experimental_options = {
@@ -292,11 +295,9 @@ class Scraper:
 		try:
 			# Wait for element to load
 			element = WebDriverWait(self.driver, wait_element_time).until(wait_until)
-		except:
+		except Exception:
 			if exit_on_missing_element:
-				print('ERROR: Timed out waiting for the element with css selector "' + selector + '" to load')
-				# End the program execution because we cannot find the element
-				exit()
+				raise RuntimeError('Timed out waiting for element with css selector "' + selector + '"')
 			else:
 				return False
 
@@ -312,11 +313,9 @@ class Scraper:
 		try:
 			# Wait for element to load
 			element = WebDriverWait(self.driver, wait_element_time).until(wait_until)
-		except:
+		except Exception:
 			if exit_on_missing_element:
-				# End the program execution because we cannot find the element
-				print('ERROR: Timed out waiting for the element with xpath "' + xpath + '" to load')
-				exit()
+				raise RuntimeError('Timed out waiting for element with xpath "' + xpath + '"')
 			else:
 				return False
 
@@ -385,18 +384,15 @@ class Scraper:
 		try:
 			# Wait for input_file to load
 			input_file = WebDriverWait(self.driver, self.wait_element_time).until(wait_until)
-		except:
-			print('ERROR: Timed out waiting for the input_file with selector "' + selector + '" to load')
-			# End the program execution because we cannot find the input_file
-			exit()
+		except Exception:
+			raise RuntimeError('Timed out waiting for file input with selector "' + selector + '"')
 
 		self.wait_random_time()
 
 		try:
 			input_file.send_keys(files)
 		except InvalidArgumentException:
-			print('ERROR: Exiting from the program! Please check if these file paths are correct:\n' + files)
-			exit()
+			raise RuntimeError('Invalid file paths for image upload:\n' + files)
 
 	# Wait random time before clearing the element
 	def element_clear(self, selector, delay = True):
@@ -423,8 +419,8 @@ class Scraper:
 
 		try:
 			WebDriverWait(self.driver, self.wait_element_time).until(wait_until)
-		except:
-			print('Error waiting the element with selector "' + selector + '" to be invisible')
+		except Exception:
+			logger.warning('Timed out waiting for element to be invisible: ' + selector)
 
 	def element_wait_to_be_present(self, selector, selector_type=By.CSS_SELECTOR):
 		wait_until = EC.presence_of_element_located((selector_type, selector))
@@ -432,11 +428,9 @@ class Scraper:
 		try:
 			WebDriverWait(self.driver, self.wait_element_time).until(wait_until)
 		except TimeoutException:
-			self.logger.error(f'Error waiting for the element with selector "{selector}" to be present')
+			raise RuntimeError(f'Timed out waiting for element with selector "{selector}"')
 		except Exception as e:
-			self.logger.exception(f'Unexpected error while waiting for \
-	    element with selector "{selector}" to be present: {e}')
-			exit()
+			raise RuntimeError(f'Unexpected error waiting for element with selector "{selector}"') from e
 
 	def scroll_to_element(self, selector):
 		element = self.find_element(selector)
