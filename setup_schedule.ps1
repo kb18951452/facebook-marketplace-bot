@@ -7,8 +7,7 @@
     predictably) and then, on a run day, run_session.py — a 90-min supervised
     window that self-logs-in, lists, gathers stats, and auto-restarts the
     agent (resuming from state.json) if it crashes mid-run.
-    Also registers the stats tracker (read-only FB scrape, every 3 days) and
-    the local image pipeline (daily, does not touch Facebook).
+    Also registers the stats tracker (read-only FB scrape, every 3 days).
 
     Reduced from 2x/day 7-day and an hourly stats scrape after the FB account
     was flagged for suspected automation — fewer, shorter, less predictable
@@ -27,7 +26,6 @@ param(
 
 $RepoDir        = "C:\Users\kenne\gitrepo\facebook-marketplace-bot"
 $BatFile        = Join-Path $RepoDir "run_daily_agent.bat"
-$ImageBatFile   = Join-Path $RepoDir "run_image_pipeline.bat"
 $StatsBatFile   = Join-Path $RepoDir "run_stats_tracker.bat"
 $TaskGroup      = "FacebookMarketplaceBot"
 
@@ -53,10 +51,6 @@ if ($Unregister) {
 # ── Validate pre-conditions ───────────────────────────────────────────────────
 if (-not (Test-Path $BatFile)) {
     Write-Error "run_daily_agent.bat not found at: $BatFile"
-    exit 1
-}
-if (-not (Test-Path $ImageBatFile)) {
-    Write-Error "run_image_pipeline.bat not found at: $ImageBatFile"
     exit 1
 }
 
@@ -102,41 +96,6 @@ foreach ($time in $RunTimes) {
     }
 }
 
-# ── Image pipeline task — runs once daily at 06:00 Mon-Sun ───────────────────
-# Runs before the first listing agent window (08:00) so fresh images are ready.
-$imageDays = @("Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday")
-foreach ($day in $imageDays) {
-    $taskName = "${TaskGroup}_ImagePipeline_${day}"
-
-    Unregister-ScheduledTask -TaskName $taskName -Confirm:$false -ErrorAction SilentlyContinue
-
-    $action = New-ScheduledTaskAction `
-        -Execute "cmd.exe" `
-        -Argument "/c `"$ImageBatFile`"" `
-        -WorkingDirectory $RepoDir
-
-    $trigger = New-ScheduledTaskTrigger `
-        -Weekly `
-        -DaysOfWeek $day `
-        -At "06:00"
-
-    $settings = New-ScheduledTaskSettingsSet `
-        -ExecutionTimeLimit "02:00:00" `
-        -MultipleInstances IgnoreNew `
-        -StartWhenAvailable
-
-    Register-ScheduledTask `
-        -TaskName $taskName `
-        -Action $action `
-        -Trigger $trigger `
-        -Settings $settings `
-        -RunLevel Limited `
-        -Description "FB Bot image pipeline (harvest+verify) - $day at 06:00" `
-        -Force | Out-Null
-
-    Write-Host "Registered: $taskName at 06:00"
-}
-
 # ── Stats tracker task — read-only FB scrape, every 3 days ──────────────────
 # Previously hourly/24-7 (set up ad hoc outside this script, undocumented) —
 # cut way back since round-the-clock scraping of the account's own selling
@@ -172,8 +131,7 @@ Register-ScheduledTask `
 Write-Host "Registered: $statsTaskName at 14:00, every 3 days"
 
 Write-Host ""
-Write-Host "Done. 5 listing tasks + 7 image pipeline tasks + 1 stats tracker task registered."
+Write-Host "Done. 5 listing tasks + 1 stats tracker task registered."
 Write-Host "Listing agent: 08:00 Mon-Fri (90 min supervised session, one rotating day off per week, auto-restart on crash)"
-Write-Host "Image pipeline: 06:00 daily (Mon-Sun)"
 Write-Host "Stats tracker: 14:00, every 3 days"
 Write-Host "To remove all: .\setup_schedule.ps1 -Unregister"

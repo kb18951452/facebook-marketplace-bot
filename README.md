@@ -43,14 +43,13 @@ Images are sourced from a local library (`images/kx71/`, `images/svl75/`), manip
 
 | Script | Purpose | Schedule |
 |---|---|---|
-| `daily_agent.py` | Publish/refresh listings on FB Marketplace | 2×/day, Tue–Sun, 08:00/13:00 (3h45m supervised session each) |
-| `stats_tracker.py` | Collect click counts and views from selling page | Daily, Mon–Sun, ~14:00 |
-| `image_pipeline_agent.py` | Harvest YouTube frames → AI verification → promote to library | Daily, 06:00 |
+| `daily_agent.py` | Publish/refresh listings on FB Marketplace | Mon–Fri, 08:00 (90 min supervised session), one rotating day off per week |
+| `stats_tracker.py` | Collect click counts and views from selling page | Every 3 days, ~14:00 |
 | `map_listings.py` | Generate `listings_map.html` viewer | Auto-runs at end of daily_agent + stats_tracker |
 
 ### daily_agent.py — priority order
 
-The agent works through phases in this order, stopping when the time budget runs out. Each scheduled run is a run_session.py-supervised 225-minute (3h45m) window that keeps relaunching daily_agent.py (resuming from state.json) if it crashes, passing the time remaining in the window as its budget:
+The agent works through phases in this order, stopping when the time budget runs out. Each scheduled run is a run_session.py-supervised 90-minute window that keeps relaunching daily_agent.py (resuming from state.json) if it crashes, passing the time remaining in the window as its budget:
 
 ```
 Phase 0  Remove FB-flagged duplicates; record in duplicate_history.json
@@ -61,26 +60,6 @@ Phase 2  Refresh existing listings with new titles/descriptions  <- lowest prior
 ```
 
 State is persisted to `state.json` after every publish so interrupted runs resume correctly.
-
-### image_pipeline_agent.py — image verification
-
-```
-Step 1  image_harvester: yt-dlp searches YouTube for KX71/SVL75 job-site videos,
-         extracts frames every 4 seconds -> images/kx71/staging/, images/svl75/staging/
-Step 2  image_filter: Claude Haiku vision classifies each staged frame.
-         KEEP -> promoted to images/kx71/ or images/svl75/ (live library)
-         REJECT -> deleted from staging
-```
-
-The filter verifies kx71 frames show a Kubota-brand machine (not Cat/Deere/Bobcat) with no competitor phone numbers visible.
-
-Run manually:
-
-```powershell
-$env:ANTHROPIC_API_KEY = "sk-ant-..."
-python image_pipeline_agent.py              # harvest + verify
-python image_pipeline_agent.py --skip-harvest  # verify staged only
-```
 
 ---
 
@@ -95,8 +74,6 @@ python -m pip install selenium webdriver-manager Pillow numpy requests anthropic
 External tools (must be on PATH):
 
 - **Google Chrome** — the browser the bot controls
-- **yt-dlp** — YouTube downloader for image harvesting (`pip install yt-dlp`)
-- **ffmpeg** — frame extraction from videos (https://ffmpeg.org)
 
 `webdriver-manager` downloads the matching ChromeDriver automatically on first run.
 
@@ -113,7 +90,7 @@ Delete `cookies/facebook.pkl` to force a fresh login.
 ### Environment variables
 
 ```powershell
-$env:ANTHROPIC_API_KEY = "sk-ant-..."   # required for image_pipeline_agent
+$env:ANTHROPIC_API_KEY = "sk-ant-..."   # required for scripts/generate_content.py
 ```
 
 ---
@@ -127,8 +104,8 @@ Run once from an **elevated** PowerShell prompt to register all Windows Task Sch
 ```
 
 This registers:
-- 12 listing agent tasks (2 runs/day x 6 days, Tue–Sun)
-- 7 image pipeline tasks (once/day at 06:00, Mon–Sun)
+- 5 listing agent tasks (1 run/day, Mon–Fri, one rotating day off per week)
+- 1 stats tracker task (every 3 days)
 
 To remove all tasks:
 
@@ -146,9 +123,7 @@ To remove all tasks:
 | `data/slot_metadata.json` | Per-slot click snapshots, lifetime clicks, publish timestamps, views. |
 | `data/duplicate_history.json` | Slots removed by FB as duplicates, with timestamp. |
 | `data/cities_data.json` | All target cities with lat/lng, distance, and estimated delivery cost. |
-| `data/harvested_videos.json` | YouTube video IDs already processed (prevents re-downloading). |
 | `listing_progress.log` | Full append log of every publish/skip/error/phase event. |
-| `image_harvester.log` | Harvest and verification activity log. |
 | `cookies/facebook.pkl` | Saved FB session. Delete to force re-login. |
 | `listings_map.html` | Generated viewer (regenerated after each agent run). |
 
@@ -172,7 +147,7 @@ To remove all tasks:
 
 | Constant | Where | Default | Effect |
 |---|---|---|---|
-| `SESSION_MINUTES` | `run_session.py` | 225 | Length of each scheduled supervised window. This is the constant that actually governs daily runtime in production — it's passed to `daily_agent.py` as `--budget-min`, which overrides that script's own `BUDGET_MIN_MIN`/`BUDGET_MAX_MIN`/jitter (those only apply to a standalone manual run, not the scheduled one). |
+| `SESSION_MINUTES` | `run_session.py` | 90 | Length of each scheduled supervised window. This is the constant that actually governs daily runtime in production — it's passed to `daily_agent.py` as `--budget-min`, which overrides that script's own `BUDGET_MIN_MIN`/`BUDGET_MAX_MIN`/jitter (those only apply to a standalone manual run, not the scheduled one). |
 | `BUDGET_MIN_MIN` / `BUDGET_MAX_MIN` | `daily_agent.py` | 210 / 250 | Random session length range, used only when `daily_agent.py` is run manually without `--budget-min` |
 | `JITTER_MAX_MIN` | `daily_agent.py` | 10 | Max random startup delay in minutes for a manual run (skipped via `--no-jitter`, which is how the scheduler always invokes it) |
 
