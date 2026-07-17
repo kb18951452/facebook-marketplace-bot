@@ -30,7 +30,10 @@ class Listing:
     def __init__(self, scraper):
         self.scraper = scraper
 
-    def delete_open_listing(self):
+    def delete_open_listing(self) -> bool:
+        """Returns True once the delete is confirmed (listing popup closes), False if it
+        didn't visibly complete within the wait — caller should treat that as a failed
+        delete, not assume the listing is gone."""
         # Click on the delete listing button
         self.scraper.element_click('div[aria-label="Delete marketplace listing"][role="button"]')
         # Click on confirm button to delete
@@ -42,7 +45,7 @@ class Listing:
             self.scraper.element_click('div[aria-label="Delete listing"] div[aria-label="Delete"][tabindex="0"]')
 
         # Wait until the popup is closed
-        self.scraper.element_wait_to_be_invisible('div[aria-label="Your Listing"]')
+        return self.scraper.element_wait_to_be_invisible('div[aria-label="Your Listing"]')
 
     def remove_listing_by_title(self, title: str):
         listing_title = self.find_listing_by_title(title)
@@ -343,10 +346,31 @@ class Listing:
         """Remove all FB-flagged duplicates on the current page. Returns list of removed titles."""
         removed_titles = []
         failures = 0
+        last_title = None
+        stuck_repeats = 0
         while failures < 3:
             dup_el, title = self._find_duplicate_with_title()
             if dup_el is None:
                 return removed_titles
+
+            # If the same listing keeps coming back, deleting it isn't taking
+            # effect -- retrying it is an infinite loop, not a real fix.
+            # Confirmed 2026-07-17: this looped 4+ hours (419 identical
+            # "invisibility wait timed out" warnings) stuck on one listing,
+            # burning the entire scheduled session without ever reaching
+            # Phase 1a/1b. Bail on dedup for this run rather than repeat that.
+            if title is not None and title == last_title:
+                stuck_repeats += 1
+            else:
+                stuck_repeats = 0
+            last_title = title
+            if stuck_repeats >= 3:
+                logger.warning(
+                    f"remove_duplicate_listings: stuck retrying the same listing "
+                    f"'{title}' {stuck_repeats + 1} times in a row — ending dedup phase early "
+                    f"to avoid an infinite loop.")
+                return removed_titles
+
             if not self._safe_click(dup_el):
                 failures += 1
                 logger.warning(
@@ -354,7 +378,14 @@ class Listing:
                     f"reloading selling page and retrying ({failures}/3).")
                 self.scraper.go_to_page('https://www.facebook.com/marketplace/you/selling/')
                 continue
-            self.delete_open_listing()
+
+            if not self.delete_open_listing():
+                failures += 1
+                logger.warning(
+                    f"Delete for '{title}' did not confirm (listing still open after delete+confirm); "
+                    f"counting as a failure ({failures}/3).")
+                continue
+
             removed_titles.append(title)
         logger.warning("remove_duplicate_listings: too many click failures — ending dedup phase early.")
         return removed_titles

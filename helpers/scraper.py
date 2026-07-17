@@ -420,13 +420,16 @@ class Scraper:
 		# Remove the selected text with backspace
 		element.send_keys(Keys.BACK_SPACE)
 
-	def element_wait_to_be_invisible(self, selector):
+	def element_wait_to_be_invisible(self, selector) -> bool:
+		"""Returns True if the element became invisible within the timeout, False if it timed out."""
 		wait_until = EC.invisibility_of_element_located((By.CSS_SELECTOR, selector))
 
 		try:
 			WebDriverWait(self.driver, self.wait_element_time).until(wait_until)
+			return True
 		except Exception:
 			logger.warning('Timed out waiting for element to be invisible: ' + selector)
+			return False
 
 	def element_wait_to_be_present(self, selector, selector_type=By.CSS_SELECTOR):
 		wait_until = EC.presence_of_element_located((selector_type, selector))
