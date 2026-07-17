@@ -19,7 +19,7 @@ from datetime import datetime, timezone
 
 from helpers.slot import parse as parse_slot, build as build_slot
 from helpers.click_history import seven_day_delta, lifetime_total
-from helpers.ads import get_equipment, get_locations, TASK_VARIANTS
+from helpers.ads import get_equipment, get_locations, get_cities_for_equipment, TASK_VARIANTS
 
 # ── Load data ─────────────────────────────────────────────────────────────────
 def _load(path):
@@ -140,6 +140,8 @@ for loc in get_locations():
     if not geo or not geo.get("lat") or not geo.get("lng"):
         continue
     for equip in get_equipment():
+        if city not in get_cities_for_equipment(equip):
+            continue
         tasks = TASK_VARIANTS.get(equip, [])
         if not tasks:
             continue

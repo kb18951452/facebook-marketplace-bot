@@ -19,16 +19,15 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[3]
 sys.path.insert(0, str(ROOT))
 
-from helpers.ads import get_equipment, get_locations, TASK_VARIANTS  # noqa: E402
+from helpers.ads import get_equipment, get_cities_for_equipment, TASK_VARIANTS  # noqa: E402
 from helpers.slot import build as build_slot, parse as parse_slot  # noqa: E402
 
 
 def expected_slots() -> set:
     equipment = get_equipment()
-    cities = [loc["city"] for loc in get_locations()]
     slots = set()
-    for city in cities:
-        for item in equipment:
+    for item in equipment:
+        for city in get_cities_for_equipment(item):
             for task in TASK_VARIANTS.get(item, []):
                 slots.add(build_slot(item, city, "eng", task["slug"]))
     return slots

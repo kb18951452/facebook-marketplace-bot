@@ -26,7 +26,7 @@ from datetime import datetime, timezone
 import requests
 from selenium.common.exceptions import InvalidSessionIdException, NoSuchWindowException
 
-from helpers.ads import get_listings, get_locations, TASK_VARIANTS
+from helpers.ads import get_listings, get_cities_for_equipment, TASK_VARIANTS
 from helpers.scraper import Scraper
 from helpers.listing_helper import Listing
 from helpers.slot import build as build_slot, from_listing as slot_from_listing
@@ -349,10 +349,10 @@ if not fatal and within_budget():
 
 # Pre-compute all slot keys so Phase 3 and Phase 2 skip image generation for irrelevant slots
 _all_slots = {
-    build_slot(equip, loc["city"], "eng", task["slug"])
+    build_slot(equip, city, "eng", task["slug"])
     for equip, tasks in TASK_VARIANTS.items()
     for task in tasks
-    for loc in get_locations()
+    for city in get_cities_for_equipment(equip)
 }
 _phase3_skip = _all_slots - set(dupe_history.keys())
 _phase2_skip = _all_slots - (_pre_phase1_slots - set(dupe_history.keys()))

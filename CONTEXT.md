@@ -8,6 +8,14 @@ Automates the publishing and refreshing of heavy-equipment-rental classified ads
 A rentable machine category offered for rent (currently Mini-Excavator and Skidsteer/Track Loader), each with its own Model, pricing tiers, and marketing blurb.
 _Avoid_: equipment_type, item
 
+**Service**:
+A lead-generation listing category for repair or land work (small-engine repair by machine type, and Field Shredding) rather than a rentable machine — no Model, no real product photos, and a flat/quoted price instead of daily/weekly/monthly tiers. Restricted to whichever City it has launched in via its own City list, not the full City set every Equipment gets. Coded alongside Equipment in the same `_EQUIPMENT`/`TASK_VARIANTS` dicts, distinguished by `kind: "service"`.
+_Avoid_: equipment_type (as a synonym — the field is shared code, not shared meaning)
+
+**Text Card**:
+The generated background photo for a Service listing — plain color card with short, thumbnail-readable text (e.g. "Weedeater Repair") in place of a real equipment photo. Run through the same rotate/crop/noise/phone-banner pipeline as a real photo so each listing still hashes unique.
+_Avoid_: placeholder image
+
 **Model**:
 The specific machine designation used in marketing and photography for a piece of Equipment (e.g. KX71 for the Mini-Excavator, SVL75 for the Skidsteer).
 _Avoid_: SKU
